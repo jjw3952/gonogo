@@ -61,3 +61,18 @@ collection of tools for development of R packages. To install devtools, run the
 following at the R console: 
 
     install.packages("devtools")
+
+## Credits
+
+The original gonogo software was written by Paul A. Roediger while working as a contractor 
+for the US Army ARDEC at Picatinny, New Jersey, USA. That work was approved for public release 
+and for unlimited distribution. 
+
+## References
+
+Ray, D. M., & Roediger, P. A. (2018). Adaptive testing of DoD systems with binary response. CHANCE, 31(2), 30-37.
+Roediger, P. A. (2020). Gonogo: An R Implementation of Test Methods to Perform, Analyze and Simulate Sensitivity Experiments. arXiv preprint arXiv:2011.11177.
+
+Wang, D., Tian, Y., & Jeff Wu, C. F. (2020). Comprehensive comparisons of major sequential design procedures for sensitivity testing. Journal of Quality Technology, 52(2), 155-167.
+
+Wu, C. J., & Tian, Y. (2014). Three-phase optimal design of sensitivity experiments. Journal of Statistical Planning and Inference, 149, 1-15.
