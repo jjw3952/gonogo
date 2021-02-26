@@ -17,7 +17,7 @@ gonogo runs on R, which is a statistical computing package. Although R is a powe
 tool, there is a learning curve.
 
 You'll need to install R and RStudio. The following instructions assume that you are
-using Windows.
+using Windows. 
 
 [R](https://cran.rstudio.com) has the core features. You'll need a recent version, 
 preferably version 4 or later. Click on “Download R for Windows”, then click on “base”, 
@@ -27,17 +27,21 @@ then click on “Download R [version number] for Windows”. Install the downloa
 that provides convenient access to R and all related features. You'll need a recent version,
 preferably version 1.4 or later. Download and install the version for Windows 10/8/7. 
 
-Once R and RStudio are installed, install this package by typing the following into
+Once R and RStudio are installed, install (or re-install) this package by typing the following into
 the Console window at the lower left:
 
-    install.packages("githubinstall")
-    githubinstall("joncutting/gonogo")
+    install.packages("devtools")
+    library(devtools)
+    install_github("joncutting/gonogo")
+    
+If you get a message about "Do you want to install from sources the package which needs 
+compilation", click No.
     
 ## Use
 
 To use gonogo, start RStudio and type the following into the Console window at the lower left:
 
-    library("gonogo")
+    library(gonogo)
 
 Now you have the gonogo functions available for use, for example:
 
@@ -50,17 +54,13 @@ Full documentation about the use of gonogo functions is available at [Gonogo: An
 
 If you would like to contribute content to the gonogo package, you will need a few
 additional tools on your computer. In addition to R and RStudio, you will need
-to install Rtools and devtools.
+to install Rtools.
 
 [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is a collection of tools required
 to compile R code. To install Rtools, download and install the Windows 64-bit version
 from the link above. Be sure to add Rtools to your PATH environment variable.
 
-[devtools](https://cran.r-project.org/web/packages/devtools/readme/README.html) is a 
-collection of tools for development of R packages. To install devtools, run the 
-following at the R console: 
-
-    install.packages("devtools")
+For information on the structure of an R package, please refer to the document [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html).
 
 ## Credits
 
