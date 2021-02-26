@@ -2,11 +2,12 @@
 
 #INDEX 1 through 35, XComm.R (35 functions)
 
+#' @export
 gonogo=function(mlo=0,mhi=0,sg=0,newz=T,reso=0,ln=F,test=1,term1=T,BL=NULL,Y=NULL,X=NULL)
 {
 	lY=length(Y); lBL=length(BL); en12=rep(0,2);
 	jvec=dud=lev=NULL;
-	if(mlo == 0 & mhi == 0 & sg == 0 & newz == T) 
+	if(mlo == 0 & mhi == 0 & sg == 0 & newz == T)
 	{
 	cat("Minimal entries to gonogo are: (1) mlo, mhi, sg; or (2) newz=F.\nTry again.\n\n");
 	return();
@@ -35,9 +36,9 @@ gonogo=function(mlo=0,mhi=0,sg=0,newz=T,reso=0,ln=F,test=1,term1=T,BL=NULL,Y=NUL
 	}
 
 	xx="Enter title (without quotes): "; yy="Enter units (without quotes): ";
-	if(newz) {dat0=data.frame(numeric(0)); titl=readline(xx); unit=readline(yy); n1=n2=n3=p=lam=0; 
-	en=c(n1,n2,n3); about=wabout(c(mlo,mhi,sg,n1,n2,n3,p,lam,reso)); savinit=c(mlo,mhi,sg);} else 
-	{dat0=z$d0; about=z$about; titl=z$title; unit=z$units; en=z$en; n1=en[1]; n2=en[2]; n3=en[3]; 
+	if(newz) {dat0=data.frame(numeric(0)); titl=readline(xx); unit=readline(yy); n1=n2=n3=p=lam=0;
+	en=c(n1,n2,n3); about=wabout(c(mlo,mhi,sg,n1,n2,n3,p,lam,reso)); savinit=c(mlo,mhi,sg);} else
+	{dat0=z$d0; about=z$about; titl=z$title; unit=z$units; en=z$en; n1=en[1]; n2=en[2]; n3=en[3];
 	p=z$p; reso=z$reso; n2n3=z$n2n3; ln=z$ln; init=z$init; mlo=init[1]; mhi=init[2]; sg=init[3];
 	lam=z$lam; test=z$test; savinit=z$savinit; term1=z$term1;}
 
@@ -60,49 +61,49 @@ gonogo=function(mlo=0,mhi=0,sg=0,newz=T,reso=0,ln=F,test=1,term1=T,BL=NULL,Y=NUL
 	if(!newz & test > 2) {BL=z$BL; dud=z$dud; lev=z$lev}
 
 	if(newz & test < 3) cat("\n");
-	
-	xx="Enter BL (nRev and two i's (one 0 is OK)): "; 
-	
+
+	xx="Enter BL (nRev and two i's (one 0 is OK)): ";
+
 	if(ln) h2="Log " else h2="";
 	if(test == 1 & newz) titl=paste(h2,"3pod: ",titl,sep="");
 	if(test == 2 & newz) titl=paste(h2,"Neyer: ",titl,sep="");
 
-	if(newz & test > 2) 
+	if(newz & test > 2)
 	{
 		if(lBL == 0)
 		{
 		blrb6();
-		xx=readline(xx); 
-		xx=strsplit(xx," ",fixed=T); 
+		xx=readline(xx);
+		xx=strsplit(xx," ",fixed=T);
 		BL=as.numeric(xx[[1]]);
-		} 
+		}
 
 	lBL=length(BL);
 	if(lBL != 3){cat("3 integers are required.\nTry again\n\n"); return();}
 
 	tx=paste(BL,collapse="");
 	if(all(BL[-1] == c(0,1)) | all(BL[-1] == c(1,1))) BL[2:3]=c(1,0);
-	I=BL[-1]; 
+	I=BL[-1];
 	a=prtrans(I); dud=a$dud; lev=a$lev;
-	pm=c(1,-1); iz=which(I==0); lz=length(iz); 
-	if(lz == 1) I=I[-iz]; 
-	zp=zpfun(I); 
+	pm=c(1,-1); iz=which(I==0); lz=length(iz);
+	if(lz == 1) I=I[-iz];
+	zp=zpfun(I);
 	if(lz == 0)zp=c(0,1)+pm*zp;
-	if(lz == 1){if(iz == 1) zp=1-zp;} 
+	if(lz == 1){if(iz == 1) zp=1-zp;}
 	pchar=paste(xlead0(zp,4),collapse=",");
-	
+
 	cat(dud); cat("\n\n");
 	t3=paste(BL,collapse="");
 	if(test == 3) titl=substitute(paste(h2,L[pchar]," ",Bruc[t3],": ",titl,sep=""));
 	if(test == 4) titl=substitute(paste(h2,L[pchar]," ",Lang[t3],": ",titl,sep=""));
 	ttl1=substitute(paste(L[pchar],sep=""));
-	if(test == 3) ttl2=substitute(paste(Bruc[t3],sep="")) else 
+	if(test == 3) ttl2=substitute(paste(Bruc[t3],sep="")) else
 	ttl2=substitute(paste(Lang[t3],sep=""));
 	}
-	
+
 	init=c(mlo,mhi,sg)
 	if(!newz) n2n3=prd0(z);
-	
+
 	# n1 is the random test quantity eventually required to complete Phase I
 
 if(lY == 0)
@@ -112,41 +113,41 @@ if(lY == 0)
 	if(test == 1)
 {
 	if(endi == 0)
-	{w=phaseI1(dat0,mlo,mhi,sg,reso,about,titl,unit,ln); 
-	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]];}	
+	{w=phaseI1(dat0,mlo,mhi,sg,reso,about,titl,unit,ln);
+	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]];}
 
 	if(endi == 0)
-	{w=phaseI2(d0,dat0,sg,reso,about,titl,unit,ln,term1); 
+	{w=phaseI2(d0,dat0,sg,reso,about,titl,unit,ln,term1);
 	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]]; }
 	en12[1]=nrow(d0);
-	
+
 	if(endi == 0)
 	{w=phaseI3(d0,dat0,sg,reso,about,titl,unit,ln,term1);
 	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; }
 	n1=nrow(d0);
 	en12[2]=nrow(d0)-en12[1];
 
-} 
+}
 	if(test == 2)
 {
 	if(endi == 0)
-	{w=nphaseI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,term1); 
-	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]];}	
-	n1=en12[1]=nrow(d0); 
+	{w=nphaseI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,term1);
+	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]];}
+	n1=en12[1]=nrow(d0);
 }
 	if(test == 3)
 {
 	if(endi == 0)
-	{w=bphaseI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,BL); 
-	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; en12=w[[4]];}	
+	{w=bphaseI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,BL);
+	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; en12=w[[4]];}
 	n1=nrow(d0);
 }
 
 	if(test == 4)
 {
 	if(endi == 0)
-	{w=lphaseI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,BL); 
-	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; en12=w[[4]];}	
+	{w=lphaseI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,BL);
+	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; en12=w[[4]];}
 	n1=nrow(d0);
 }
 
@@ -154,26 +155,26 @@ if(lY == 0)
 	if(test < 3 & d.update(d0) < 1) {blrb7(); endi=1;}
 
 	# Read here n2: the number of Phase II (D-Optimal) tests to run
-	
+
 	if(endi == 0 & n2n3 != 2 & n2n3 != 3 & n2n3 != 4 & n2n3 != 5)
 	{
 		gg=glmmle(d0); g1=round(gg$mu,5); g2=round(gg$sig,5);
 		about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
 		xx=paste("\nPhase I complete, (Mu, Sig) = (",g1,", ",g2,").\nEnter Phase II (D-Optimal) size n2: ",sep="");
-		if(n2 == 0) {n2=as.numeric(readline(xx)); if(n2==0)n2n3=2; cat("\n");}			
+		if(n2 == 0) {n2=as.numeric(readline(xx)); if(n2==0)n2n3=2; cat("\n");}
 		if(n2 < 0) {n2=0; endi=1;}
-		if(n2 > 0) 
-		{ 
+		if(n2 > 0)
+		{
 		en[2]=n2;
 
 		about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
 		w=phaseII(d0,dat0,n2,reso,about,titl,unit,ln,term1); d0=w[[1]]; dat0=w[[2]]; endi=w[[3]];
 		about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
 		}
-	}	
-	
+	}
+
 	if(endi == 0)
-		{ 
+		{
 		if(n3 == 0)
 			{
 			gg=glmmle(d0); g1=round(gg$mu,5); g2=round(gg$sig,5);
@@ -181,7 +182,7 @@ if(lY == 0)
 			zz="";
 			if(ln)zz=paste("\n\n** Starting values (tau2[1] & be) for Phase III, ln=T may need tweaking.\n",sep="");
 			xx=paste("\nPhase II ",jkl,", (Mu, Sig) = (",g1,", ",g2,").",zz,"\nEnter Phase III (S-RMJ) size n3: ",sep="");
-			xx=readline(xx); n3=as.numeric(xx);	
+			xx=readline(xx); n3=as.numeric(xx);
 			if(n3 == 0)endi=8;
 			if(n3 < 0){n3=0; endi=1;}
 			about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
@@ -190,11 +191,11 @@ if(lY == 0)
 
 	if(endi == 0 & n3 > 0 & p == 0)
 		{
-		xx="Enter p lam: "; 
-		if(p==0) 
+		xx="Enter p lam: ";
+		if(p==0)
 			{
 			xx=readline(xx);
-			xx=strsplit(xx," ",fixed=T); 
+			xx=strsplit(xx," ",fixed=T);
 			xx=as.numeric(xx[[1]]);
 			nxx=length(xx);
 			p=xx[1]; if(nxx > 1)lam=xx[2];
@@ -207,10 +208,10 @@ if(lY == 0)
 	if(endi == 0) {
 		n2n3=4; if(n2 > 0) n2n3=7;
 		about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
-		w=sphaseIII(d0,dat0,n3,p,reso,about,titl,unit,ln,lam); d0=w[[1]]; 
+		w=sphaseIII(d0,dat0,n3,p,reso,about,titl,unit,ln,lam); d0=w[[1]];
 		dat0=w[[2]]; endi=w[[3]]; jvec=w[[4]];	}
 
-		#	Adapted from bottom of prd0	
+		#	Adapted from bottom of prd0
 		if(endi == 0 | endi == 2 | endi == 8) {
 		gg=glmmle(d0); g1=round(gg$mu,5); g2=round(gg$sig,5);
 		xx=paste("\nPhase III complete, (Mu, Sig) = (",g1,", ",g2,").\n",sep="");
@@ -225,13 +226,13 @@ if(lY == 0)
 	{
 	ret=list(d0,about,titl,ttl0,ttl1,ttl2,unit,en,p,reso,n2n3,ln,init,lam,test,savinit,jvec,term1,en12,musig);
 	names(ret)=c("d0","about","title","ttl0","ttl1","ttl2","units","en","p","reso","n2n3","ln","init","lam","test","savinit","jvec","term1","en12","musig");
-	} 
+	}
 	if(test == 3 | test == 4)
 	{
 	ret=list(d0,about,titl,ttl0,ttl1,ttl2,unit,en,p,reso,n2n3,ln,init,lam,test,savinit,jvec,term1,en12,BL,dud,lev,musig);
 	names(ret)=c("d0","about","title","ttl0","ttl1","ttl2","units","en","p","reso","n2n3","ln","init","lam","test","savinit","jvec","term1","en12","BL","dud","lev","musig");
 	}
-	if(endi == 2 & n1 > 1) ptest(ret,1); 
+	if(endi == 2 & n1 > 1) ptest(ret,1);
 
 #------------------------------------------------------------------------------------
 }
@@ -243,39 +244,39 @@ if(lY > 0)
 	if(test == 1)
 {
 	if(endi == 0)
-	{w=phaseBI1(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,Y,X); 
-	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]]; Y=w[[5]]; X=w[[6]];}	
+	{w=phaseBI1(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,Y,X);
+	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]]; Y=w[[5]]; X=w[[6]];}
 
 	if(endi == 0)
-	{w=phaseBI2(d0,dat0,sg,reso,about,titl,unit,ln,term1,Y,X); 
+	{w=phaseBI2(d0,dat0,sg,reso,about,titl,unit,ln,term1,Y,X);
 	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]]; Y=w[[5]]; X=w[[6]];}
 	en12[1]=nrow(d0);
-	
+
 	if(endi == 0)
 	{w=phaseBI3(d0,dat0,sg,reso,about,titl,unit,ln,term1,Y,X);
 	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; Y=w[[4]]; X=w[[5]];}
 	n1=nrow(d0); en12[2]=n1-en12[1];
-} 
+}
 	if(test == 2)
 {
 	if(endi == 0)
-	{w=nphaseBI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,term1,Y,X); 
-	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]]; Y=w[[5]]; X=w[[6]];}	
+	{w=nphaseBI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,term1,Y,X);
+	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; sg=w[[4]]; Y=w[[5]]; X=w[[6]];}
 	n1=en12[1]=nrow(d0);
 }
 	if(test == 3)
 {
 	if(endi == 0)
-	{w=bphaseBI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,BL,Y,X); 
-	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; Y=w[[4]]; X=w[[5]]; en12=w[[6]];}	
+	{w=bphaseBI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,BL,Y,X);
+	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; Y=w[[4]]; X=w[[5]]; en12=w[[6]];}
 	n1=nrow(d0);
 }
 
 	if(test == 4)
 {
 	if(endi == 0)
-	{w=lphaseBI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,BL,Y,X); 
-	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; Y=w[[4]]; X=w[[5]]; en12=w[[6]];}	
+	{w=lphaseBI(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,BL,Y,X);
+	d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; Y=w[[4]]; X=w[[5]]; en12=w[[6]];}
 	n1=nrow(d0);
 }
 
@@ -283,26 +284,26 @@ if(lY > 0)
 	if(test < 3 & d.update(d0) < 1) {blrb7(); endi=1;}
 
 	# Read here n2: the number of Phase II (D-Optimal) tests to run
-	
+
 	if(endi == 0 & n2n3 != 2 & n2n3 != 3 & n2n3 != 4 & n2n3 != 5)
 	{
 		gg=glmmle(d0); g1=round(gg$mu,5); g2=round(gg$sig,5);
 		about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
 		xx=paste("\nPhase I complete, (Mu, Sig) = (",g1,", ",g2,").\nEnter Phase II (D-Optimal) size n2: ",sep="");
-		if(n2 == 0) {n2=as.numeric(readline(xx)); if(n2==0)n2n3=2; cat("\n");}			
+		if(n2 == 0) {n2=as.numeric(readline(xx)); if(n2==0)n2n3=2; cat("\n");}
 		if(n2 < 0) {n2=0; endi=1;}
-		if(n2 > 0) 
-		{ 
+		if(n2 > 0)
+		{
 		en[2]=n2;
 
 		about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
 		w=phaseBII(d0,dat0,n2,reso,about,titl,unit,ln,term1,Y,X); d0=w[[1]]; dat0=w[[2]]; endi=w[[3]]; Y=w[[4]]; X=w[[5]];
 		about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
 		}
-	}	
-	
+	}
+
 	if(endi == 0)
-		{ 
+		{
 		if(n3 == 0)
 			{
 			gg=glmmle(d0); g1=round(gg$mu,5); g2=round(gg$sig,5);
@@ -310,7 +311,7 @@ if(lY > 0)
 			zz="";
 			if(ln)zz=paste("\n\n** Starting values (tau2[1] & be) for Phase III, ln=T may need tweaking.\n",sep="");
 			xx=paste("\nPhase II ",jkl,", (Mu, Sig) = (",g1,", ",g2,").",zz,"\nEnter Phase III (S-RMJ) size n3: ",sep="");
-			xx=readline(xx); n3=as.numeric(xx);	
+			xx=readline(xx); n3=as.numeric(xx);
 			if(n3 == 0)endi=8;
 			if(n3 < 0){n3=0; endi=1;}
 			about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
@@ -319,11 +320,11 @@ if(lY > 0)
 
 	if(endi == 0 & n3 > 0 & p == 0)
 		{
-		xx="Enter p lam: "; 
-		if(p==0) 
+		xx="Enter p lam: ";
+		if(p==0)
 			{
 			xx=readline(xx);
-			xx=strsplit(xx," ",fixed=T); 
+			xx=strsplit(xx," ",fixed=T);
 			xx=as.numeric(xx[[1]]);
 			nxx=length(xx);
 			p=xx[1]; if(nxx > 1)lam=xx[2];
@@ -336,10 +337,10 @@ if(lY > 0)
 	if(endi == 0) {
 		n2n3=4; if(n2 > 0) n2n3=7;
 		about=wabout(c(savinit,n1,n2,n3,p,lam,reso));
-		w=sphaseBIII(d0,dat0,n3,p,reso,about,titl,unit,ln,Y,X,lam); d0=w[[1]]; 
+		w=sphaseBIII(d0,dat0,n3,p,reso,about,titl,unit,ln,Y,X,lam); d0=w[[1]];
 		dat0=w[[2]]; endi=w[[3]]; jvec=w[[4]]; Y=w[[5]]; X=w[[6]];	}
 
-		#	Adapted from bottom of prd0	
+		#	Adapted from bottom of prd0
 		if(endi == 0 | endi == 2 | endi == 8) {
 		gg=glmmle(d0); g1=round(gg$mu,5); g2=round(gg$sig,5);
 		xx=paste("\nPhase III complete, (Mu, Sig) = (",g1,", ",g2,").\n",sep="");
@@ -355,7 +356,7 @@ if(lY > 0)
 	{
 	ret=list(d0,about,titl,ttl0,ttl1,ttl2,unit,en,p,reso,n2n3,ln,init,lam,test,savinit,jvec,term1,en12,musig);
 	names(ret)=c("d0","about","title","ttl0","ttl1","ttl2","units","en","p","reso","n2n3","ln","init","lam","test","savinit","jvec","term1","en12","musig");
-	} 
+	}
 	if(test == 3 | test == 4)
 	{
 	ret=list(d0,about,titl,ttl0,ttl1,ttl2,unit,en,p,reso,n2n3,ln,init,lam,test,savinit,jvec,term1,en12,BL,dud,lev,musig);
@@ -366,7 +367,7 @@ if(lY > 0)
 
 #------------------------------------------------------------------------------------
 }
-		
+
 	rd0=d0; rd0$X=round(rd0$X,5); names(rd0)[1]="i,X"; rd0$EX=round(rd0$EX,5);
 	write.table(rd0,file="gonogo.txt",quote=F,sep=",",na="i");
 	return(ret);
@@ -376,7 +377,7 @@ phaseI1=function(dat0,mlo,mhi,sg,reso,about,titl,unit,ln)
 {
 nret=c("d0","dat0","endi","sg");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
@@ -384,7 +385,7 @@ endi=0;
 mi=c(mlo,mhi);
 a=matrix(c(.75,.25,.25,.75),ncol=2,byrow=T);
 xx=t(a%*%mi);
-	
+
 for(i in 1:2)	{u=getd0(xx[i],d0,dat0,"I1",reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi; if(endi == 1) break; }
 if(endi == 0)
 {
@@ -398,11 +399,11 @@ if(all(y==c(0,0)))
 		{
 		i1=i1+1;
 		if(i1%%3 == 0) sg=2*sg;
-		xx=mi[2]+1.5*i1*sg; 
-		u=getd0(xx,d0,dat0,"I1(i)",reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;	
+		xx=mi[2]+1.5*i1*sg;
+		u=getd0(xx,d0,dat0,"I1(i)",reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
 		if(d0$Y[nrow(d0)] == 1 | endi == 1) break;
 		}
-	}		
+	}
 
 if(all(y==c(1,1)))
 	{
@@ -410,8 +411,8 @@ if(all(y==c(1,1)))
 		{
 		i1=i1+1;
 		if(i1%%3 == 0) sg=2*sg;
-		xx=mi[1]-1.5*i1*sg; 
-		u=getd0(xx,d0,dat0,"I1(ii)",reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;		
+		xx=mi[1]-1.5*i1*sg;
+		u=getd0(xx,d0,dat0,"I1(ii)",reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
 		if(d0$Y[nrow(d0)] == 0 | endi == 1) break;
 		}
 	}
@@ -426,10 +427,10 @@ if(all(y==c(1,0)))
 			u=getd0(xx[i],d0,dat0,"I1(iv)",reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
 			if(endi == 1) break;
 			}
-	}	
+	}
 }
 ret=list(d0,dat0,endi,sg);
-names(ret)=nret; 
+names(ret)=nret;
 return(ret);
 }
 
@@ -448,15 +449,15 @@ while(1)
 		{
 		if(endi == 0)
 			{
-			xx=(M0+m1)/2; 
+			xx=(M0+m1)/2;
 			id=paste(idii,"I2(ib)",sep="");
-			u=getd0(xx,d0,dat0,id,reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;		
+			u=getd0(xx,d0,dat0,id,reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
 			j=m.update(d0); m1=j$m1; M0=j$M0; del=m1-M0;
 			}
 		}
 	if(del < 0 | endi == 1) {ret=list(d0,dat0,endi,sg); names=nret; return(ret)}
 	j=n.update(d0); n0=j$n0; n1=j$n1;
-	if(del >= 0 & endi == 0) 
+	if(del >= 0 & endi == 0)
 		{
 		ixw=0;
 		if(n0 > n1 & endi == 0)
@@ -466,12 +467,12 @@ while(1)
 			u=getd0(xx,d0,dat0,id,reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
 			if(d0$Y[nrow(d0)] == 0 | endi == 1) {ret=list(d0,dat0,endi,sg); names=nret; ixw=1;}
 			if(ixw == 1){
-			if(term1) return(ret) else			
-			{if(ixw == 1 & sav == 0) {cat(xw); sav=1; ixw=0}; if(ok1(d0,0) | endi == 1) {ret=list(d0,dat0,endi,sg); names=nret; return(ret); } } 
+			if(term1) return(ret) else
+			{if(ixw == 1 & sav == 0) {cat(xw); sav=1; ixw=0}; if(ok1(d0,0) | endi == 1) {ret=list(d0,dat0,endi,sg); names=nret; return(ret); } }
 			}
 			if(d0$Y[nrow(d0)] == 1 & endi == 0)
 				{
-				xx=M0-.3*sg;	
+				xx=M0-.3*sg;
 				id=paste(idii,"I2(ic)",sep="");
 				u=getd0(xx,d0,dat0,id,reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
 				if(d0$Y[nrow(d0)] == 1 | endi == 1) {ret=list(d0,dat0,endi,sg); names=nret; ixw=1;}
@@ -481,8 +482,8 @@ while(1)
 				}
 				if(d0$Y[nrow(d0)] == 0 & endi == 0)
 					{
-					sg=2*sg/3;	
-					idii=paste(idii,"r",sep="");	
+					sg=2*sg/3;
+					idii=paste(idii,"r",sep="");
 					}
 				}
 			}
@@ -498,18 +499,18 @@ while(1)
 			}
 			if(d0$Y[nrow(d0)] == 0 & endi == 0)
 				{
-				xx=m1+.3*sg;	
+				xx=m1+.3*sg;
 				id=paste(idii,"I2(id)",sep="");
-				u=getd0(xx,d0,dat0,id,reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;	
+				u=getd0(xx,d0,dat0,id,reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
 				if(d0$Y[nrow(d0)] == 0 | endi == 1) {ret=list(d0,dat0,endi,sg); names=nret; ixw=1;}
 				if(ixw == 1){
-				if(term1) {ret=list(d0,dat0,endi,sg); names=nret; return(ret);} else 
+				if(term1) {ret=list(d0,dat0,endi,sg); names=nret; return(ret);} else
 				{if(ixw == 1 & sav == 0) {cat(xw); sav=1; ixw=0}; if(ok1(d0,0) | endi == 1) {ret=list(d0,dat0,endi,sg); names=nret; return(ret); } }
 				}
 				if(d0$Y[nrow(d0)] == 1 & endi == 0)
 					{
-					sg=2*sg/3;	
-					idii=paste(idii,"r",sep="");	
+					sg=2*sg/3;
+					idii=paste(idii,"r",sep="");
 					}
 				}
 			}
@@ -525,21 +526,21 @@ if(sg+del > 0)xx=xx+c(1,-1)*sg/2;
 lxx=length(xx)
 for(i in 1:lxx)
 	{
-	if(i < lxx) u=getd0(xx[i],d0,dat0,"I3",reso,about,titl,unit,ln); 
-	if(i == lxx) u=getd0(xx[i],d0,dat0,"I3",reso,about,titl,unit,ln,cab=T);	
+	if(i < lxx) u=getd0(xx[i],d0,dat0,"I3",reso,about,titl,unit,ln);
+	if(i == lxx) u=getd0(xx[i],d0,dat0,"I3",reso,about,titl,unit,ln,cab=T);
 	d0=u$d0; dat0=u$dat0; endi=u$endi;
 if(!term1 & !ok1(d0)) endi=1;
-	if(endi == 1) break;		
+	if(endi == 1) break;
 	}
 ret=list(d0,dat0,endi);
-names(ret)=c("d0","dat0","endi");		
+names(ret)=c("d0","dat0","endi");
 return(ret);
 }
 
 nphaseI=function(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,term1)
 {
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
@@ -553,7 +554,7 @@ bl=c("B0","B1","B2","B3","B4");
 
 # lf is a flag to adjust X1 & X2 in the ln=T neyer case. Use of it makes it deviate a tad from
 # a true neyer conducted on the logs - but this way X1 & X2 stay the same in both ln settings
-lf=0; 
+lf=0;
 
 while(endi == 0)
 	{
@@ -570,7 +571,7 @@ while(endi == 0)
 				# PART 2 **************************************************
 				j=m.update(d0); m1=j$m1; M0=j$M0; dif=m1-M0;
 				dif = round(m1-M0,14)
-				if(dif > sg) block=3 else 
+				if(dif > sg) block=3 else
 					{
 					if(dif >= 0) block=4 else block=5;
 					}
@@ -586,8 +587,8 @@ while(endi == 0)
 	if(block == 2) if(lf == 0) xbef = min(c((mlo + xlo)/2, xlo - 2 * sg, 2 * xlo - xhi)) else
 	{xbef=log((3*v[1]+v[2])/4); lf=0;}
 	if(block == 3) xbef = (m1 + M0)/2
-	if(block == 4) 
-	{ 
+	if(block == 4)
+	{
 	m=(m1+M0)/2; es=sg; sg=.8*sg;
 	m = max(xlo, min(m, xhi))
 	es = min(es,(xhi-xlo))
@@ -596,11 +597,11 @@ while(endi == 0)
 	}
 	if(block == 5) {about=chabout(about,nrow(d0),5); if(term1) break else {if(ok1(d0)) break};}
 	u=getd0(xbef,d0,dat0,bl[block+1],reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
-	n=nrow(d0);		
+	n=nrow(d0);
 }
 ret=list(d0,dat0,endi,sg);
 nret=c("d0","dat0","endi","sg");
-names(ret)=nret; 
+names(ret)=nret;
 return(ret);
 }
 
@@ -616,7 +617,7 @@ udid=numeric(0);
 
 nret=c("d0","dat0","endi","en12");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
@@ -643,15 +644,15 @@ dn=0; endi=0; ud=xud=numeric(0); yseq=numeric(0);
 
 while(dn == 0 & endi == 0)
 {
-u=getd0(xx,d0,dat0,"IB",reso,about,titl,unit,ln); 
+u=getd0(xx,d0,dat0,"IB",reso,about,titl,unit,ln);
 
-d0=u$d0; dat0=u$dat0; endi=u$endi; 
+d0=u$d0; dat0=u$dat0; endi=u$endi;
 icnt=icnt+1; nx=length(d0$X); iacc=iacc+d0$X[[nx]];
 if(endi == 1) break;
 y=d0$Y;
 ny=length(y);
 
-if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else 
+if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else
 {yseq=c(yseq,1-y[ny]); udid=c(udid,1-y[ny]);}
 
 lseq=list(yseq); ns=bintodec(lseq);
@@ -716,12 +717,12 @@ udid=numeric(0);
 
 nret=c("d0","dat0","endi","en12");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
 
-en12=0; 
+en12=0;
 
 for(ijk in 1:lox)
 {
@@ -751,7 +752,7 @@ if(endi == 1) break;
 y=d0$Y;
 ny=length(y);
 
-if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else 
+if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else
 {yseq=c(yseq,1-y[ny]); udid=c(udid,1-y[ny]);}
 
 lseq=list(yseq); ns=bintodec(lseq);
@@ -834,18 +835,18 @@ for(i in 1:n2)
 	id="II1";
 	if(i > 1) id="II2";
 	u=getd0(xstar[i],d0,dat0,id,reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
-	if(term1) {if(endi == 1) break;} else 
+	if(term1) {if(endi == 1) break;} else
 	if(ok1(d0)$tf | endi == 1) break;
 	}
 ret=list(d0,dat0,endi);
-names=c("d0","dat0","endi");		
+names=c("d0","dat0","endi");
 return(ret);
 }
 
 sphaseIII=function(d0,dat0,n3,p,reso,about,titl,unit,ln,lam=0)
 {
 endi=0;
-nret=c("d0","dat0","endi","jvec"); 
+nret=c("d0","dat0","endi","jvec");
 jvec=matrix(rep(0,10*(n3+1)),ncol=10);
 nq=glmmle(d0);
 mu=nq$mu; sig=nq$sig;
@@ -858,29 +859,29 @@ tau2=sum(t(c(1,qnorm(p)^2))*diag(ww$vcov1));
 # Truncate tau2[1]
 ti=round((c(3,5)/qnorm(.975))^2,4)*sig^2;
 
-#** NEW 
+#** NEW
 if(ln) ti=round((c(3,5)/qlnorm(.975))^2,4)*sig^2;
 
 tau2=min(max(tau2,ti[1]),ti[2]);
-	
-# Use Mu Tilda and Sigma Tilda instead of Mu Hat and Sigma Hat 
-m1=min(d0$X,na.rm=T); 
+
+# Use Mu Tilda and Sigma Tilda instead of Mu Hat and Sigma Hat
+m1=min(d0$X,na.rm=T);
 m2=max(d0$X,na.rm=T);
 m2=min(c(mu,m2),na.rm=T);
 mut=max(c(m1,m2),na.rm=T);
 sigt=min(sig,diff(range(d0$X)),na.rm=T);
-	
+
 # Beta = 1/(2* SigmaTilda) per pp 9. You get beta = 0.4302985
 be=1/(2*sigt);
 
-#** NEW 
+#** NEW
 if(ln) be=(plnorm(qlnorm(p)))/(pnorm(qnorm(p))*sigt)
 
 c1=f3point8(lam);
 nu=sqrt(tau2)*c1;
-	
+
 xx=mut+qnorm(p)*sigt+nu;
-u=getd0(xx,d0,dat0,"III1",reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; 
+u=getd0(xx,d0,dat0,"III1",reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0;
 ny=length(d0$Y); yy=d0$Y[ny];
 jvec[1,]=c(0,0,0,0,0,tau2,nu,0,xx,yy);
 
@@ -915,19 +916,19 @@ if(endi != 1)
 }
 jvec=data.frame(jvec);
 names(jvec)=c("j","k","v","u","a","tau2","nu","b","x","y");
-ret=list(d0,dat0,endi,jvec); 
+ret=list(d0,dat0,endi,jvec);
 names(ret)= nret;
 return(ret);
 }
 
-# added cab to define n1 in the title of the graph produced by ptest 
+# added cab to define n1 in the title of the graph produced by ptest
 
 getd0=function(xx,d0,dat0,ID,reso,about,titl,unit,ln,cab=F)
 {
 nret=c("d0","dat0","endi");
 mret=c("d0","about","title","units","ln");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6))); d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6))); d1=cbind(d1,"END");
 names(d1)=names(d0)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d1[-1,];
@@ -938,18 +939,18 @@ if(n0 == 0)
 	u=getxr(xx,nd0,reso,ln);
 	d1[1,1:6]=c(u[1:2],1,u[3],xx,u[4]); d1$ID=ID;
 	if(u[2]*(1-u[2])!=0)
-		{endi=1; ret=list(d0,dat0,endi); names(ret)=nret; 
-		ret5=list(d0,about,titl,unit,ln); names(ret5)=mret; 
-		if(nrow(d0) > 0) {ptest(ret5,1);} 
+		{endi=1; ret=list(d0,dat0,endi); names(ret)=nret;
+		ret5=list(d0,about,titl,unit,ln); names(ret5)=mret;
+		if(nrow(d0) > 0) {ptest(ret5,1);}
 		return(ret);
-		}	
-	} 	
+		}
+	}
 if(n0 > 0)	{d1=dat0[1,]; dat0=dat0[-1,]; if(is.null(dat0)) dat0=d1[-1,]; n0=nrow(dat0);}
 d0=rbind(d0,d1);
 ret=list(d0,dat0,endi);
 if(cab)about=chabout(about,nrow(d0),4);
 ret5=list(d0,about,titl,unit,ln); names(ret5)=mret;
-if(nrow(d0) > 1) ptest(ret5,1);	
+if(nrow(d0) > 1) ptest(ret5,1);
 names(ret)=nret;
 return(ret);
 }
@@ -973,7 +974,7 @@ phaseBI1=function(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,Y,X)
 lY=length(Y); lX=length(X);
 nret=c("d0","dat0","endi","sg","Y","X");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
@@ -981,7 +982,7 @@ endi=0;
 mi=c(mlo,mhi);
 a=matrix(c(.75,.25,.25,.75),ncol=2,byrow=T);
 xx=t(a%*%mi);
-	
+
 ym=min(lY,2); xm=min(lX,2);
 for(i in 1:ym)
 {
@@ -1001,12 +1002,12 @@ if(all(y==c(0,0)))
 		{
 		i1=i1+1;
 		if(i1%%3 == 0) sg=2*sg;
-		xx=mi[2]+1.5*i1*sg; 
+		xx=mi[2]+1.5*i1*sg;
 		u=getBd0(xx,d0,dat0,"I1(i)",reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;
-		Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;	
+		Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
 		if(d0$Y[nrow(d0)] == 1 | endi == 1) break;
 		}
-	}		
+	}
 
 if(all(y==c(1,1)))
 	{
@@ -1014,8 +1015,8 @@ if(all(y==c(1,1)))
 		{
 		i1=i1+1;
 		if(i1%%3 == 0) sg=2*sg;
-		xx=mi[1]-1.5*i1*sg; 
-		u=getBd0(xx,d0,dat0,"I1(ii)",reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;		
+		xx=mi[1]-1.5*i1*sg;
+		u=getBd0(xx,d0,dat0,"I1(ii)",reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;
 		Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
 		if(d0$Y[nrow(d0)] == 0 | endi == 1) break;
 		}
@@ -1032,10 +1033,10 @@ if(all(y==c(1,0)))
 			Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
 			if(endi == 1) break;
 			}
-	}	
+	}
 }
 ret=list(d0,dat0,endi,sg,Y,X);
-names(ret)=nret; 
+names(ret)=nret;
 return(ret);
 }
 
@@ -1054,16 +1055,16 @@ while(1)
 		{
 		if(endi == 0)
 			{
-			xx=(M0+m1)/2; 
+			xx=(M0+m1)/2;
 			id=paste(idii,"I2(ib)",sep="");
-			u=getBd0(xx,d0,dat0,id,reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;		
+			u=getBd0(xx,d0,dat0,id,reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;
 			Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
 			j=m.update(d0); m1=j$m1; M0=j$M0; del=m1-M0;
 			}
 		}
 	if(del < 0 | endi == 1) {ret=list(d0,dat0,endi,sg,Y,X); names=nret; return(ret)}
 	j=n.update(d0); n0=j$n0; n1=j$n1;
-	if(del >= 0 & endi == 0) 
+	if(del >= 0 & endi == 0)
 		{
 		ixw=0;
 		if(n0 > n1 & endi == 0)
@@ -1074,12 +1075,12 @@ while(1)
 			Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
 			if(d0$Y[nrow(d0)] == 0 | endi == 1) {ret=list(d0,dat0,endi,sg,Y,X); names=nret; ixw=1;}
 			if(ixw == 1){
-			if(term1) return(ret) else			
-			{if(ixw == 1 & sav == 0) {cat(xw); sav=1; ixw=0}; if(ok1(d0,0) | endi == 1) {ret=list(d0,dat0,endi,sg,Y,X); names=nret; return(ret); } } 
+			if(term1) return(ret) else
+			{if(ixw == 1 & sav == 0) {cat(xw); sav=1; ixw=0}; if(ok1(d0,0) | endi == 1) {ret=list(d0,dat0,endi,sg,Y,X); names=nret; return(ret); } }
 			}
 			if(d0$Y[nrow(d0)] == 1 & endi == 0)
 				{
-				xx=M0-.3*sg;	
+				xx=M0-.3*sg;
 				id=paste(idii,"I2(ic)",sep="");
 				u=getBd0(xx,d0,dat0,id,reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;
 				Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
@@ -1090,8 +1091,8 @@ while(1)
 				}
 				if(d0$Y[nrow(d0)] == 0 & endi == 0)
 					{
-					sg=2*sg/3;	
-					idii=paste(idii,"r",sep="");	
+					sg=2*sg/3;
+					idii=paste(idii,"r",sep="");
 					}
 				}
 			}
@@ -1108,19 +1109,19 @@ while(1)
 			}
 			if(d0$Y[nrow(d0)] == 0 & endi == 0)
 				{
-				xx=m1+.3*sg;	
+				xx=m1+.3*sg;
 				id=paste(idii,"I2(id)",sep="");
-				u=getBd0(xx,d0,dat0,id,reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;	
+				u=getBd0(xx,d0,dat0,id,reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;
 				Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
 				if(d0$Y[nrow(d0)] == 0 | endi == 1) {ret=list(d0,dat0,endi,sg,Y,X); names=nret; ixw=1;}
 				if(ixw == 1){
-				if(term1) {ret=list(d0,dat0,endi,sg,Y,X); names=nret; return(ret);} else 
+				if(term1) {ret=list(d0,dat0,endi,sg,Y,X); names=nret; return(ret);} else
 				{if(ixw == 1 & sav == 0) {cat(xw); sav=1; ixw=0}; if(ok1(d0,0) | endi == 1) {ret=list(d0,dat0,endi,sg,Y,X); names=nret; return(ret); } }
 				}
 				if(d0$Y[nrow(d0)] == 1 & endi == 0)
 					{
-					sg=2*sg/3;	
-					idii=paste(idii,"r",sep="");	
+					sg=2*sg/3;
+					idii=paste(idii,"r",sep="");
 					}
 				}
 			}
@@ -1136,15 +1137,15 @@ if(sg+del > 0)xx=xx+c(1,-1)*sg/2;
 lxx=length(xx)
 for(i in 1:lxx)
 	{
-	if(i < lxx) u=getBd0(xx[i],d0,dat0,"I3",reso,about,titl,unit,ln,Y[1],X[1]); 
-	if(i == lxx) u=getBd0(xx[i],d0,dat0,"I3",reso,about,titl,unit,ln,Y[1],X[1],cab=T);	
+	if(i < lxx) u=getBd0(xx[i],d0,dat0,"I3",reso,about,titl,unit,ln,Y[1],X[1]);
+	if(i == lxx) u=getBd0(xx[i],d0,dat0,"I3",reso,about,titl,unit,ln,Y[1],X[1],cab=T);
 	d0=u$d0; dat0=u$dat0; endi=u$endi;
 	if(!term1 & !ok1(d0)) endi=1;
 	Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
-	if(endi == 1) break;		
+	if(endi == 1) break;
 	}
 ret=list(d0,dat0,endi,Y,X);
-names(ret)=c("d0","dat0","endi","Y","X");		
+names(ret)=c("d0","dat0","endi","Y","X");
 return(ret);
 }
 
@@ -1152,7 +1153,7 @@ nphaseBI=function(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,term1,Y,X)
 {
 lY=length(Y); lX=length(X);
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
@@ -1166,7 +1167,7 @@ bl=c("B0","B1","B2","B3","B4");
 
 # lf is a flag to adjust X1 & X2 in the ln=T neyer case. Use of it makes it deviate a tad from
 # a true neyer conducted on the logs - but this way X1 & X2 stay the same in both ln settings
-lf=0; 
+lf=0;
 
 while(endi == 0)
 	{
@@ -1183,7 +1184,7 @@ while(endi == 0)
 				# PART 2 **************************************************
 				j=m.update(d0); m1=j$m1; M0=j$M0; dif=m1-M0;
 				dif = round(m1-M0,14)
-				if(dif > sg) block=3 else 
+				if(dif > sg) block=3 else
 					{
 					if(dif >= 0) block=4 else block=5;
 					}
@@ -1199,8 +1200,8 @@ while(endi == 0)
 	if(block == 2) if(lf == 0) xbef = min(c((mlo + xlo)/2, xlo - 2 * sg, 2 * xlo - xhi)) else
 	{xbef=log((3*v[1]+v[2])/4); lf=0;}
 	if(block == 3) xbef = (m1 + M0)/2
-	if(block == 4) 
-	{ 
+	if(block == 4)
+	{
 	m=(m1+M0)/2; es=sg; sg=.8*sg;
 	m = max(xlo, min(m, xhi))
 	es = min(es,(xhi-xlo))
@@ -1210,11 +1211,11 @@ while(endi == 0)
 	if(block == 5) {about=chabout(about,nrow(d0),5); if(term1) break else {if(ok1(d0)) break};}
 	u=getBd0(xbef,d0,dat0,bl[block+1],reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;
 	Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
-	n=nrow(d0);		
+	n=nrow(d0);
 }
 ret=list(d0,dat0,endi,sg,Y,X);
 nret=c("d0","dat0","endi","sg","Y","X");
-names(ret)=nret; 
+names(ret)=nret;
 return(ret);
 }
 
@@ -1230,7 +1231,7 @@ udid=numeric(0);
 
 nret=c("d0","dat0","endi","Y","Xx","en12");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
@@ -1257,15 +1258,15 @@ dn=0; endi=0; ud=xud=numeric(0); yseq=numeric(0);
 
 while(dn == 0 & endi == 0)
 {
-u=getBd0(xx,d0,dat0,"",reso,about,titl,unit,ln,Y[1],Xx[1]); 
+u=getBd0(xx,d0,dat0,"",reso,about,titl,unit,ln,Y[1],Xx[1]);
 
-d0=u$d0; dat0=u$dat0; endi=u$endi; 
+d0=u$d0; dat0=u$dat0; endi=u$endi;
 icnt=icnt+1; nx=length(d0$X); iacc=iacc+d0$X[[nx]];
 Y=Y[-1]; if(length(Xx) > 1) Xx=Xx[-1] else Xx=NULL; lY=length(Y); if(lY == 0) endi=1;
 y=d0$Y;
 ny=length(y);
 
-if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else 
+if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else
 {yseq=c(yseq,1-y[ny]); udid=c(udid,1-y[ny]);}
 
 lseq=list(yseq); ns=bintodec(lseq);
@@ -1314,7 +1315,7 @@ udid[udid==-2]="D"; udid[udid==2]="U"; udid[udid == 0]="";
 d0$ID=udid;
 ret=list(d0,dat0,endi,Y,Xx,en12);
 names(ret)=nret;
-return(ret);			
+return(ret);
 }
 
 lphaseBI=function(dat0,mlo,mhi,sg,reso,about,titl,unit,ln,BL,Y,Xx)
@@ -1329,12 +1330,12 @@ udid=numeric(0);
 
 nret=c("d0","dat0","endi","Y","Xx","en12");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
 
-en12=0; 
+en12=0;
 
 for(ijk in 1:lox)
 {
@@ -1357,13 +1358,13 @@ dn=0; endi=0; ud=xud=numeric(0); yseq=numeric(0);
 while(dn == 0 & endi == 0)
 {
 u=getBd0(xx,d0,dat0,"",reso,about,titl,unit,ln,Y[1],Xx[1]);
-d0=u$d0; dat0=u$dat0; endi=u$endi; 
+d0=u$d0; dat0=u$dat0; endi=u$endi;
 icnt=icnt+1; nx=length(d0$X); iacc=iacc+d0$X[[nx]];
 Y=Y[-1]; if(length(Xx) > 1) Xx=Xx[-1] else Xx=NULL; lY=length(Y); if(lY == 0) endi=1;
 y=d0$Y;
 ny=length(y);
 
-if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else 
+if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else
 {yseq=c(yseq,1-y[ny]); udid=c(udid,1-y[ny]);}
 
 lseq=list(yseq); ns=bintodec(lseq);
@@ -1425,9 +1426,9 @@ udid[abs(udid) != 2]=0;
 udid[udid==-2]="D"; udid[udid==2]="U"; udid[udid == 0]="";
 d0$ID=udid
 
-ret=list(d0,dat0,endi,Y,Xx,en12); 	
+ret=list(d0,dat0,endi,Y,Xx,en12);
 names(ret)=nret;
-return(ret);			
+return(ret);
 }
 
 phaseBII=function(d0,dat0,n2,reso,about,titl,unit,ln,term1,Y,X)
@@ -1448,11 +1449,11 @@ for(i in 1:min(n2,lY))
 	if(i > 1) id="II2";
 	u=getBd0(xstar[i],d0,dat0,id,reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;
 	Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
-	if(term1) {if(endi == 1) break;} else 
+	if(term1) {if(endi == 1) break;} else
 	if(ok1(d0)$tf | endi == 1) break;
 	}
 ret=list(d0,dat0,endi,Y,X);
-names=c("d0","dat0","endi","Y","X");		
+names=c("d0","dat0","endi","Y","X");
 return(ret);
 }
 
@@ -1460,7 +1461,7 @@ sphaseBIII=function(d0,dat0,n3,p,reso,about,titl,unit,ln,Y,X,lam=0)
 {
 lY=length(Y);
 endi=0;
-nret=c("d0","dat0","endi","jvec","Y","X"); 
+nret=c("d0","dat0","endi","jvec","Y","X");
 jvec=matrix(rep(0,10*(n3+1)),ncol=10);
 nq=glmmle(d0);
 mu=nq$mu; sig=nq$sig;
@@ -1473,29 +1474,29 @@ tau2=sum(t(c(1,qnorm(p)^2))*diag(ww$vcov1));
 # Truncate tau2[1]
 ti=round((c(3,5)/qnorm(.975))^2,4)*sig^2;
 
-#** NEW 
+#** NEW
 if(ln) ti=round((c(3,5)/qlnorm(.975))^2,4)*sig^2;
 
 tau2=min(max(tau2,ti[1]),ti[2]);
-        
-# Use Mu Tilda and Sigma Tilda instead of Mu Hat and Sigma Hat 
-m1=min(d0$X,na.rm=T); 
+
+# Use Mu Tilda and Sigma Tilda instead of Mu Hat and Sigma Hat
+m1=min(d0$X,na.rm=T);
 m2=max(d0$X,na.rm=T);
 m2=min(c(mu,m2),na.rm=T);
 mut=max(c(m1,m2),na.rm=T);
 sigt=min(sig,diff(range(d0$X)),na.rm=T);
-        
+
 # Beta = 1/(2* SigmaTilda) per pp 9. You get beta = 0.4302985
 be=1/(2*sigt);
 
-#** NEW 
+#** NEW
 if(ln) be=plnorm(qlnorm(p))/(pnorm(qnorm(p))*sigt)
 
 c1=f3point8(lam);
 nu=sqrt(tau2)*c1;
-        
+
 xx=mut+qnorm(p)*sigt+nu;
-u=getBd0(xx,d0,dat0,"III1",reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; 
+u=getBd0(xx,d0,dat0,"III1",reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0;
 ny=length(d0$Y); yy=d0$Y[ny];
 jvec[1,]=c(0,0,0,0,0,tau2,nu,0,xx,yy);
 
@@ -1533,7 +1534,7 @@ mn3=min(n3,lY);
 }
 jvec=data.frame(jvec);
 names(jvec)=c("j","k","v","u","a","tau2","nu","b","x","y");
-ret=list(d0,dat0,endi,jvec,Y,X); 
+ret=list(d0,dat0,endi,jvec,Y,X);
 names(ret)= nret;
 return(ret);
 }
@@ -1543,7 +1544,7 @@ getBd0=function(xx,d0,dat0,ID,reso,about,titl,unit,ln,Y,X,cab=F)
 nret=c("d0","dat0","endi");
 mret=c("d0","about","title","units","ln");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6))); d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6))); d1=cbind(d1,"END");
 names(d1)=names(d0)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d1[-1,];
@@ -1554,25 +1555,25 @@ if(n0 == 0)
 	u=getBxr(xx,nd0,reso,ln,Y,X)
 	d1[1,1:6]=c(u[1:2],1,u[3],xx,u[4]); d1$ID=ID;
 	if(u[2]*(1-u[2])!=0)
-		{endi=1; ret=list(d0,dat0,endi); names(ret)=nret; 
-		ret5=list(d0,about,titl,unit,ln); names(ret5)=mret; 
-		if(nrow(d0) > 0) {ptest(ret5,1);} 
+		{endi=1; ret=list(d0,dat0,endi); names(ret)=nret;
+		ret5=list(d0,about,titl,unit,ln); names(ret5)=mret;
+		if(nrow(d0) > 0) {ptest(ret5,1);}
 		return(ret);
-		}	
-	} 	
+		}
+	}
 if(n0 > 0)	{d1=dat0[1,]; dat0=dat0[-1,]; if(is.null(dat0)) dat0=d1[-1,]; n0=nrow(dat0);}
 d0=rbind(d0,d1);
 ret=list(d0,dat0,endi);
 if(cab)about=chabout(about,nrow(d0),4);
 ret5=list(d0,about,titl,unit,ln); names(ret5)=mret;
-if(nrow(d0) > 1) ptest(ret5,1);	
+if(nrow(d0) > 1) ptest(ret5,1);
 names(ret)=nret;
 return(ret);
 }
 
 getBxr=function(x,nd0,reso,ln,Y,X)
 {
-if(ln) x=exp(x); 
+if(ln) x=exp(x);
 rx=round(x,5); if(reso > 0)rx=round(x/reso)*reso;
 if(length(X) > 0) xx=c(X[1],Y) else xx=c(rx,Y)
 tx=xx[1];
@@ -1582,7 +1583,7 @@ return(c(xx,rx,tx));
 
 prd0=function(z)
 {
-        test=z$test; 
+        test=z$test;
 	  d00=z$d0;
         en=z$en;
         pp=z$p;
@@ -1613,7 +1614,7 @@ prd0=function(z)
                 gg=glmmle(d00[1:n[1],]); g1=round(gg$mu,5); g2=round(gg$sig,5);
                 xx=paste("\nPhase I complete, (Mu, Sig) = (",g1,", ",g2,").\n",sep="");
                 cat(xx);
-                        
+
 			if(en[2] == 0 & i == en[1] & n2n3 == 2)
                         {
  			xx=paste("Enter Phase II (D-Optimal) size n2: ",en[2],"\n",sep="");
@@ -1632,7 +1633,7 @@ prd0=function(z)
                         cat(xx);
                         }
                 }
-                        
+
                 if(en[2] != 0 & i == n[2]){
                 if(en[3]>0)
 		    {
@@ -1651,7 +1652,7 @@ prd0=function(z)
                         {
                         xx=paste("Enter Phase III (RMJ) size n3: ",en[3],"\n",sep="");
                         if(i7 == 0)cat(xx);
-                        xx=paste("Enter p lam: ",pp," ",llam,"\n\n",sep=""); 
+                        xx=paste("Enter p lam: ",pp," ",llam,"\n\n",sep="");
                         cat(xx);
                         }
                 }
@@ -1668,7 +1669,7 @@ prd0=function(z)
                 cat(xx);
 
 		    if(n2n3 == 4) {xx=paste("Enter p lam: ",pp," ",llam,"\n\n",sep=""); cat(xx); }
-		    n2n3=5;	
+		    n2n3=5;
                 }
         }
 return(n2n3)
@@ -1722,13 +1723,13 @@ blrb7=function()
 x=
 "
   Entry into Phase II requires that a positive and finite sigma exists.
-  Thus, M0 > m1 (for overlap) & delta = Avg(X[Y==1]) - Avg(X[Y==0]) > 0. 
-  The second condition ensures that the regression slope coefficient is 
+  Thus, M0 > m1 (for overlap) & delta = Avg(X[Y==1]) - Avg(X[Y==0]) > 0.
+  The second condition ensures that the regression slope coefficient is
   positive. Since your completed 3pod or Neyer Phase I did not meet both
-  conditions, it has been suspended for your further review. Bruceton 
-  and Langlie Phase I's have been programmed to continue on until both 
-  conditions are met. 
-    
+  conditions, it has been suspended for your further review. Bruceton
+  and Langlie Phase I's have been programmed to continue on until both
+  conditions are met.
+
 "
 cat(x)
 return()
@@ -1738,14 +1739,14 @@ blrb8=function()
 {
 x=
 "
-  Going from I3 to Phase II requires that a positive, finite sigma exists. 
-  Thus, M0 > m1 (for overlap) & delta = Avg(X[Y==1]) - Avg(X[Y==0]) > 0. 
-  The second condition ensures that the regression slope coefficient is 
+  Going from I3 to Phase II requires that a positive, finite sigma exists.
+  Thus, M0 > m1 (for overlap) & delta = Avg(X[Y==1]) - Avg(X[Y==0]) > 0.
+  The second condition ensures that the regression slope coefficient is
   positive. Since your completed 3pod or Neyer Phase I did not meet both
-  conditions, it has been suspended for your further review. Bruceton 
-  and Langlie Phase I's have been programmed to continue on until both 
-  conditions are met. 
-    
+  conditions, it has been suspended for your further review. Bruceton
+  and Langlie Phase I's have been programmed to continue on until both
+  conditions are met.
+
 "
 cat(x)
 return()
@@ -1763,7 +1764,7 @@ return(a[4:7]);
 
 fixw=function(w,k=1)
 {
-# lop off the last k entries and resume test 
+# lop off the last k entries and resume test
 if(k < 1) return(w);
 for(i in 1:k)w=fixw1(w)
 return(w)
@@ -1792,7 +1793,7 @@ if(l0 == 4)
 if(l0 == 3)
 {
 	# Case 2
-	cas=2; d0=d0[-n,]; en[1]=en[1]-1; 
+	cas=2; d0=d0[-n,]; en[1]=en[1]-1;
 }
 
 if(l0 == 2)
@@ -1800,26 +1801,26 @@ if(l0 == 2)
 	if(n > l[1] & n < l[1]+l[2])
 	{
 	# Case 4;
-	cas=4; d0=d0[-n,]; 
+	cas=4; d0=d0[-n,];
 	}
 
 	if(n == l[1]+l[2])
 	{
 	# Case 5;
-	cas=5; d0=d0[-n,]; 
+	cas=5; d0=d0[-n,];
 	}
 
 	if(n == l[1])
 	{
 	# Case 3;
-	cas=3; en[2]=0; 
-	} 
+	cas=3; en[2]=0;
+	}
 }
 
 if(l0 == 1)
 {
 	# Case 6
-	cas=6; en[3]=0; n2n3=0; 
+	cas=6; en[3]=0; n2n3=0;
 }
 
 if(l0 == 0)
@@ -1827,17 +1828,17 @@ if(l0 == 0)
 	if(n == l[1]+l[2])
 	{
 	# Case 7
-	cas=7; p=0; n2n3=6; 
+	cas=7; p=0; n2n3=6;
 	}
 	if(n > l[1]+l[2] & n <= l[1]+l[2]+l[3])
 	{
 	# Case 8
-	cas=8; d0=d0[-n,]; 
+	cas=8; d0=d0[-n,];
 	}
 	if(n > l[1]+l[2]+l[3])
 	{
 	# Case 9
-	cas=9; d0=d0[-n,]; d0=d0[-(n-1),]; 
+	cas=9; d0=d0[-n,]; d0=d0[-(n-1),];
 	}
 }
 
@@ -1852,7 +1853,7 @@ s47=c(nen1,en[2:3],p); loc=4:7;
 
 if(cas > 1 | test == 2) w$about=chabout(about,s47,loc);
 
-rd0=d0; rd0$X=round(rd0$X,5); names(rd0)[1]="i,X"; 
+rd0=d0; rd0$X=round(rd0$X,5); names(rd0)[1]="i,X";
 rd0$EX=round(rd0$EX,5);
 rd0$TX=round(rd0$TX,5);
 write.table(rd0,file="fixw.txt",quote=F,sep=",",na="i");
@@ -1866,7 +1867,7 @@ pdat1=function(dat,notitle=F,ud=F)
 {
 # when resuming, names(dat) = d0, about, title, units and ln. That's it!
 # That's because ptest(dat,1) is called from getd0
-dt=dtt=dat$d0; about=dat$about; titl=dat$title; unit=dat$unit; ln=dat$ln; 
+dt=dtt=dat$d0; about=dat$about; titl=dat$title; unit=dat$unit; ln=dat$ln;
 ttl0=dat$ttl0; ttl1=dat$ttl1; ttl2=dat$ttl2; en12=dat$en12; en=dat$en;
 h2=""; if(ln) h2="Log ";
 # pee, neyer, & test aren't defined during the test. Need to infer them.
@@ -1886,11 +1887,11 @@ if(fini == 1) {dtt=dtt[-nid,]; x=x[-nid]; y=y[-nid]; id=id[-nid]; nid=nid-1;}
 zee=x[1];
 if(pee*(1-pee) > 0 & fini == 1) { yu=glmmle(dtt); zee=yu$mu+qnorm(pee)*yu$sig; }
 about1=expression(paste("{",mu[lo],",",mu[hi],",",sigma[g],"|",n[1],",",n[2],",",n[3],"|p,",lambda,",res}",sep=""));
-w=pretty(x,n=10);	
-ens=1:nid; rd=which(y==1); gr=which(y==0); 
+w=pretty(x,n=10);
+ens=1:nid; rd=which(y==1); gr=which(y==0);
 ylm=range(pretty(c(x,max(x,na.rm=T)+diff(range(x))/80),n=10));
 
-# for tick locations 
+# for tick locations
 lb=nid-1; if(lb > 30) lb=ceiling(lb/2);
 
 if(nid == 1) return();
@@ -1914,14 +1915,14 @@ lnum=1.8;
 mtext(paste("Test Level (",unit,")",sep=""),side=2,line=lnum);
 mtext("Trial Number",side=1,line=2.2);
 
-points(ens[rd],x[rd],pch=25,cex=.7,bg=4); 
+points(ens[rd],x[rd],pch=25,cex=.7,bg=4);
 points(ens[gr],x[gr],pch=24,cex=.7,bg=3);
 
 if(test == 1) tf=add3pod(dtt,ylm);
 if(test == 2) tf=addneyr(dtt,ylm);
-if(test >  2) 
+if(test >  2)
   {
-  addBorL(dtt,ylm,ud); 
+  addBorL(dtt,ylm,ud);
   if(length(en12)==2)
 	{
 	abline(v=en12[1]+.5,lty=3);
@@ -1932,7 +1933,7 @@ if(test >  2)
 		i20=which(yd2==0 & xd2==max(xd2[yd2==0])); i20=i20[1];
 		i21=which(yd2==1 & xd2==min(xd2[yd2==1])); i21=i21[1];
 	lines(c(i10,en12[1]+.5),rep(xd1[i10],2),col=3,lty=4);
-	lines(c(i11,en12[1]+.5),rep(xd1[i11],2),col=4,lty=4);	
+	lines(c(i11,en12[1]+.5),rep(xd1[i11],2),col=4,lty=4);
 	lines(c(en12[1]+i20,.5+sum(en12)),rep(xd2[i20],2),col=3,lty=4);
 	lines(c(en12[1]+i21,.5+sum(en12)),rep(xd2[i21],2),col=4,lty=4);
 	}
@@ -1957,8 +1958,8 @@ reset();
 
 pdat2=function(dat,notitle=F)
 {
-dt=dtt=dat$d0; about=dat$about; titl=dat$titl; ln=dat$ln; 
-ttl0=dat$ttl0; ttl1=dat$ttl1; ttl2=dat$ttl2; test=dat$test; 
+dt=dtt=dat$d0; about=dat$about; titl=dat$titl; ln=dat$ln;
+ttl0=dat$ttl0; ttl1=dat$ttl1; ttl2=dat$ttl2; test=dat$test;
 tnam=c("3pod","Neyer");
 if(is.null(about)) {cat("This function only works for lists created by gonogo\n\n"); return();}
 # pee & neyer aren't defined while running the test. Need to infer neyer.
@@ -1970,12 +1971,12 @@ if(fini == 1) {dtt=dtt[-nid,]; id=id[-nid]; nid=nid-1;}
 if(pee*(1-pee) > 0 & fini == 1) { yu=glmmle(dtt); zee=yu$mu+qnorm(pee)*yu$sig; }
 about1=expression(paste("{",mu[lo],",",mu[hi],",",sigma[g],"|",n[1],",",n[2],",",n[3],"|p,",lambda,",res}",sep=""));
 
-kp=0; 
-	for(j in 1:nid) 
-	{	
-	jj=m.update(dtt[1:j,]); 
-	M0=jj$M0; m1=jj$m1; 
-	uv=c(M0,m1); 
+kp=0;
+	for(j in 1:nid)
+	{
+	jj=m.update(dtt[1:j,]);
+	M0=jj$M0; m1=jj$m1;
+	uv=c(M0,m1);
 	if(!any(is.na(uv))) {if(M0 > m1) kp=j;}
 	if(kp > 0) break;
 	}
@@ -1983,13 +1984,13 @@ mus=sigs=zee=zee0=rep(0,nid-kp+1);
 
 if(kp == 0) cat("ptest(z,plt=2) option requires having completed Phase I2 (i.e., achieving overlap)\n");
 if(kp > 0)
-{	
-for(j in kp:nid) {g=glmmle(dtt[1:j,]); mus[j-kp+1]=g$mu; sigs[j-kp+1]=g$sig;}	
+{
+for(j in kp:nid) {g=glmmle(dtt[1:j,]); mus[j-kp+1]=g$mu; sigs[j-kp+1]=g$sig;}
 if(pee > 0 & pee < 1)zee=mus+qnorm(pee)*sigs;
 par(mfrow=c(2,1), mar=c(1.5,2.5,.5,.5), oma=c(2,2,3.5,2));
 lmu=pretty(mus); lsig=pretty(sigs); lx=pretty(c(kp,nid)); rx=kp:nid; rxx=range(rx);
 if(diff(rxx)==0)rxx=rxx+c(-1,1)
-plot(kp:nid,mus,type="l",xlab="",ylab="",xlim=rxx,xaxt="n",ylim=range(lmu),yaxt="n"); 
+plot(kp:nid,mus,type="l",xlab="",ylab="",xlim=rxx,xaxt="n",ylim=range(lmu),yaxt="n");
 axis(1,at=kp:nid,labels=T,tck=-.03,mgp=c(1,.4,0),cex.axis=.8);
 axis(2,at=lmu,labels=T,tck=-.02,mgp=c(1,.4,0),las=2,cex.axis=.8);
 if(ln) mtext("Mean(Log)",side=2,line=3,cex=1) else mtext("Mean",side=2,line=3,cex=1);
@@ -1997,18 +1998,18 @@ if(ln) mtext("Mean(Log)",side=2,line=3,cex=1) else mtext("Mean",side=2,line=3,ce
 lt=3; abline(h=lmu,lty=lt); abline(v=lx,lty=lt);
 points(kp:nid,mus,pch=16,cex=.8);
 if(kp == nid) nlx=2 else nlx=nid-kp;
-plot(kp:nid,sigs,type="l",xlab="",ylab="",ylim=range(lsig),yaxt="n",xlim=rxx,xaxt="n"); 
+plot(kp:nid,sigs,type="l",xlab="",ylab="",ylim=range(lsig),yaxt="n",xlim=rxx,xaxt="n");
 axis(1,at=kp:nid,labels=T,tck=-.03,mgp=c(1,.4,0),cex.axis=.8);
 axis(2,at=lsig,labels=T,tck=-.02,mgp=c(1,.4,0),las=2,cex.axis=.8);
 mtext("Cumulative Test Size (n)",side=1,line=0,cex=1,outer=T);
 if(ln) mtext("SD(Log)",side=2,line=3,cex=1) else mtext("SD",side=2,line=3,cex=1);
 
-abline(h=lsig,lty=lt); abline(v=lx,lty=lt);	
+abline(h=lsig,lty=lt); abline(v=lx,lty=lt);
 points(kp:nid,sigs,pch=16,cex=.8);
 par(mfrow=c(1,1));
 els=c(2.5,1);
 about8=paste(ttl0,", Sequence of MLE's",sep="");
-if(!notitle) 
+if(!notitle)
 {
 mtext(about8,side=3,line=2.8,cex=1.25);
 if(test > 2){
@@ -2026,7 +2027,7 @@ if(pee == 0) return(matrix(c(mus,sigs),ncol=2)) else return(matrix(c(mus,sigs,ze
 pdat3=function(w,notitle=F)
 {
 dt=dtt=w$d0; about=w$about; titl=w$titl; unit=w$unit; ln=w$ln; pee=w$p;
-ttl0=w$ttl0; ttl1=w$ttl1; ttl2=w$ttl2; test=w$test; 
+ttl0=w$ttl0; ttl1=w$ttl1; ttl2=w$ttl2; test=w$test;
 if(test > 4 | is.null(w$about)) {cat("This function only works for lists created by gonogo\n\n"); return();}
 
 if(dev.cur() == 1 | dev.cur() == 2)  plot.new();
@@ -2049,12 +2050,12 @@ fini=0; if(id[nid]=="III3") fini=1;
 if(fini == 1) {dtt=dtt[-nid,]; id=id[-nid]; nid=nid-1;}
 about1=expression(paste("{",mu[lo],",",mu[hi],",",sigma[g],"|",n[1],",",n[2],",",n[3],"|p,",lambda,",res}",sep=""));
 
-kp=0; 
-	for(j in 1:nid) 
-	{	
-	jj=m.update(dtt[1:j,]); 
-	M0=jj$M0; m1=jj$m1; 
-	uv=c(M0,m1); 
+kp=0;
+	for(j in 1:nid)
+	{
+	jj=m.update(dtt[1:j,]);
+	M0=jj$M0; m1=jj$m1;
+	uv=c(M0,m1);
 	if(!any(is.na(uv))) {if(M0 > m1) kp=j;}
 	if(kp > 0) break;
 	}
@@ -2068,7 +2069,7 @@ sz=cx[imx]
 
 if(kp > 0)
 {
-if(ln) z=qrda(dtt,conf,J,ln=T,labx=unit) else 
+if(ln) z=qrda(dtt,conf,J,ln=T,labx=unit) else
 z=qrda(dtt,conf,J,labx=unit);
 rmzm=xlead0(z$mu,3); rmzs=xlead0(z$sig,3);
 about2=substitute(paste(ttl0,", (",hat(mu),",",hat(sigma),",n) = (",rmzm,",",rmzs,",",nid,")",sep=""));
@@ -2105,6 +2106,7 @@ return(L)
 
 #INDEX 36 through 53, Xsim.R (18 functions)
 
+#' @export
 gonogoSim=function(mlo,mhi,sg,n2=0,n3=0,p=0,lam=0,dm=0,ds=0,reso=0,ln=F,plt=0,iseed=-1,IIgo=T,M=1,test=1,BL=c(4,1,0))
 {
 dat0=data.frame(numeric(0));
@@ -2129,12 +2131,12 @@ if(test < 3)
 	epsi=del5/1000;
 	if(sg>(mhi-mlo)/6+epsi){cat(paste("sg is too big (sg <= ",round(del5,4),")\nTry again\n\n",sep="")); return();}
 }
-	
+
 	if(!IIgo) {n2=n3=p=lam=0};
 
 	if(n3 != 0 & (p <= 0 | p >= 1 | lam <= 0)) {cat(paste("p must be between 0 & 1 and lambda > 0.\nTry again\n\n",sep="")); return();}
-	
-	savinit=c(mlo,mhi,sg); 
+
+	savinit=c(mlo,mhi,sg);
 
 if(ln){
 	if(test < 3) { u=fgs(mlo,mhi,sg); mlo=u[1]; mhi=u[2]; sg=u[3]; }
@@ -2152,17 +2154,17 @@ if(ln){
 
 	init=c(mlo,mhi,sg);
 
-if(test > 2) 
+if(test > 2)
 {
 tx=paste(BL,collapse="");
 if(all(BL[-1] == c(0,1)) | all(BL[-1] == c(1,1))) BL[2:3]=c(1,0);
-I=BL[-1]; 
+I=BL[-1];
 a=prtrans(I); dud=a$dud; lev=a$lev;
-pm=c(1,-1); iz=which(I==0); lz=length(iz); 
-if(lz == 1) I=I[-iz]; 
-zp=zpfun(I); 
+pm=c(1,-1); iz=which(I==0); lz=length(iz);
+if(lz == 1) I=I[-iz];
+zp=zpfun(I);
 if(lz == 0)zp=c(0,1)+pm*zp;
-if(lz == 1){if(iz == 1) zp=1-zp;} 
+if(lz == 1){if(iz == 1) zp=1-zp;}
 pchar=paste(xlead0(zp,4),collapse=",");
 }
 
@@ -2175,12 +2177,12 @@ tsig=targsig+ds;
 
 if (test == 1)
   {
-	w=pI1(mlo,mhi,sg,tmu,tsig,reso,ln,iseed); 
-	d0=w[[1]]; dat0=w[[2]]; 
+	w=pI1(mlo,mhi,sg,tmu,tsig,reso,ln,iseed);
+	d0=w[[1]]; dat0=w[[2]];
 
-	w=pI2(d0,dat0,sg,tmu,tsig,reso,ln,iseed); 
+	w=pI2(d0,dat0,sg,tmu,tsig,reso,ln,iseed);
 	d0=w[[1]]; dat0=w[[2]]; sg=w[[3]]; n12=0; n1=n11=nrow(d0);
-	
+
 	if(IIgo)
 	{
 	w=pI3(d0,dat0,sg,tmu,tsig,reso,ln,iseed);
@@ -2191,12 +2193,12 @@ if (test == 1)
 		if(n3 < 0) n3=max(-(n3+n2+n11+n12),0);
 	if(n3 > 0 & p*(1-p) > 0 & lam >= 0) {w=spIIIsim(d0,dat0,tmu,tsig,n3,p,lam,reso,ln,iseed); d0=w[[1]]; dat0=w[[2]]; jvec=w[[3]];}
 	}
-  } 
+  }
 
 if(test == 2)
   {
-	w=npI(mlo,mhi,sg,tmu,tsig,reso,ln,iseed); 
-	d0=w[[1]]; dat0=w[[2]]; n1=n11=nrow(d0); n12=0;	
+	w=npI(mlo,mhi,sg,tmu,tsig,reso,ln,iseed);
+	d0=w[[1]]; dat0=w[[2]]; n1=n11=nrow(d0); n12=0;
 
 	if(IIgo)
 	{
@@ -2209,9 +2211,9 @@ if(test == 2)
 
 if(test > 2)
   {
-	if(test == 3) w=bpI(mlo,mhi,sg,tmu,tsig,reso,ln,iseed,BL) else 
+	if(test == 3) w=bpI(mlo,mhi,sg,tmu,tsig,reso,ln,iseed,BL) else
 	w=lpI(mlo,mhi,sg,tmu,tsig,reso,ln,iseed,BL)
-	d0=w[[1]]; dat0=w[[2]]; n1=n11=nrow(d0); n12=0;	
+	d0=w[[1]]; dat0=w[[2]]; n1=n11=nrow(d0); n12=0;
 	en12=w[[3]]; n11=en12[1]; if(length(en12) > 1) n12=en12[2];
 
 	if(IIgo)
@@ -2225,33 +2227,33 @@ if(test > 2)
 
 	en=c(n11,n12,n2,n3);
 	v=glmmle(d0);
- 
+
 	abo=wabout13(M,mlo1,mhi1,sgrem,p,n11,n12,n2,n3,lam,reso);
-	
+
 	h1=""; if(ln) h1="Log ";
 
 	titl=NULL;
 
-	rmzm=round(targmu,3); if(abs(rmzm) < 1) rmzm=gsub("0.",".",as.character(rmzm),fixed=T); 
+	rmzm=round(targmu,3); if(abs(rmzm) < 1) rmzm=gsub("0.",".",as.character(rmzm),fixed=T);
 	rmzs=round(targsig,3); if(abs(rmzs) < 1) rmzs=gsub("0.",".",as.character(rmzs),fixed=T);
 	rmdm=round(dm,3); if(abs(rmdm) < 1) rmdm=gsub("0.",".",as.character(rmdm),fixed=T);
 	rmds=round(ds,3); if(abs(rmds) < 1) rmds=gsub("0.",".",as.character(rmds),fixed=T);
 
-	if(iseed < 0) 
+	if(iseed < 0)
 	{ttl0=substitute(paste("(",mu[t],", ",sigma[t],") = (",rmzm,", ",rmzs,") + (",rmdm,", ",rmds,")",sep=""));} else
 	{ttl0=substitute(paste("(",mu[t],", ",sigma[t],") = (",rmzm,", ",rmzs,") + (",rmdm,", ",rmds,"), ",i[s]," = ",iseed,sep=""));}
 
-	ttl1=ttl2=NULL; 
-	if(ln) h2="Log " else h2=""; 
+	ttl1=ttl2=NULL;
+	if(ln) h2="Log " else h2="";
 	if(test == 1) ttl2=paste(h2,"3pod",sep="");
 	if(test == 2) ttl2=paste(h2,"Neyer",sep="");
-	if(test == 3 | test == 4) 
+	if(test == 3 | test == 4)
 	{
 	if(test == 3) ttl1=substitute(paste(h2,Bruc[tx],sep=""));
 	if(test == 4) ttl1=substitute(paste(h2,Lang[tx],sep=""));
 	ttl2=substitute(paste(h2,L[pchar],sep=""));
 	}
-	
+
 	if(M==1)uni="X" else uni=paste(M,"X",sep="");
 	ret=list(d0,jvec,tmu,tsig,v$mu,v$sig,en,abo,titl,ttl1,ttl2,ttl0,uni,p,reso,ln,lam,test,M,dm,ds,iseed,BL,dud,lev);
 	names(ret)=c("d0","jvec","tmu","tsig","mhat","shat","en","about","title","ttl1","ttl2","ttl0","units","p","reso",
@@ -2265,7 +2267,7 @@ pI1=function(mlo,mhi,sg,tmu,tsig,reso,ln,iseed,dat0=data.frame(numeric(0)))
 {
 nret=c("d0","dat0");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
@@ -2274,11 +2276,11 @@ epsi=del/1000;
 mi=c(mlo,mhi);
 a=matrix(c(.75,.25,.25,.75),ncol=2,byrow=T);
 xx=t(a%*%mi);
-	
+
 for(i in 1:2)	{u=gd0(xx[i],d0,dat0,"I1",tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0; }
 
 i1=0;
-	
+
 x=d0$X; y=d0$Y;
 if(all(y==c(0,0)))
 	{
@@ -2288,10 +2290,10 @@ if(all(y==c(0,0)))
 		i1=i1+1;
 		if(i1%%3 == 0) sg=2*sg;
 		xx=xx+1.5*i1*sg;
-		u=gd0(xx,d0,dat0,"I1(i)",tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0; 		
+		u=gd0(xx,d0,dat0,"I1(i)",tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 		if(d0$Y[nrow(d0)] == 1) break;
 		}
-	}		
+	}
 
 if(all(y==c(1,1)))
 	{
@@ -2301,11 +2303,11 @@ if(all(y==c(1,1)))
 		i1=i1+1;
 		if(i1%%3 == 0) sg=2*sg;
 		xx=xx-1.5*i1*sg;
-		u=gd0(xx,d0,dat0,"I1(ii)",tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;		
+		u=gd0(xx,d0,dat0,"I1(ii)",tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 		if(d0$Y[nrow(d0)] == 0) break;
 		}
 	}
-	
+
 if(all(y==c(0,1))) d0$ID=rep("I1(iii)",length(y));
 
 if(all(y==c(1,0)))
@@ -2315,9 +2317,9 @@ if(all(y==c(1,0)))
 			{
 			u=gd0(xx[i],d0,dat0,"I1(iv)",tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 			}
-	}	
-ret=list(d0,dat0); 
-names(ret)=nret; 
+	}
+ret=list(d0,dat0);
+names(ret)=nret;
 return(ret);
 }
 
@@ -2333,29 +2335,29 @@ while(1)
 		{
 		xx=(M0+m1)/2;
 		id=paste(idii,"I2(ib)",sep="");
-		u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0; 		
+		u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 		j=m.update(d0); m1=j$m1; M0=j$M0; del=m1-M0;
 		}
 	if(del < 0) {ret=list(d0,dat0,sg); names=nret; return(ret);}
 	j=n.update(d0); n0=j$n0; n1=j$n1;
-	if(del >= 0) 
+	if(del >= 0)
 		{
 		if(n0 > n1)
 			{
 			xx=m1+0.3*sg;
 			id=paste(idii,"I2(ic)",sep="");
-			u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;		
+			u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 			if(d0$Y[nrow(d0)] == 0) {ret=list(d0,dat0,sg); names=nret; return(ret);}
 			if(d0$Y[nrow(d0)] == 1)
 				{
-				xx=M0-.3*sg;	
+				xx=M0-.3*sg;
 				id=paste(idii,"I2(ic)",sep="");
-				u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;		
+				u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 				if(d0$Y[nrow(d0)] == 1) {ret=list(d0,dat0,sg); names=nret; return(ret);}
 				if(d0$Y[nrow(d0)] == 0)
 					{
-					sg=2*sg/3;	
-					idii=paste(idii,"r",sep="");	
+					sg=2*sg/3;
+					idii=paste(idii,"r",sep="");
 					}
 				}
 			}
@@ -2363,18 +2365,18 @@ while(1)
 			{
 			xx=M0-.3*sg;
 			id=paste(idii,"I2(id)",sep="");
-			u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;		
+			u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 			if(d0$Y[nrow(d0)] == 1) {ret=list(d0,dat0,sg); names=nret; return(ret);}
 			if(d0$Y[nrow(d0)] == 0)
 				{
-				xx=m1+.3*sg;	
+				xx=m1+.3*sg;
 				id=paste(idii,"I2(id)",sep="");
-				u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;		
+				u=gd0(xx,d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 				if(d0$Y[nrow(d0)] == 0) {ret=list(d0,dat0,sg); names=nret; return(ret);}
 				if(d0$Y[nrow(d0)] == 1)
 					{
-					sg=2*sg/3;	
-					idii=paste(idii,"r",sep="");	
+					sg=2*sg/3;
+					idii=paste(idii,"r",sep="");
 					}
 				}
 			}
@@ -2391,12 +2393,12 @@ if(sg+del > 0)xx=xx+c(1,-1)*sg/2;
 lxx=length(xx)
 for(i in 1:lxx)
 	{
-	if(i < lxx) u=gd0(xx[i],d0,dat0,"I3",tmu,tsig,reso,ln,iseed); 
+	if(i < lxx) u=gd0(xx[i],d0,dat0,"I3",tmu,tsig,reso,ln,iseed);
 	if(i == lxx) u=gd0(xx[i],d0,dat0,"I3",tmu,tsig,reso,ln,iseed);
 	d0=u$d0; dat0=u$dat0;
 	}
 ret=list(d0,dat0);
-names(ret)=c("d0","dat0");		
+names(ret)=c("d0","dat0");
 return(ret);
 }
 
@@ -2404,7 +2406,7 @@ npI=function(mlo,mhi,sg,tmu,tsig,reso,ln,iseed,dat0=data.frame(numeric(0)))
 {
 nret=c("d0","dat0");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6))); d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6))); d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
@@ -2417,11 +2419,11 @@ n=0;
 
 bl=c("B0","B1","B2","B3","B4");
 
-# lf: a flag to adjust X1 & X2 in the ln=T neyer case 
+# lf: a flag to adjust X1 & X2 in the ln=T neyer case
 # which deviates a tad from a true neyer on the logs
 # but allows X1 & X2 to stay the same in both ln modes
 
-lf=0; 
+lf=0;
 
 while(1)
 	{
@@ -2438,7 +2440,7 @@ while(1)
 				# PART 2 **************************************************
 				j=m.update(d0); m1=j$m1; M0=j$M0; dif=m1-M0;
 				dif = round(m1-M0,14)
-				if(dif > sg) block=3 else 
+				if(dif > sg) block=3 else
 					{
 					if(dif >= 0) block=4 else block=5;
 					}
@@ -2456,8 +2458,8 @@ while(1)
 	{xbef=log((3*v[1]+v[2])/4); lf=0;}
 
 	if(block == 3) xbef = (m1 + M0)/2
-	if(block == 4) 
-	{ 
+	if(block == 4)
+	{
 	m=(m1+M0)/2; es=sg; sg=.8*sg;
 	m = max(xlo, min(m, xhi))
 	es = min(es,(xhi-xlo))
@@ -2466,10 +2468,10 @@ while(1)
 	}
 	if(block == 5) break;
 	u=gd0(xbef,d0,dat0,bl[block+1],tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
-	n=nrow(d0);		
+	n=nrow(d0);
 }
-ret=list(d0,dat0); 
-names(ret)=nret; 
+ret=list(d0,dat0);
+names(ret)=nret;
 return(ret);
 }
 
@@ -2485,12 +2487,12 @@ udid=numeric(0);
 
 nret=c("d0","dat0","en12");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
 
-en12=0; 
+en12=0;
 
 for(ijk in 1:lox)
 {
@@ -2514,12 +2516,12 @@ while(dn == 0)
 {
 u=gd0(xx,d0,dat0,"IB",tmu,tsig,reso,ln,iseed)
 
-d0=u$d0; dat0=u$dat0;  
+d0=u$d0; dat0=u$dat0;
 icnt=icnt+1; nx=length(d0$X); iacc=iacc+d0$X[[nx]];
 y=d0$Y;
 ny=length(y);
 
-if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else 
+if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else
 {yseq=c(yseq,1-y[ny]); udid=c(udid,1-y[ny]);}
 
 lseq=list(yseq); ns=bintodec(lseq);
@@ -2584,12 +2586,12 @@ udid=numeric(0);
 
 nret=c("d0","dat0","en12");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6)));d1=cbind(d1,"END");
 d0=d1[-1,]; names(d0)=names(d1)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d0;
 
-en12=0; 
+en12=0;
 
 for(ijk in 1:lox)
 {
@@ -2612,13 +2614,13 @@ dn=0; ud=xud=numeric(0); yseq=numeric(0);
 while(dn == 0)
 {
 u=gd0(xx,d0,dat0,"IB",tmu,tsig,reso,ln,iseed)
-d0=u$d0; dat0=u$dat0;  
+d0=u$d0; dat0=u$dat0;
 icnt=icnt+1; nx=length(d0$X); iacc=iacc+d0$X[[nx]];
 
 y=d0$Y;
 ny=length(y);
 
-if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else 
+if(GE5) {yseq=c(yseq,y[ny]); udid=c(udid,y[ny]);} else
 {yseq=c(yseq,1-y[ny]); udid=c(udid,1-y[ny]);}
 
 lseq=list(yseq); ns=bintodec(lseq);
@@ -2701,10 +2703,10 @@ for(i in 1:n2)
 	xstar[i]=mu4[i]+kstar(b)*sg4[i];
 	id="II1";
 	if(i > 1) id="II2";
-	u=gd0(xstar[i],d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;		
+	u=gd0(xstar[i],d0,dat0,id,tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 	}
 ret=list(d0,dat0);
-names(ret)=c("d0","dat0");		
+names(ret)=c("d0","dat0");
 return(ret);
 }
 
@@ -2722,27 +2724,27 @@ tau2=sum(t(c(1,qnorm(p)^2))*diag(ww$vcov1));
 # Truncate tau2[1]
 ti=round((c(3,5)/qnorm(.975))^2,4)*sig^2;
 
-#** NEW 
+#** NEW
 if(ln) ti=round((c(3,5)/qlnorm(.975))^2,4)*sig^2;
 
 tau2=min(max(tau2[1],ti[1]),ti[2]);
-	
-# Use Mu Tilda and Sigma Tilda instead of Mu Hat and Sigma Hat 
-m1=min(d0$X,na.rm=T); 
+
+# Use Mu Tilda and Sigma Tilda instead of Mu Hat and Sigma Hat
+m1=min(d0$X,na.rm=T);
 m2=max(d0$X,na.rm=T);
 m2=min(c(mu,m2),na.rm=T);
 mut=max(c(m1,m2),na.rm=T);
 sigt=min(sig,diff(range(d0$X)),na.rm=T);
-	
+
 # Beta = 1/(2* SigmaTilda) per pp 9. You get beta = 0.4302985
 be=1/(2*sigt);
 
-#** NEW 
+#** NEW
 if(ln) be=plnorm(qlnorm(p))/(pnorm(qnorm(p))*sigt)
 
 c1=f3point8(lam);
 nu=sqrt(tau2)*c1;
-	
+
 xx=mut+qnorm(p)*sigt+nu;
 u=gd0(xx,d0,dat0,"III1",tmu,tsig,reso,ln,iseed); d0=u$d0; dat0=u$dat0;
 ny=length(d0$Y); yy=d0$Y[ny];
@@ -2771,7 +2773,7 @@ if(i == n3)
 }
 jvec=data.frame(jvec);
 names(jvec)=c("j","k","v","u","a","tau2","nu","b","x","y");
-ret=list(d0,dat0,jvec); 
+ret=list(d0,dat0,jvec);
 names(ret)=c("d0","dat0","jvec");
 return(ret);
 }
@@ -2780,7 +2782,7 @@ gd0=function(xx,d0,dat0,ID,mu,sig,reso,ln,iseed=-1)
 {
 nret=c("d0","dat0");
 cnam=c("X","Y","COUNT","RX","EX","TX","ID");
-d1=data.frame(t(rep(0,6))); d1=cbind(d1,"END"); 
+d1=data.frame(t(rep(0,6))); d1=cbind(d1,"END");
 names(d1)=names(d0)=cnam;
 d0$ID=as.character(d0$ID);
 if(is.null(dat0)) dat0=d1[-1,];
@@ -2790,10 +2792,10 @@ if(n0 == 0)
 	{
 	u=gxr(xx,mu,sig,reso,ln,iset);
 	d1[1,1:6]=c(u[1:2],1,u[3],xx,u[4]); d1$ID=ID;
-	} 	
+	}
 if(n0 > 0)	{d1=dat0[1,]; dat0=dat0[-1,]; if(is.null(dat0)) dat0=d1[-1,]; n0=nrow(dat0);}
 d0=rbind(d0,d1);
-ret=list(d0,dat0);	
+ret=list(d0,dat0);
 names(ret)=nret;
 return(ret);
 }
@@ -2804,9 +2806,9 @@ if(iset > 0) set.seed(iset);
 xsav=x;
 if(ln) x=exp(x);
 rx=round(x,6); if(reso > 0)rx=round(x/reso)*reso;
-# rx=the stress; Choose a random strength (stren, that is NOT on log scale) 
+# rx=the stress; Choose a random strength (stren, that is NOT on log scale)
 if(ln) stren=rlnorm(1, meanlog = mu, sdlog = sig) else stren=mu+rnorm(1)*sig;
-# If stren is bigger than rx (stress) then r=0; 
+# If stren is bigger than rx (stress) then r=0;
 r=0; if(stren <= rx) r=1;
 x=tx=round(rx,5);
 if(ln) x=round(log(tx),5)
@@ -2816,20 +2818,20 @@ return(c(x,r,rx,tx));
 ntau = function(dat,response=1)
 {
 	# NOTE: ntau(dat,response=0) == -ntau(dat,response=1)
-	# Whatever the response(i.e., 0 or 1) with Pr[response increases as stress increases] 
+	# Whatever the response(i.e., 0 or 1) with Pr[response increases as stress increases]
 	# then a positive ntau(dat) <---> to a proper non-decreasing CDF response model
 	# a negative ntau <---> to a flat response model <---> Mu=-Inf, Sig=Inf, pnorm((X-Mu)/Sig)=C
 	# where C=#responses/#tested = r/n, say. then (X-MU)/Sig=qnorm(r/n) for all X ==> Sig=K, Mu=X-K
 	# For K = Inf (i.e., K very large).
-	
+
 	if(response==0) dat$Y=1-dat$Y;
-	st=dat$X;	
-	i1=which(dat$Y==1); 
-	i0=which(dat$Y==0); 
+	st=dat$X;
+	i1=which(dat$Y==1);
+	i0=which(dat$Y==0);
 	r1=r0=n=dat$COUNT;
-	r1[i0]=0; 
-	r0[i1]=0;	
-	nt=sum(n); n1=sum(r1); 
+	r1[i0]=0;
+	r0[i1]=0;
+	nt=sum(n); n1=sum(r1);
 	tau1=sum((r1/n-n1/nt)*(n*st))
 	tau2=sum(r1*st)-n1*sum(n*st)/nt
 	tau3=sum(r1*st)-n1*mean(st,weights=n)
@@ -2840,17 +2842,17 @@ ntau = function(dat,response=1)
 wabout13=function(M,cmlo,cmhi,csg,p,n11,n12,n2,n3,lam,reso)
 {
 g=", "; f=",";
-cp=as.character(p); cp=gsub("0.",".",cp,fixed=T); 
-cl=as.character(lam); cl=gsub("0.",".",cl,fixed=T); 
+cp=as.character(p); cp=gsub("0.",".",cp,fixed=T);
+cl=as.character(lam); cl=gsub("0.",".",cl,fixed=T);
 cr=as.character(reso); cr=gsub("0.",".",cr,fixed=T);
 cmlo=as.character(cmlo); cmlo=gsub("0.",".",cmlo,fixed=T);
 cmhi=as.character(cmhi); cmhi=gsub("0.",".",cmhi,fixed=T);
 csg=as.character(csg); csg=gsub("0.",".",csg,fixed=T);
-if(M == 1) 
+if(M == 1)
 {
 if(n3 == 0) about=paste("{",cmlo,f,cmhi,f,csg,"|",n11,f,n12,f,n2,f,n3,"|","-",f,"-",f,cr,"}",sep="") else
 about=paste("{",cmlo,f,cmhi,f,csg,"|",n11,f,n12,f,n2,f,n3,"|",cp,f,cl,f,cr,"}",sep="")
-} else 
+} else
 {
 if(n3 == 0) about=paste("{",cmlo,f,cmhi,f,csg,"|",n11,f,n12,f,n2,f,n3,"|","-",f,"-",f,cr,f,M,"}",sep="") else
 about=paste("{",cmlo,f,cmhi,f,csg,"|",n11,f,n12,f,n2,f,n3,"|",cp,f,cl,f,cr,f,M,"}",sep="")
@@ -2862,7 +2864,7 @@ pSdat1=function(dat,notitle=F,ud=F)
 {
 dt=dtt=dat$d0; about=dat$about; titl=dat$titl; unit=dat$unit; pee=dat$p;
 ln=dat$ln; test=dat$test; tmu=dat$tmu; tsig=dat$tsig; lev=dat$lev;
-ttl1=dat$ttl1; ttl2=dat$ttl2; ttl0=dat$ttl0; 
+ttl1=dat$ttl1; ttl2=dat$ttl2; ttl0=dat$ttl0;
 res=dat$reso;
 M=dat$M; dm=dat$dm; ds=dat$ds; iseed=dat$iseed; en=dat$en;
 en12=en[1:2];
@@ -2872,25 +2874,25 @@ x=dt$X; y=dt$Y; id=dt$ID; nid=length(id);
 
 fini=0; if(id[nid]=="III3") fini=1;
 if(fini == 1) {dtt=dtt[-nid,]; x=x[-nid]; y=y[-nid]; id=id[-nid]; nid=nid-1;}
-zee=tzee=x[1]; 
+zee=tzee=x[1];
 if(pee*(1-pee) > 0 & fini == 1)
 {
 yu=glmmle(dtt); zee=yu$mu+qnorm(pee)*yu$sig;
 tzee=dat$tmu+qnorm(pee)*dat$tsig;
 }
 
-# orig units were (mlo,mhi,sg). new units are (mlo,mhi,sg)*M.   
-# To get X's, zee and tzee back into original units divide them by M 
+# orig units were (mlo,mhi,sg). new units are (mlo,mhi,sg)*M.
+# To get X's, zee and tzee back into original units divide them by M
 # x=x/M; zee=zee/M; tzee=tzee/M;
 
 if(M == 1) about1=expression(paste("{",mu[lo],",",mu[hi],",",sigma[g],"|",n[11],",",n[12],",",n[2],",",n[3],"|p,",lambda,",res}",sep="")) else
 about1=expression(paste("{",mu[lo],",",mu[hi],",",sigma[g],"|",n[11],",",n[12],",",n[2],",",n[3],"|p,",lambda,",res,M}",sep=""));
 
-ens=1:nid; rd=which(y==1); gr=which(y==0); 
+ens=1:nid; rd=which(y==1); gr=which(y==0);
 xtz=c(x,tzee,zee);
 ylm=range(pretty(c(xtz,max(xtz,na.rm=T)+diff(range(xtz))/80),n=10));
 
-# for tick locations 
+# for tick locations
 lb=nid-1; if(lb > 30) lb=ceiling(lb/2);
 
 if(nid == 1) return();
@@ -2912,7 +2914,7 @@ lnum=1.8;
 }
 mtext(paste("Test Level (",unit,")",sep=""),side=2,line=lnum);
 mtext("Trial Number",side=1,line=2.2);
-points(ens[rd],x[rd],pch=25,cex=.7,bg=4); 
+points(ens[rd],x[rd],pch=25,cex=.7,bg=4);
 points(ens[gr],x[gr],pch=24,cex=.7,bg=3);
 
 if(test == 1) g7=add3pod(dtt,ylm,sim=T);
@@ -2926,7 +2928,7 @@ if(en[3] > 0 & en[2] == 0) text(en[1]+en[3]/2+.5,ylm[2],"II",cex=.9);
 if(en[4] > 0 & en[2] == 0) text(en[1]+en[3]+en[4]/2+.5,ylm[2],"III",cex=.9);
 }
 
-if(test >  2) 
+if(test >  2)
   {
   if(length(en12)==2)
 	{
@@ -2941,7 +2943,7 @@ if(test >  2)
 }
 
 a0=1;
-sz=1.4; 
+sz=1.4;
 sz1=1.3;
 
 if(!notitle)
@@ -2950,7 +2952,7 @@ if(test > 2) mtext(ttl1,side=3,line=1.8,cex=sz1,adj=0);
 mtext(ttl2,side=3,line=0.5,cex=sz1,adj=0);
 mtext(ttl0,side=3,line=3.4,cex=sz);
 mtext(about1,side=3,line=1.8,cex=sz1,adj=a0);
-mtext(about,side=3,line=0.5,cex=sz1,adj=a0); 
+mtext(about,side=3,line=0.5,cex=sz1,adj=a0);
 if(en[2] > 0) abline(v=en[1]+.5,lty=3)
 }
 
@@ -2982,12 +2984,12 @@ if(fini == 1) {dtt=dtt[-nid,]; id=id[-nid]; nid=nid-1;}
 if(M == 1) about1=expression(paste("{",mu[lo],",",mu[hi],",",sigma[g],"|",n[11],",",n[12],",",n[2],",",n[3],"|p,",lambda,",res}",sep="")) else
 about1=expression(paste("{",mu[lo],",",mu[hi],",",sigma[g],"|",n[11],",",n[12],",",n[2],",",n[3],"|p,",lambda,",res,M}",sep=""));
 
-kp=0; 
-        for(j in 1:nid) 
-        {       
-        jj=m.update(dtt[1:j,]); 
-        M0=jj$M0; m1=jj$m1; 
-        uv=c(M0,m1); 
+kp=0;
+        for(j in 1:nid)
+        {
+        jj=m.update(dtt[1:j,]);
+        M0=jj$M0; m1=jj$m1;
+        uv=c(M0,m1);
         if(!any(is.na(uv))) {if(M0 > m1) kp=j;}
         if(kp > 0) break;
         }
@@ -2996,13 +2998,13 @@ kp=0;
 
 if(kp == 0) cat("ptest(z,plt=2) option requires having completed Phase I2 (i.e., achieving overlap)\n");
 if(kp > 0)
-{       
-for(j in kp:nid) {g=glmmle(dtt[1:j,]); mus[j-kp+1]=g$mu; sigs[j-kp+1]=g$sig;}   
+{
+for(j in kp:nid) {g=glmmle(dtt[1:j,]); mus[j-kp+1]=g$mu; sigs[j-kp+1]=g$sig;}
 if(pee > 0 & pee < 1)zee=mus+qnorm(pee)*sigs;
 par(mfrow=c(2,1), mar=c(1.5,2.5,.5,.5), oma=c(2,2,3.5,2));
 lmu=pretty(mus); lsig=pretty(sigs); lx=pretty(c(kp,nid)); rx=kp:nid; rxx=range(rx);
 if(diff(rxx)==0)rxx=rxx+c(-1,1)
-plot(kp:nid,mus,type="l",xlab="",ylab="",xlim=rxx,xaxt="n",ylim=range(lmu),yaxt="n"); 
+plot(kp:nid,mus,type="l",xlab="",ylab="",xlim=rxx,xaxt="n",ylim=range(lmu),yaxt="n");
 axis(1,at=kp:nid,labels=T,tck=-.03,mgp=c(1,.4,0),cex.axis=.8);
 axis(2,at=lmu,labels=T,tck=-.02,mgp=c(1,.4,0),las=2,cex.axis=.8);
 if(ln) mtext("Mean(Log)",side=2,line=3,cex=1) else mtext("Mean",side=2,line=3,cex=1);
@@ -3010,13 +3012,13 @@ if(ln) mtext("Mean(Log)",side=2,line=3,cex=1) else mtext("Mean",side=2,line=3,ce
 lt=3; abline(h=lmu,lty=lt); abline(v=lx,lty=lt);
 points(kp:nid,mus,pch=16,cex=.8);
 if(kp == nid) nlx=2 else nlx=nid-kp;
-plot(kp:nid,sigs,type="l",xlab="",ylab="",ylim=range(lsig),yaxt="n",xlim=rxx,xaxt="n"); 
+plot(kp:nid,sigs,type="l",xlab="",ylab="",ylim=range(lsig),yaxt="n",xlim=rxx,xaxt="n");
 axis(1,at=kp:nid,labels=T,tck=-.03,mgp=c(1,.4,0),cex.axis=.8);
 axis(2,at=lsig,labels=T,tck=-.02,mgp=c(1,.4,0),las=2,cex.axis=.8);
 mtext("Cumulative Test Size (n)",side=1,line=0,cex=1,outer=T);
 if(ln) mtext("SD(Log)",side=2,line=3,cex=1) else mtext("SD",side=2,line=3,cex=1);
 
-abline(h=lsig,lty=lt); abline(v=lx,lty=lt);     
+abline(h=lsig,lty=lt); abline(v=lx,lty=lt);
 points(kp:nid,sigs,pch=16,cex=.8);
 par(mfrow=c(1,1));
 els=c(2.5,1);
@@ -3049,12 +3051,12 @@ if(fini == 1) {dtt=dtt[-nid,]; nid=nid-1;}
 if(M == 1)about1=expression(paste("{",mu[lo],",",mu[hi],",",sigma[g],"|",n[11],",",n[12],",",n[2],",",n[3],"|p,",lambda,",res}",sep="")) else
 about1=expression(paste("{",mu[lo],",",mu[hi],",",sigma[g],"|",n[11],",",n[12],",",n[2],",",n[3],"|p,",lambda,",res,M}",sep=""));
 
-kp=0; 
-        for(j in 1:nid) 
-        {       
-        jj=m.update(dtt[1:j,]); 
-        M0=jj$M0; m1=jj$m1; 
-        uv=c(M0,m1); 
+kp=0;
+        for(j in 1:nid)
+        {
+        jj=m.update(dtt[1:j,]);
+        M0=jj$M0; m1=jj$m1;
+        uv=c(M0,m1);
         if(!any(is.na(uv))) {if(M0 > m1) kp=j;}
         if(kp > 0) break;
         }
@@ -3071,7 +3073,7 @@ conf=xx[1]; J=xx[2];
 cf=round(conf,4); cf=as.character(cf); cf=gsub("0.",".",cf,fixed=T);
 pcf=substitute(paste(c[],"=",cf,sep=""));
 
-if(ln) z=qrda(dtt,conf,J,ln=T,labx=unit) else 
+if(ln) z=qrda(dtt,conf,J,ln=T,labx=unit) else
 z=qrda(dtt,conf,J,labx=unit);
 r1=.5; if(test == 3 | test == 4) r1=1;
 ntx=substitute(paste(ttl1,", ",pcf,sep=""));
@@ -3214,7 +3216,7 @@ skewL=function(c1,nu,tau2,p,be)
 	# tau2 = the square of tau
 	# nu = sqrt(tau2)*c1 where c1 = f3point8(lambda) (solving 3.8)
 	# Compute a by 3.9 & 3.12 (below	u=E(Zn*M(Zn)) & v=E(M(Zn))	)
-		
+
 		j=qnorm(p)+be*nu;
 		k=sqrt(1+be^2*tau2);
 		v=pnorm(j/k);
@@ -3230,7 +3232,7 @@ skewL=function(c1,nu,tau2,p,be)
 		nnu=sqrt(ntau2)*c1;
 
 	# Compute next b by 3.10 & 3.12
-	
+
 		b=v-(nu-nnu)/a;
 
 	return(c(j,k,v,u,a,ntau2,nnu,b))
@@ -3263,49 +3265,49 @@ glmmle = function(mydata)
 	x = rep(mydata$X, mydata$COUNT);
 	y = rep(mydata$Y, mydata$COUNT);
 	n=length(x);
-	options(warn = -1); 
+	options(warn = -1);
 	nmxx=c("anom", "mix", "one23", "mu", "sig", "maxll", "maxlc");
-		
-	j=m.update(mydata); M0=j$M0; m1=j$m1; 
+
+	j=m.update(mydata); M0=j$M0; m1=j$m1;
 	del=m1-M0; one23=2+sign(del);
-	
+
 	anom=T; mix=F;
 	if(all(y==1) | all(y==0))
 	{
 		mu=NA; sig=NA; ll=NA; lcon=0;
-		xx=list(anom, mix, one23, mu, sig, ll, lcon); 
+		xx=list(anom, mix, one23, mu, sig, ll, lcon);
 		names(xx)=nmxx;
 		return(xx);
 	}
-	
+
 	mix=T; mu=(m1+M0)/2; sig=0;
 	n1=sum(y); lcon=n1*log(n1/n)+(n-n1)*log(1-n1/n);
 
-	if(one23 == 3) 
+	if(one23 == 3)
 		{
 		ll=0;
-		xx=list(anom, mix, one23, mu, sig, ll, lcon); 
+		xx=list(anom, mix, one23, mu, sig, ll, lcon);
 		names(xx)=nmxx;
 		return(xx);
 		}
-		
-	if(one23 == 2) 
+
+	if(one23 == 2)
 		{
-		i0=length(which(x[y==0]==M0)); 	
+		i0=length(which(x[y==0]==M0));
 		i1=length(which(x[y==1]==M0));
 		p1=i1/(i0+i1); ll=i1*log(p1)+i0*log(1-p1);
-		xx=list(anom, mix, one23, mu, sig, ll, lcon); 
+		xx=list(anom, mix, one23, mu, sig, ll, lcon);
 		names(xx)=nmxx;
 		return(xx);
 		}
-	
+
 	u=tauf(x,y); tau=u$tau; p1=u$p1;
-	
-	if(tau <= 0) 
+
+	if(tau <= 0)
 		{
-		mu=-Inf; sig=Inf; 
+		mu=-Inf; sig=Inf;
 		n1=sum(y); ll=n1*log(n1/n)+(n-n1)*log(1-n1/n);
-		xx=list(anom, mix, one23, mu, sig, ll, lcon); 
+		xx=list(anom, mix, one23, mu, sig, ll, lcon);
 		names(xx)=nmxx;
 		return(xx);
 		}
@@ -3316,7 +3318,7 @@ glmmle = function(mydata)
 	xglm = glm(y ~ x, family = binomial(link = probit))
 	ab = as.vector(xglm$coef);
 	mu= -ab[1]/ab[2]; sig=1/ab[2]; ll=llik(mydata,mu,sig);
-	xx=list(anom, mix, one23, mu, sig, ll, lcon); 
+	xx=list(anom, mix, one23, mu, sig, ll, lcon);
 	names(xx)=nmxx;
 	return(xx);
 }
@@ -3339,19 +3341,19 @@ llik = function(mydata, mu, sig)
 
 tauf = function(x,y)
 {
-	# See A. B. OWEN and P. A. ROEDIGER, The Sign of the Logistic Regression Coefficient, 
+	# See A. B. OWEN and P. A. ROEDIGER, The Sign of the Logistic Regression Coefficient,
 	# The American Statistician, November 2014, Vol. 68, No. 4, pp 297 - 301
-	
-	st=x;	
-	i1=which(y==1); 
-	i0=which(y==0); 
+
+	st=x;
+	i1=which(y==1);
+	i0=which(y==0);
 	r1=r0=n=rep(1,length(x));
-	r1[i0]=0; 
-	r0[i1]=0;	
+	r1[i0]=0;
+	r0[i1]=0;
 	nt=sum(n); n1=sum(r1); n0=sum(r0);
-	# tau1=sum((r1/n-n1/nt)*(n*st)); tau2=sum(r1*st)-n1*sum(n*st)/nt; 
+	# tau1=sum((r1/n-n1/nt)*(n*st)); tau2=sum(r1*st)-n1*sum(n*st)/nt;
 	# tau3=sum(r1*st)-n1*weighted.mean(st,n);
-	# tau4=n1*(weighted.mean(st,r1)-weighted.mean(st,n)); 
+	# tau4=n1*(weighted.mean(st,r1)-weighted.mean(st,n));
 	tau5=n0*n1*(weighted.mean(st,r1)-weighted.mean(st,r0))/(n0+n1);
 	xx=list(tau5,n1/nt);
 	names(xx)=c("tau","p1");
@@ -3368,21 +3370,21 @@ yinfomat = function(dat, mu, sig)
 	n = dat$COUNT
 	k = (dat$X - mu)/sig
 	p = pnorm(k) * (1 -pnorm(k))
-	
+
 	z = dnorm(k)
 	v = n*z^2/p
 	v[which(v == Inf)]=0
-	
+
 	# z, e.g., z = 4.881666e-226, is s.t. z^2 == 0 exactly
 	# so that, when p == 0 exactly, v = 0/0 = NA
 	# Therefore, have to remove the NA's if there are any
 	iy=which(is.na(v))
 	if(length(iy) > 0){v=v[-iy]; k=k[-iy];}
-	
+
 	b11= sum(v)
 	b21 = b12 = sum(v*k)
 	b22 = sum(v*k^2)
-	
+
 	# FISHER INFORMATION MATRIX
 	infm = matrix(c(b11, b12, b21, b22), nrow = 2, byrow = T)
 	# DETERMINANT OF INFORMATION MATRIX
@@ -3452,17 +3454,17 @@ kmax=(k1+k2)/2
 return(kmax)
 }
 
-pavdf=function(data.df, ln, plotit = F, lineit = F, labx = "STIMULUS", laby = 
+pavdf=function(data.df, ln, plotit = F, lineit = F, labx = "STIMULUS", laby =
 	"PROBABILITY OF RESPONSE", titl = "PAV SOLUTION")
 {
-	# 
+	#
 	#	FUNCTION TO COMPUTE AND PLOT POOLED ADJACENT VIOLATORS (PAV) ALGORITHM
-	#	responses are assumed to be 1 where Pr[Y=1] increases as the stress increases 
+	#	responses are assumed to be 1 where Pr[Y=1] increases as the stress increases
 	#	data.df is a 3 Column dataframe who's Column Names are:
-	#	X=Stresses, Y=Responses, COUNT=Number of Y's per X, respectively.  
+	#	X=Stresses, Y=Responses, COUNT=Number of Y's per X, respectively.
 	#	RETURNS list with components:	$full,   matrix with a number of rows = length(events)
 	#				 		$unique, matrix with number of rows = length(unique(x))
-	#				 		$coords, matrix with each row a point for plotting pav 
+	#				 		$coords, matrix with each row a point for plotting pav
 	#							   solution vs x for each unique prob estimate
 	#
 	events = data.df$Y
@@ -3527,14 +3529,14 @@ blrb1=function()
 x=
 "
    This program executes the 3podm sensitivity test procedure as described in:
-1. Wu, C. F. J, Tian, Y., Three-phase optimal design of sensitivity 
-   experiments Journal of Statistical Planning and Inference 149 (2014), 1-15 
+1. Wu, C. F. J, Tian, Y., Three-phase optimal design of sensitivity
+   experiments Journal of Statistical Planning and Inference 149 (2014), 1-15
 2. Wang, D. P., Tian, Y., Wu, C. F. Jeff, A Skewed Version of the Robbins-Munro-
    Joseph Procedure for Binary Response, Statistica Sinica (2015), 1679-1689
-3. Wang, D. P., Tian, Y., Wu, C. F. Jeff, Comprehensive Comparisons of Major 
-   Design Procedures for Sensitivity Testing, Journal of Quality 
+3. Wang, D. P., Tian, Y., Wu, C. F. Jeff, Comprehensive Comparisons of Major
+   Design Procedures for Sensitivity Testing, Journal of Quality
    Technology, 52:2 (2020), 155-167
- 
+
    Questions about the R code or use of the procedure may be directed to:
    Paul Roediger <proediger@comcast.net>, and/or
    Douglas Ray, US Army ARDEC, Picatinny Arsenal <douglas.m.ray.civ@mail.mil>
@@ -3549,14 +3551,14 @@ blrb2=function()
 x=
 "
    This program executes the Neyer sensitivity test procedure as described in:
-1. Neyer, Barry T., A D-Optimality-Based Sensitivity Test, Technometrics, 36, 
-   61-70 (1994) 
-2. Ray, D. M., Roediger, P. A., and Neyer, B. T., Commentary: Three-phase 
+1. Neyer, Barry T., A D-Optimality-Based Sensitivity Test, Technometrics, 36,
+   61-70 (1994)
+2. Ray, D. M., Roediger, P. A., and Neyer, B. T., Commentary: Three-phase
    optimal design of sensitivity experiments, Journal of Statistical Planning
    and Inference, 149, 20-25 (2014)
 3. http://neyersoftware.com/SensitivityTest/SensitivityTestFlyer.htm
 
-   Questions about the R code or use of the procedure may be directed to: 
+   Questions about the R code or use of the procedure may be directed to:
    Paul Roediger <proediger@comcast.net>, and/or
    Douglas Ray, US Army ARDEC, Picatinny Arsenal <douglas.m.ray.civ@mail.mil>
 
@@ -3572,11 +3574,11 @@ x=
    This program executes the Bruceton sensitivity test procedure* as described in:
 1. Dixon, W. J., Mood, A. M., A method for obtaining and analyzing sensitivity
    data, Journal of the American Statistical Association, 43, pp. 109-126, (1948)
-2. Dixon, W. J., Massey, F. J., Introduction to Statistical Analysis, McGraw-Hill, 2nd 
+2. Dixon, W. J., Massey, F. J., Introduction to Statistical Analysis, McGraw-Hill, 2nd
    Edition, Chapter 6, (1957)
-3. Einbinder, S.K., Reliability Models and Estimation of Stress-Strength, 
+3. Einbinder, S.K., Reliability Models and Estimation of Stress-Strength,
    Dissertation, Polytechnic Institute of Brooklyn (1973)
-4. Wetherill, G.B., Sequential Estimation of Quantal Response Curves, 
+4. Wetherill, G.B., Sequential Estimation of Quantal Response Curves,
    Journal of the Royal Statististical Society, B, Vol. 25, pp. 1-48, (1963)
 
  * Developed at the Explosives Research Laboratory in Bruceton, PA (1941-1945)
@@ -3596,18 +3598,18 @@ blrb4=function()
 x=
 "
    This program executes the Langlie sensitivity test procedure as described in:
-1. Langlie, H. J., A Reliability Test Method For “One-Shot” Items, Publication
+1. Langlie, H. J., A Reliability Test Method For \"One-Shot\" Items, Publication
    No. U-1792, Aeronutronic Division of Ford Motor Company (1962)
-2. Einbinder, S.K., Reliability Models and Estimation of Stress-Strength, 
+2. Einbinder, S.K., Reliability Models and Estimation of Stress-Strength,
    Dissertation, Polytechnic Institute of Brooklyn (1973)
 3. Einbinder, S. K., One Shot Sensitivity Test for Extreme Percentage Points,
-   ARO Report 74-1, Proceedings of the Nineteenth Conference on the Design of 
+   ARO Report 74-1, Proceedings of the Nineteenth Conference on the Design of
    Experiments in Army Research, Development and Testing, pp. 369-386, (1974)
    http://www.dtic.mil/dtic/tr/fulltext/u2/a002564.pdf
-4. Wetherill, G.B., Sequential Estimation of Quantal Response Curves, 
+4. Wetherill, G.B., Sequential Estimation of Quantal Response Curves,
    Journal of the Royal Statististical Society, B, Vol. 25, pp. 1-48, (1963)
 
-   Questions about the R code or use of the procedure may be directed to: 
+   Questions about the R code or use of the procedure may be directed to:
    Paul Roediger <proediger@comcast.net>, and/or
    Douglas Ray, US Army ARDEC, Picatinny Arsenal <douglas.m.ray.civ@mail.mil>
 
@@ -3623,7 +3625,7 @@ x=
 
  This function requires two inputs, conf & J. Choose J from the following ...
 
-          ------------------------------------------  ----------------------- 
+          ------------------------------------------  -----------------------
          |   To Plot Confidence Interval(s) about:  ||   Via the Method(s)   |
          |  Probability (p)  |  Quantile (q) |  p&q ||  FM   |  LR   |  GLM  |
   -------|-------------------|---------------|------||-------|-------|-------|
@@ -3640,7 +3642,7 @@ x=
  |       |        12         |       13      |      ||       |   X   |   X   |
  |       |-------------------|---------------| -----||-------|-------|-------|
  |       |        14         |       15      |      ||   X   |   X   |   X   |
-  ------- ------------------------------------------  ----------------------- 
+  ------- ------------------------------------------  -----------------------
 
 "
 cat(x)
@@ -3655,22 +3657,22 @@ x=
 
      (1) nRev: the number of reversals needed to exit Phase I, and
      (2) two i values (chosen from the following table)
-  
-          i   Down(X=1,O=0)      Up(X=1,O=0)	      p      
-        ---- --------------- --------------------- ----------  
+
+          i   Down(X=1,O=0)      Up(X=1,O=0)	      p
+        ---- --------------- --------------------- ----------
        |  1 |             X |                  O  | .500000  |
        |  3 |            XX |             {O, XO} | .707107  |
        |  5 |           XXX |        {O, XO, XXO} | .793701  |
        |  7 |          XXXX |  {O, XO, XXO, XXXO} | .840896  |
        |  : |           :   |         :           |     :    |
-        ---- --------------- --------------------- ---------  
+        ---- --------------- --------------------- ---------
        |  0 |            -  |                   - |     -    |
        |  2 |     {XX, XOX} |            {O, XOO} | .596968  |
        |  4 |   {XXX, XXOX} |       {O, XO, XXOO} | .733614  |
        |  6 | {XXXX, XXXOX} | {O, XO, XXO, XXXOO} | .804119  |
        |  : |       :       |       :             |     :    |
         ---- --------------- --------------------- ----------
-               Up(X=0,O=1)       Down(X=0,O=1)	     1-p         
+               Up(X=0,O=1)       Down(X=0,O=1)	     1-p
 
 "
 cat(x)
@@ -3690,7 +3692,7 @@ return(h);
 f3point8=function(l)
 {
 if(l <= 0 | l == 1) return(0);
-x=0; del=0.2; h=1; 
+x=0; del=0.2; h=1;
 v=f38(x,l);
 # l > 1
 if(v < 0)
@@ -3733,7 +3735,7 @@ return(m);
 
 fgs=function(mlo,mhi,sg)
 {
-fg0=log((mhi+3*mlo)^3/(16*(3*mhi+mlo)))/2; 
+fg0=log((mhi+3*mlo)^3/(16*(3*mhi+mlo)))/2;
 fg1=log((3*mhi+mlo)^3/(16*(mhi+3*mlo)))/2;
 fsg=(fg1-fg0)/7;
 u=c(fg0,fg1,fsg);
@@ -3754,7 +3756,7 @@ addneyr=function(dtt,ylm,sim=F)
 {
 tf=F;
 id=dtt$ID;
-nid=length(id); 
+nid=length(id);
 x=dtt$X;
 s1=c("B0","B1","B2","B3","B4","II1","II2","III1","III2");
 s2=c(rep("I",5),rep("II",2),rep("III",2)); ns=length(s1);
@@ -3763,7 +3765,7 @@ u=id[1]; vee=numeric(0);
 # vee = index of the first test that isn't I, i.e., vee=numeric(0) when you're still in I
 if(nid > 1){for(i in 2:nid)	if(id[i]!=u) {vee=c(vee,i); u=id[i];}}
 nv=length(vee);
-ul=c(vee-1,nid); ll=c(1,vee); 
+ul=c(vee-1,nid); ll=c(1,vee);
 ml=(ll+ul)/2; lab=unique(id);
 iv=2; if(nv<=1)iv=1;
 
@@ -3771,14 +3773,14 @@ text(ml,rep(ylm[2],nv+1),lab,cex=.9);
 
 if(nv == 0)
 {
-j=m.update(dtt); 
-M0=j$M0; 
-m1=j$m1; 
-w0=which(x==M0); 
+j=m.update(dtt);
+M0=j$M0;
+m1=j$m1;
+w0=which(x==M0);
 w1=which(x==m1);
 vc=c(M0,m1,w0,w1);
 
-if(!any(is.na(vc)) & M0 > m1) 
+if(!any(is.na(vc)) & M0 > m1)
 	{
 	lines(c(w0[[1]],nid+1),c(M0,M0),col=3,lty=4); lines(c(w1[[1]],nid+1),c(m1,m1),col=4,lty=4);
 	tf=T;
@@ -3789,15 +3791,15 @@ if(nv > 0)
 	{
 	lt=rep(5,nv); abline(v=vee-.5,lty=lt);
 
-	j=m.update(dtt[1:(vee[1]-1),]); 
-	M0=j$M0; 
-	m1=j$m1; 
-	w0=which(x==M0); 
+	j=m.update(dtt[1:(vee[1]-1),]);
+	M0=j$M0;
+	m1=j$m1;
+	w0=which(x==M0);
 	w1=which(x==m1);
 	lines(c(w0[[1]],vee[1]-.5),c(M0,M0),col=3,lty=4); lines(c(w1[[1]],vee[1]-.5),c(m1,m1),col=4,lty=4);
 	}
 	kp=0;
-	if(sim) 
+	if(sim)
 	{
 	k=1;
 	if(nv >= 1)k=vee[iv]-1;
@@ -3810,7 +3812,7 @@ add3pod=function(dtt,ylm,sim=F)
 {
 tf=F;
 id=dtt$ID;
-nid=length(id); 
+nid=length(id);
 x=dtt$X;
 s1=c("r","I1\\(i\\)","I1\\(ii\\)","I1\\(iii\\)","I1\\(iv\\)","I2\\(ib\\)","I2\\(ic\\)","I2\\(id\\)","II1","II2","III1","III2");
 s2=c("",rep("I1",4),rep("I2",3),rep("II",2),rep("III",2)); ns=length(s1);
@@ -3819,7 +3821,7 @@ u=id[1]; vee=numeric(0);
 # vee = index of the first test that isn't I1, i.e., vee=numeric(0) when you're still in I1
 if(nid > 1){for(i in 2:nid)	if(id[i]!=u) {vee=c(vee,i); u=id[i];}}
 nv=length(vee);
-ul=c(vee-1,nid); ll=c(1,vee); 
+ul=c(vee-1,nid); ll=c(1,vee);
 ml=(ll+ul)/2; lab=unique(id);
 iv=2; if(nv<=1)iv=1;
 
@@ -3830,20 +3832,20 @@ if(nv > 0)
 {
 	abline(v=vee-.5,lty=lt);
 	j=m.update(dtt[1:(vee[iv]-1),]);
-	M0=j$M0; 
-	m1=j$m1; 
-	w0=which(x==M0); 
+	M0=j$M0;
+	m1=j$m1;
+	w0=which(x==M0);
 	w1=which(x==m1);
-		
+
 	if((nv > 1 | length(vee) != 0) & M0 > m1)
 	{
 	lines(c(w0[[1]],vee[iv]-.5),c(M0,M0),col=3,lty=4); lines(c(w1[[1]],vee[iv]-.5),c(m1,m1),col=4,lty=4);
 	} else
 	{
-		j=m.update(dtt); 
-		M0=j$M0; 
-		m1=j$m1; 
-		w0=which(x==M0); 
+		j=m.update(dtt);
+		M0=j$M0;
+		m1=j$m1;
+		w0=which(x==M0);
 		w1=which(x==m1);
 		if(M0 > m1)
 		{
@@ -3866,7 +3868,7 @@ addBorL=function(dtt,ylm,ud)
 id=dtt$ID; lid=length(id);
 w1=which(is.element(id,c("IB","IL","D","U",""," ")));
 l1=length(w1);
-if(l1 > 0) 
+if(l1 > 0)
 {
 en1=max(w1); a=is.element (id,c(" ","D","U")); b=any(a);
 if(b & ud) {mx=max(which(a)); text(1:mx,rep(ylm[2],mx),id[1:mx],cex=.6);} else
@@ -3876,17 +3878,17 @@ text(mean(range(w1)),ylm[2],"I",cex=.9);
 	{
 	dtw=dtt[1:en1,];
 	xx=dtw$X; yy=dtw$Y;
-	j=m.update(dtw); 
-	M0=j$M0; 
-	m1=j$m1; 
+	j=m.update(dtw);
+	M0=j$M0;
+	m1=j$m1;
 	del=m1-M0;
 		if(!is.na(del))
 		{
-		w0=which(xx==M0 & yy==0); 
+		w0=which(xx==M0 & yy==0);
 		w1=which(xx==m1 & yy==1);
 		if(del < 0)
 			{
-			lines(c(w0[[1]],en1+.5),c(M0,M0),col=3,lty=4); 
+			lines(c(w0[[1]],en1+.5),c(M0,M0),col=3,lty=4);
 			lines(c(w1[[1]],en1+.5),c(m1,m1),col=4,lty=4);
 			}
 		}
@@ -3894,7 +3896,7 @@ text(mean(range(w1)),ylm[2],"I",cex=.9);
 }
 
 w2=which(is.element(id,c("II","II1","II2")));
-l2=length(w2); 
+l2=length(w2);
 if(l2 > 0) {en2=max(w2); abline(v=en1+.5,lty=5);
 text(mean(range(w2)),ylm[2],"II",cex=.9);
 }
@@ -3906,6 +3908,7 @@ text(mean(range(w3)),ylm[2],"III",cex=.9);}
 return()
 }
 
+#' @export
 ptest=function(dat,plt,notitle=F)
 {
  if(!is.element(plt,1:8))
@@ -3975,17 +3978,17 @@ cpq=function(P,Q,mu,sig,gt)
 {
 k=10;
 n=1000000.0;
-p0=1/(k*n); 
-p1=1-p0; 
+p0=1/(k*n);
+p1=1-p0;
 q0=mu+qnorm(p0)*sig;
 q1=mu+qnorm(p1)*sig;
 val=c(p0,p1,q0,q1);
 ok=T;
-  # The 1st line was operative in the simulation version 
+  # The 1st line was operative in the simulation version
   # Let's use the 2nd line that's used in the console version
 if(is.null(gt)){if(any(P < p0) | any(P > p1)) ok=F;} else
   {if(any(P < p0) | any(P > p1) | any(Q < q0) | any(Q > q1)) ok=F;}
-if(!ok) 
+if(!ok)
 {
 v=round(val,10);
 l7=paste("\nAll P's must be in [",v[1],", ",v[2],"]\n",sep="");
@@ -4002,7 +4005,7 @@ fm.lims=function(dat,conf,P=numeric(0),Q=numeric(0))
 	{
 	# Calculates qlo, qhi, plo & phi as in ml2002
 	np=length(P); nq=length(Q); npq=np+nq;
-	if(npq == 0 | any(P < 0 | P > 1)) return(); 
+	if(npq == 0 | any(P < 0 | P > 1)) return();
 	x=rep(dat$X,dat$COUNT);	y=rep(dat$Y,dat$COUNT); gt=dat$tmu;
 	r0=x[y==0]; r1=x[y==1];
 	M0=max(r0); m1=min(r1); del=m1-M0; one23=2+sign(del);
@@ -4033,7 +4036,7 @@ fm.lims=function(dat,conf,P=numeric(0),Q=numeric(0))
 	# zscore=qt((1+conf)/2,xglm$df.residual)
 	zdel=zscore*sqrt(varq);
 		q0=muhat+qnorm(al)*sighat;
-	if(nq > 0) {iq=c(nq:1) - 1; q0[npq-iq]=Q;} 
+	if(nq > 0) {iq=c(nq:1) - 1; q0[npq-iq]=Q;}
 		qlo=muhat+qp*sighat-zdel;
 		qhi=muhat+qp*sighat+zdel;
 	dpda=1/sqrt(2*pi)*exp(-0.5*qp^2)/sighat;
@@ -4041,7 +4044,7 @@ fm.lims=function(dat,conf,P=numeric(0),Q=numeric(0))
 		plo=al-zdel; plo[which(plo<0)]=0;
 		phi=al+zdel; phi[which(phi>1)]=1;
 	rd=6;
-	qlo=round(qlo,rd); q0=round(q0,rd); qhi=round(qhi,rd);	
+	qlo=round(qlo,rd); q0=round(q0,rd); qhi=round(qhi,rd);
 	plo=round(plo,rd); phi=round(phi,rd);
 	return(matrix(c(qlo,q0,qhi,plo,al,phi),ncol=6));
 	}
@@ -4054,9 +4057,9 @@ glm.lims=function(dat,conf,P=numeric(0),Q=numeric(0))
 	x=rep(dat$X,dat$COUNT);	y=rep(dat$Y,dat$COUNT); gt=dat$tmu;
 	r0=x[y==0]; r1=x[y==1];
 	M0=max(r0); m1=min(r1); del=m1-M0; one23=2+sign(del);
-	
+
 	# overlap: one23=1 (interval); one23=2 (point); one23=3 (none);
-		
+
 	xglm=glm(y ~ x, family = binomial(link = probit));
 	ab=as.vector(xglm$coef);
 	muhat=-ab[1]/ab[2];
@@ -4066,10 +4069,10 @@ glm.lims=function(dat,conf,P=numeric(0),Q=numeric(0))
 	if(!chk) return();
 	al=c(P,pnorm((Q-muhat)/sighat));
 	q0=muhat+qnorm(al)*sighat;
-	if(nq > 0) {iq=c(nq:1) - 1; q0[npq-iq]=Q;} 
+	if(nq > 0) {iq=c(nq:1) - 1; q0[npq-iq]=Q;}
 	yy=predict(xglm, list(x = q0), se.fit = T);
 	df=sum(dat$COUNT)-2;
-	conf=(1+conf)/2; 
+	conf=(1+conf)/2;
         k=qt(conf,df);
 	yu=yy$fit+k*yy$se.fit;
 	yl=yy$fit-k*yy$se.fit;
@@ -4080,7 +4083,7 @@ glm.lims=function(dat,conf,P=numeric(0),Q=numeric(0))
 	ssee=ug$se;
 	qlo=round(q0-qt(conf,xglm$df.residual)*ssee,rd);
 	qhi=round(q0+qt(conf,xglm$df.residual)*ssee,rd);
-	q0=round(q0,rd); 
+	q0=round(q0,rd);
 	return(matrix(c(qlo,q0,qhi,plo,al,phi),ncol=6));
 	}
 
@@ -4089,7 +4092,7 @@ lrq.lims=function(dat,conf1,P=numeric(0),Q=numeric(0))
 # Check if there's a ZMR, and calculate muhat, sighat, and llik
 # If No ZMR, muhat=mid point, sighat=.0001
 	np=length(P); nq=length(Q); npq=np+nq;
-	chk=mixed(dat); 
+	chk=mixed(dat);
 	dif=chk$dif; muhat=chk$summ/2; sighat=0.0001; min1=chk$min1; max0=chk$max0; con=chk$con;
 	if(npq == 0 | any(P < 0 | P > 1)) return() else al=c(P,pnorm((Q-muhat)/sighat));
 	conf2=pchisq(qchisq(conf1,1),2);
@@ -4097,15 +4100,15 @@ lrq.lims=function(dat,conf1,P=numeric(0),Q=numeric(0))
 
 	if(dif < 0)
 		{
-		rx=rep(dat$X,dat$COUNT); ry=rep(dat$Y,dat$COUNT); 
-		xglm=glm(ry~rx,family=binomial(link=probit));	
+		rx=rep(dat$X,dat$COUNT); ry=rep(dat$Y,dat$COUNT);
+		xglm=glm(ry~rx,family=binomial(link=probit));
 		ab=as.vector(xglm$coef);
 		muhat=-ab[1]/ab[2];
 		sighat=1/ab[2];
 		}
-		
+
 		uu=llik(dat,muhat,sighat);
-	
+
 	levs0=uu+log(1-conf2); levs1=levs2=uu-qnorm((1-conf1)/2)^2/2;
 
 options(warn=-1); # SUPPRESSES OUT OF BOUNDS WARNINGS (AND OTHERS)
@@ -4115,12 +4118,12 @@ degs=180;
 if(dif > 0)degs=360;
 st=ct=cx=cy=tr=(0:360)*pi/degs;
 
-x0=as.vector(muhat); 
+x0=as.vector(muhat);
 y0=ru=as.vector(sighat);
 eps=0.000001; eps4=.0001;
 ibot=2; itop=361;
 if(dif > 0){cy[1]=cy[361]=0;cx[1]=min1;cx[361]=max0;ibot=2;itop=360;ru=1;}
-	
+
 for(i in 0:361) {st[i]=sin(tr[i]); ct[i]=cos(tr[i]);}
 
 for(i in 1:181)
@@ -4169,12 +4172,12 @@ cx[361]=cx[1]; cy[361]=cy[1];
 
 lrmat=matrix(rep(0,6*npq),ncol=6);lrmat[,5]=c(P,pnorm((Q-muhat)/sighat))
 
-lrmat[,2]=muhat+qnorm(lrmat[,5])*sighat;	
+lrmat[,2]=muhat+qnorm(lrmat[,5])*sighat;
 for(i in 1:npq)
 {
-	lrmat[i,1]=min(cx+qnorm(lrmat[i,5])*cy,na.rm=T); 
+	lrmat[i,1]=min(cx+qnorm(lrmat[i,5])*cy,na.rm=T);
 	lrmat[i,3]=max(cx+qnorm(lrmat[i,5])*cy,na.rm=T);
-	lrmat[i,4]=min(pnorm((lrmat[i,2]-cx)/cy),na.rm=T); 
+	lrmat[i,4]=min(pnorm((lrmat[i,2]-cx)/cy),na.rm=T);
 	lrmat[i,6]=max(pnorm((lrmat[i,2]-cx)/cy),na.rm=T);
 }
 ret=list(cx,cy,lrmat,muhat,sighat,dif,con);
@@ -4185,7 +4188,7 @@ return(ret);
 
 qrda = function(dat, conf=.9, J=2, ln = F, labx = "", laby = "Probability of Response", zee = 0)
 {
-	c1sided=(1+conf)/2; 
+	c1sided=(1+conf)/2;
 	ldot=3.;
 	x = xsav=rep(dat$X, dat$COUNT);
 	y = ysav=rep(dat$Y, dat$COUNT);
@@ -4195,7 +4198,7 @@ qrda = function(dat, conf=.9, J=2, ln = F, labx = "", laby = "Probability of Res
 	b=ab[2]
 	mu= -a/b
 	sig=1/b
-	if(ln) k=2.5 else k=3.5; 
+	if(ln) k=2.5 else k=3.5;
 	pm=c(-1,1); pee=pnorm(pm*k);
 	if(!ln) a1=pretty(mu+k*sig*pm) else a1=pretty(qlnorm(pee,meanlog=mu,sdlog=sig))
 	if(!ln) a2 = range(c(a1,range(x))) else a2=range(c(a1,range(dat$RX)));
@@ -4216,8 +4219,8 @@ qrda = function(dat, conf=.9, J=2, ln = F, labx = "", laby = "Probability of Res
 	mtext(x123,side=1,line=2,cex=1);
 	rd=4; uvw=round(100*conf,rd); ax="p";
 	abline(h = 0.1 * c(0.:10.), lty = ldot)
-	
-	if(!ln) {abline(v = pretty(a2), lty = ldot); dpts=dnorm(xs,mean=mu,sd=sig);} else 
+
+	if(!ln) {abline(v = pretty(a2), lty = ldot); dpts=dnorm(xs,mean=mu,sd=sig);} else
 	{abline(v=pretty(range(xs)),lty=ldot); dpts=dlnorm(xs,meanlog=mu,sdlog=sig);}
 	em=max(dpts);
 	lines(xs,dpts/em,type="l",col=8,lwd=2);
@@ -4226,7 +4229,7 @@ qrda = function(dat, conf=.9, J=2, ln = F, labx = "", laby = "Probability of Res
 	nxv=length(xsav);
 	if(!ln) {for(i in 1:nxv) points(xsav[i],ysav[i]+(ysav[i]-.5)/25,pch=4,lwd=1.5,cex=.5);} else
 	{for(i in 1:nxv) points(exp(xsav[i]),ysav[i]+(ysav[i]-.5)/25,pch=4,lwd=1.5,cex=.5);}
-	
+
 	cl=list(1,1,1,2,3,3,3,c(1,2),c(1,2),c(1,3),c(1,3),c(2,3),c(2,3),c(1,2,3),c(1,2,3));
 	qpl=list(1,2,c(1,2),c(1,2),1,2,c(1,2),1,2,1,2,1,2,1,2);
 
@@ -4249,7 +4252,7 @@ for(i in 1:n1)
 {
 	for(j in 1:n2)
 	{
-	ij=ij+1; 
+	ij=ij+1;
 	cti=ct[i]; qpi=qpt[j];
 	if(qpi == 1) yyy=lims(cti,dat,conf,Q=xs) else yyy=lims(cti,dat,conf,P=ys);
 	if(ln) { yyy[,1:3] = exp(yyy[,1:3]); }
@@ -4264,8 +4267,8 @@ for(i in 1:n1)
 	leg=c("FM","LR","GLM"); pq=c("p","q");
 	legend(dx,.93,legend=leg[ct],lty=lin[ct],col=colo[ct],lwd=3,cex=.6,bg="white");
 	nlj=paste(leg[ct],pq[qpt],sep="");
-	names(LJ)=nlj; 
-	xx=list(xglm=xglm, a=a, b=b, mu=mu, sig=sig, J=J, LJ=LJ); 
+	names(LJ)=nlj;
+	xx=list(xglm=xglm, a=a, b=b, mu=mu, sig=sig, J=J, LJ=LJ);
 	reset()
 	return(xx)
 }
@@ -4309,7 +4312,7 @@ ny=length(y)
 L=numeric(0)
 for(i in 1:ny)
 {
-yi=y[[i]]  
+yi=y[[i]]
   if (! (all(yi %in% c(0,1)))) stop("not a binary sequence")
   res = sum(yi*2^((length(yi):1) - 1))
 L[[i]]=res
@@ -4391,11 +4394,11 @@ ll=c(ll,sum(log(pnorm(kx/pms))));
 return(ll);
 }
 
-stopQuietly = function(...) 
+stopQuietly = function(...)
 {
   blankMsg = sprintf("\r%s\r", paste(rep(" ", getOption("width")-1L), collapse=" "));
   stop(simpleError(blankMsg));
-} 
+}
 
 # reset is used in this suite of functions; it's defined just once in gonogo.R
 
@@ -4441,53 +4444,53 @@ unbd=function(rx,ry,levs,mh1,mh2,es,mlim)
 		if(length(mlim) == 2){L=mlim[1]; U=mlim[2];} else
 		{
 		pm=c(-1,1); I=c(mh1,mh2)+0.5*mh*pm; L=I[1]; U=I[2];
-		}  
+		}
 		if(es > 0) S0=ST1=ulik(rx,ry,levs,mh1,es) else S0=ST1=0;
 		num=51;
-		J1=seq(mh1,L,length=num); 
+		J1=seq(mh1,L,length=num);
 		for(i in 2:num)
 		{
 		S1=uliknext(rx,ry,levs,J1[i-1],S0,J1[i]);
 		ST1=c(S1,ST1);
 		S0=S1;
-		}		
+		}
 		if(es > 0) S0=ST2=ulik(rx,ry,levs,mh2,es) else S0=ST2=0;
-		J2=seq(mh2,U,length=num); 
+		J2=seq(mh2,U,length=num);
 		for(i in 2:num)
 		{
 		S1=uliknext(rx,ry,levs,J2[i-1],S0,J2[i]);
 		ST2=c(ST2,S1);
 		S0=S1;
 		}
-		mt1=J1[num:1]; mt2=J2; 
+		mt1=J1[num:1]; mt2=J2;
 		return(list(mt1,ST1,mt2,ST2));
 }
 
 uliknext=function(rx,ry,levs0,em1,es,em2)
 {
 if(es == 0) es=.1;
-shi=es; slo=es/2; 
+shi=es; slo=es/2;
 val1=rem1=xyllik(rx,ry,em2,slo);
 val2=rem2=xyllik(rx,ry,em2,shi);
 
 # val may at first decrease (good) but then increase (bad)
-while(val1 > levs0) 
+while(val1 > levs0)
 {
 shi=slo; slo=slo/2; val1=xyllik(rx,ry,em2,slo);
-if(val1 > rem1) 
+if(val1 > rem1)
 	{
 	cat(paste("Message from uliknext: conf1 is LARGER & TOO NEAR c1max.\n",sep=""))
 	cat(paste("The specific problem is: for m = ",round(em2,4),", val1(s) > levs0 for all s.\n",sep=""));
 	cat(paste("Increasing conf1 can produce a more clearly defined UNBOUNDED region.\n",sep=""));
-	stopQuietly();	
+	stopQuietly();
 	} else rem1=val1;
 }
 
 # val2 may at first increase (good) but then decrease (bad)
-while(val2 < levs0) 
+while(val2 < levs0)
 {
 slo=shi; shi=2*shi; val2=xyllik(rx,ry,em2,shi);
-if(val2 < rem2) 
+if(val2 < rem2)
 	{
 	cat(paste("Message from uliknext: conf1 is LARGER & TOO NEAR c1max.\n",sep=""))
 	cat(paste("The specific problem is: for m = ",round(em2,4),", val2(s) < levs0 for all s.\n",sep=""));
@@ -4554,37 +4557,37 @@ jlik=function(rx,ry,levs0,ms,op,one23)
 {
 # Contour (cx,cy): llik=levs0 needed for Graphs 1, 2 & 3
 
-ndeg=361; ang=0; h=1; 
+ndeg=361; ang=0; h=1;
 if(one23 == 2) {d=op-ms; d7=(op+ms)/2; ang=atan(d[1]/d[2])+pi/2;}
 if(one23 == 3) h=2;
 cx=cy=tr=2*(0:(ndeg-1))*pi/(h*(ndeg-1))-ang;
 
 rl=0;
-if(one23 == 1) 
+if(one23 == 1)
 {
-ibot=1; itop=ndeg; 
+ibot=1; itop=ndeg;
 x0=as.vector(ms[1]); y0=ru=as.vector(ms[2]);
 }
-if(one23 == 2) 
+if(one23 == 2)
 {
 ibot=2; itop=ndeg-1;
 x0=as.vector(d7[1]); y0=ru=as.vector(d7[2]);
-cx[1]=cx[ndeg]=ms[1]; 
+cx[1]=cx[ndeg]=ms[1];
 cy[1]=cy[ndeg]=ms[2];
 }
-if(one23 == 3) 
+if(one23 == 3)
 {
 ibot=2; itop=ndeg-1;
 x0=ms[1]; y0=0; ru=1;
-cx[1]=op[1]; cx[ndeg]=op[2]; 
-cy[1]=cy[ndeg]=0; 
+cx[1]=op[1]; cx[ndeg]=op[2];
+cy[1]=cy[ndeg]=0;
 }
 
 eps=0.000001;
-        
+
 for(i in ibot:itop)
 {
-st=sin(tr[i]); 
+st=sin(tr[i]);
 ct=cos(tr[i]);
 
 xl=x0+rl*ct;
@@ -4624,21 +4627,21 @@ vconf1=sort(unique(xx));
 vconf2=pchisq(qchisq(vconf1,1),2);
 nc1=length(vconf1);
 rx=dt$X; ry=dt$Y; nc=dt$COUNT;
-rx=rep(rx,nc); ry=rep(ry,nc); 
+rx=rep(rx,nc); ry=rep(ry,nc);
 
-r0=rx[ry==0]; r1=rx[ry==1]; 
+r0=rx[ry==0]; r1=rx[ry==1];
 mix=length(r0)*length(r1);
 lux=length(unique(rx));
-if(mix == 0 | lux == 1)	
+if(mix == 0 | lux == 1)
 {
-cat(paste("Need to do more testing\n",sep="")); 
+cat(paste("Need to do more testing\n",sep=""));
 stopQuietly();
 }
 
 nt=sum(nc);
 con=sum(ry)/length(ry);
 llc=sum(log(con^ry*(1-con)^(1-ry)));
- 
+
 M0=max(r0); m1=min(r1); del=m1-M0; one23=2+sign(del);
 
 bl=ul=list(1)		# placeholder for bounded & unbounded lists
@@ -4652,25 +4655,25 @@ conf2=pchisq(qchisq(vconf1[i],1),2);
 switch(one23,
 {	# OVERLAP (Interval) (use log lik)
 
-	xglm=glm(ry~rx,family=binomial(link=probit));	
+	xglm=glm(ry~rx,family=binomial(link=probit));
 	ab=as.vector(xglm$coef);
 	muhat=-ab[1]/ab[2]; sighat=1/ab[2];
 	uu=xyllik(rx,ry,muhat,sighat);
-	levs=uu+log(1-conf2); 
+	levs=uu+log(1-conf2);
 	c2max=pchisq(2*(uu-llc),2);
 	bnd=T; if(conf2 > c2max) bnd=F;
-	if(bnd) 
+	if(bnd)
 		{
 		ms=op=c(muhat,sighat); numb=numb+1;
 		bl[[numb]]=jlik(rx,ry,levs,ms,op,one23);
 		} else {
 			if(icbl & numb > 0) {cbl=calcblim(bl,ul); mlim=cbl$mlim; icbl=F;}
-			numu=numu+1; 
+			numu=numu+1;
 			ul[[numu]]=unbd(rx,ry,levs,muhat,muhat,sighat,mlim);}
 },
 {	# OVERLAP (Point) (use lik)
 
-	muhat=(m1+M0)/2; sighat=0; 
+	muhat=(m1+M0)/2; sighat=0;
 	mx=ry[rx == m1]; s1=sum(mx); s2=length(mx)-s1;
 	uu=s1*log(s1) + s2*log(s2) - (s1+s2)*log(s1+s2);
 	levs=uu+log(1-conf2);
@@ -4683,15 +4686,15 @@ switch(one23,
 		bl[[numb]]=jlik(rx,ry,levs,ms,op,one23);
 		} else {
 			if(icbl & numb > 0) {cbl=calcblim(bl,ul); mlim=cbl$mlim; icbl=F;}
-			numu=numu+1; 
+			numu=numu+1;
 			ul[[numu]]=unbd(rx,ry,levs,muhat,muhat,sighat,mlim);}
 },
 {	# NO OVERLAP (use lik)
 
-	muhat=(m1+M0)/2; sighat=0; 
+	muhat=(m1+M0)/2; sighat=0;
 	uu=0;
 
-ig=2; 
+ig=2;
 if(ig == 1) {conf2=(3+conf2)/4; levs=log(1-conf2);} else
 		{c3=(3+conf2)/4; levs=log(1-c3);}
 
@@ -4705,7 +4708,7 @@ if(ig == 1) {conf2=(3+conf2)/4; levs=log(1-conf2);} else
 		bl[[numb]]=jlik(rx,ry,levs,ms,op,one23);
 		} else {
 			if(icbl & numb > 0) {cbl=calcblim(bl,ul); mlim=cbl$mlim; icbl=F;}
-			numu=numu+1; 
+			numu=numu+1;
 			ul[[numu]]=unbd(rx,ry,levs,M0,m1,sighat,mlim);}
 }
 );
@@ -4714,7 +4717,7 @@ if(ig == 1) {conf2=(3+conf2)/4; levs=log(1-conf2);} else
 c1max=pchisq(qchisq(c2max,2),1);
 
 cbl=calcblim(bl,ul);
-g=list(bl,ul,cbl); 
+g=list(bl,ul,cbl);
 b=g[[1]]; u=g[[2]]; mlim=g[[3]]$mlim; slim=g[[3]]$slim;
 plot(1,1,type="n",xlim=mlim,ylim=slim,xlab="mean (m)",ylab="standard deviation (s)");
 
@@ -4739,14 +4742,14 @@ mtext(ttl2,side=3,line=.2,cex=1.1,adj=0);
 pxl=pretty(mlim); pyl=pretty(slim); ilt=3;
 abline(v=pxl,lty=ilt); abline(h=pyl,lty=ilt);
 m0=-1/qnorm(con);
-if(con == .5) abline(v=muhat,col=1,lty=2) else 
+if(con == .5) abline(v=muhat,col=1,lty=2) else
 abline(sighat-m0*muhat,m0,col=1,lty=2);
 points(muhat,sighat,pch=16,cex=.7,col=2);
-if(numb > 0) {for(k in 1:numb){bk=b[[k]]; 
+if(numb > 0) {for(k in 1:numb){bk=b[[k]];
 	lines(bk[[1]],bk[[2]],type="l");}}
-if(numu > 0) {for(k in 1:numu){ uk=u[[k]]; 
+if(numu > 0) {for(k in 1:numu){ uk=u[[k]];
 	lines(uk[[1]],uk[[2]],type="l",col=2);
-	lines(uk[[3]],uk[[4]],type="l",col=2);}}	
+	lines(uk[[3]],uk[[4]],type="l",col=2);}}
 #print(vconf1)
 b0=mkb0(vconf1);
 b0=substitute(paste(c[]," = ",x,", ",c["max"]," = ",y,sep=""),list(x=b0,y=rc1));
@@ -4773,7 +4776,7 @@ l0=l1=numeric(0);
 if(any(yy==1)){m1=min(xx[yy==1]);l1=1;}
 if(any(yy==0)){M0=max(xx[yy==0]);l0=1;}
 
-del=.025; xr=range(xx); pm=c(-1,1); xl=xr+diff(xr)*pm/100; 
+del=.025; xr=range(xx); pm=c(-1,1); xl=xr+diff(xr)*pm/100;
 del=.03;
 yl=c(0,1);
 par(mar=c(0,0,0,0),pin=c(2.4,1.6));
@@ -4803,7 +4806,7 @@ for(i in 1:lsx)
 i1=sum(yy[xx==sux[i]]); if(i1 > 0){xxx=c(xxx,sux[i]); yyy=c(yyy,1); nnn=c(nnn,i1);}
 i0=sum(1-yy[xx==sux[i]]); if(i0 > 0){xxx=c(xxx,sux[i]); yyy=c(yyy,0); nnn=c(nnn,i0);}
 }
-dat=matrix(c(xxx,yyy,nnn),ncol=3); 
+dat=matrix(c(xxx,yyy,nnn),ncol=3);
 dat=data.frame(dat);
 names(dat)=c("X","Y","COUNT");
 
@@ -4818,7 +4821,7 @@ grafl=function(limx)
 	titl="Liklihood Ratio CL's"
 	qtic=pretty(limx); qtr=range(qtic);
 	pr=c(1,10,100,1000,5000,9000,9900,9990,9999)/10000; q=qnorm(pr);
-	xl=range(limx); yl=c(-3.8,3.8); 
+	xl=range(limx); yl=c(-3.8,3.8);
 	plot(xl,yl,type="n",xlim=xl,ylim=yl,xaxt="n",yaxt="n",xlab="",ylab="",cex=.8);
 	xl1=expression(paste("quantile (",italic(q),")",sep=""));
 	yl1=expression(paste("Probability of Response (",italic(p),")",sep=""));
@@ -4844,7 +4847,7 @@ done=0;
 sigmax=0;
 len=50;
 k=5;
-xll=c(-1,1)*k; 
+xll=c(-1,1)*k;
 m1=min(rx[ry==1]);M0=max(rx[ry==0]);
 yll=k*(m1-M0);
 if(yll == 0) yll=1;
@@ -4853,15 +4856,15 @@ z0=matrix(rep(0,len^2),ncol=len);
 
 while(done == 0)
 {
-xl=m+xll*s; 
-yl=c(sigmax,yll*s); 
+xl=m+xll*s;
+yl=c(sigmax,yll*s);
 x0=seq(xl[1],xl[2],length=len); y0=seq(yl[1],yl[2],length=len);
 for(i in 1:len)for(j in 1:len) z0[i,j]=xyllik(rx,ry,x0[i],y0[j]);
 z0=exp(z0);
 cl=contourLines(x0,y0,z0,levels=levb);
 ncl=length(cl);
 iplot=0;
-if(ncl > 0) 
+if(ncl > 0)
 {
 rxcl=rycl=numeric(0);
 for(i in 1:ncl) {rxcl=range(c(rxcl,cl[[i]]$x));rycl=range(c(rycl,cl[[i]]$y));}
@@ -4933,7 +4936,7 @@ if(ncl > 0)
 	} else
 	{
 	done=0;
-	xll=1.5*xll; 
+	xll=1.5*xll;
 	yll=yll*1.5;
 	sigmax=sigmax/1.5;
 	}
@@ -4958,10 +4961,10 @@ test=dat$test; ttl0=dat$ttl0; ttl1=dat$ttl1; ttl2=dat$ttl2;
 tit1=dat$title; tmoo=dat$tmu;
 
 # Compute muhat & sighat if there's overlap
-dat=dat$d0; 
+dat=dat$d0;
 tnam=c("3pod","Neyer");
 rx=rep(dat$X,dat$COUNT); ry=rep(dat$Y,dat$COUNT); ny=length(ry);
-m1=min(rx[ry==1]);M0=max(rx[ry==0]); delq=m1-M0; 
+m1=min(rx[ry==1]);M0=max(rx[ry==0]); delq=m1-M0;
 one23=2+sign(delq);
 
 xx="Enter conf's (separated by blanks): ";
@@ -4985,15 +4988,15 @@ if(xx[1] <= 0 | xx[1] >= 1) {cat("p must be between 0 and 1, try again\n\n");ret
 }
 
 # Prepare (len) X (len) Grids (z's) for Response Surface
-	len=401; 	
+	len=401;
 	z0=matrix(rep(0,len*len),ncol=len);
 	siglow=.001;
 	meth=1;
-		
+
 # Compute muhat & sighat if there's overlap
 
 rx=rep(dat$X,dat$COUNT); ry=rep(dat$Y,dat$COUNT); ny=length(ry);
-m1=min(rx[ry==1]);M0=max(rx[ry==0]); delq=m1-M0; 
+m1=min(rx[ry==1]);M0=max(rx[ry==0]); delq=m1-M0;
 one23=2+sign(delq);
 
 if(m1 == M0 & ny == 2){cat("More data is needed to compute valid confidence regions\n\n");return();}
@@ -5003,7 +5006,7 @@ if(overlap)
 	{
 	if(m1 < M0)
 		{
-		xglm=glm(ry~rx,family=binomial(link=probit));	
+		xglm=glm(ry~rx,family=binomial(link=probit));
 		ab=xglm$coef;
 		sighat=1/ab[2];
 		muhat=-ab[1]*sighat;
@@ -5013,10 +5016,10 @@ if(overlap)
 		muhat=m1; sighat=sigmin; mx=ry[rx == m1]; s1=sum(mx); l1=length(mx);
 		uu=s1*log(s1)+(l1-s1)*log(l1-s1)-l1*log(l1);
 		}
-	} else 
+	} else
 		{
 		denom=2;
-		muhat=(m1+M0)/2; sighat=(m1-M0)/denom;  
+		muhat=(m1+M0)/2; sighat=(m1-M0)/denom;
 		nconf2=(3+pchisq(qchisq(conf1,1),2))/4;
 		uu=1;
 		}
@@ -5031,7 +5034,7 @@ nobo=F; pcl=T;
 if(overlap)
 {
 	levs=1-qchisq(conf1,1)/(2*uu);
-	con=sum(ry)/length(ry); 
+	con=sum(ry)/length(ry);
 	llc=sum(log(con^ry*(1-con)^(1-ry)));
 	c1max=pchisq(2*(uu-llc),1);
 	bcon1=conf1[conf1 < c1max];
@@ -5039,9 +5042,9 @@ if(overlap)
 	nu1=length(ucon1);
 	endpr=paste("Overlap: All conf1's are > c1max (",round(c1max,5),")\n\n",sep="");
 	# Address all unbounded contours
-	if(length(bcon1) == 0)  
+	if(length(bcon1) == 0)
 		{
-		cat(endpr); 
+		cat(endpr);
 		nobo=T;
 		}
 	if(!nobo) bconm=max(bcon1,na.rm=T) else bconm=c1max/2;;
@@ -5051,22 +5054,22 @@ if(overlap)
 	{
 	uu=1;
 	levs=(1-conf2)/4;
-	con=sum(ry)/length(ry); 
+	con=sum(ry)/length(ry);
 	lc=prod(con^ry*(1-con)^(1-ry));
-	c2max=1-4*lc; 
+	c2max=1-4*lc;
 	c1max=pchisq(qchisq(c2max,2),1);
 	bcon2=conf2[conf2 < c2max];
 	ucon2=conf2[conf2 >= c2max];
 	nu1=length(ucon2);
 	endpr=paste("No Overlap: All conf1's are > c1max (",round(c1max,5),")\n\n",sep="");
 	# Address all unbounded contours
-	if(length(bcon2) == 0)  
+	if(length(bcon2) == 0)
 		{
-		cat(endpr); 
+		cat(endpr);
 		nobo=T; pcl=F;
 		}
 	if(!nobo) bconm=max(bcon2,na.rm=T) else bconm=c2max/2;
-	levm=(1-bconm)/4; 
+	levm=(1-bconm)/4;
 	a=clim0(rx,ry,muhat,sighat,levm);
 }
 
@@ -5101,11 +5104,11 @@ if(nu1 > 0)
 
 nco=length(conf1);
 #-----------------------------------------------------------------------------
-# Limits for plot 
+# Limits for plot
 xl=yl=numeric(0);
 if(!nobo)for(i in 1:ncl){g=cl[[i]];xl=range(c(xl,g$x));yl=range(c(yl,g$y));}
 
-if(nclu > 0) {for(i in 1:nclu){g=clu[[i]]; 
+if(nclu > 0) {for(i in 1:nclu){g=clu[[i]];
 xl=range(c(xl,g$x));
 yl=range(c(yl,g$y));
 }}
@@ -5162,7 +5165,7 @@ for(i in 1:nclu){g=clu[[i]];xl=range(c(xl,g$x+qnorm(pp)*g$y));}
 xll=c(floor(xl[1]),ceiling(xl[2]));
 pxl2=pretty(xl);
 #-----------------------------------------------------------------------------
-ex=cl[[1]]$x+qnorm(pp)*cl[[1]]$y; 
+ex=cl[[1]]$x+qnorm(pp)*cl[[1]]$y;
 ey=cl[[1]]$y;
 
 rng2=range(ex,finite=T);
@@ -5185,7 +5188,7 @@ b2=substitute(paste(italic(p),"=",x,", ",c[],"=",y,sep=""), list(x=rpp,y=b1))
 mtext(b2,side=3,line=.6,cex=.8);
 
 if(pp == con) abline(v=muhat+qnorm(pp)*sighat,col=1,lty=2) else
-	{ 
+	{
 	m3=1/(qnorm(pp)+1/m0);
 	abline(sighat-m3*(muhat+qnorm(pp)*sighat),m3,col=1,lty=2);
 	}
@@ -5200,7 +5203,7 @@ if(nclu > 0) {for(i in 1:nclu){g=clu[[i]];xl=range(c(xl,pp,pnorm((qq-g$x)/g$y)))
 xll=c(floor(xl[1]),ceiling(xl[2]));
 pxl3=pretty(xl);
 #-----------------------------------------------------------------------------
-ex=pnorm((qq-cl[[1]]$x)/cl[[1]]$y); 
+ex=pnorm((qq-cl[[1]]$x)/cl[[1]]$y);
 ey=cl[[1]]$y;
 
 plot(ex,ey,type=dtp,xlim=xl,ylim=yl[1:2],xlab="",ylab="",xaxt="n",yaxt="n");
@@ -5268,8 +5271,8 @@ if(one23 > 1) abline(v=muhat,col=8)
 
 for(j in (ncl):1)
 {
-u=lra[[j]]; 
-if(j > ncl) pcol=2 else pcol=1; 
+u=lra[[j]];
+if(j > ncl) pcol=2 else pcol=1;
 if(j <= ncl | (j-ncl)%%2 ==1)lines(u[,1],qnorm(u[,5]),type="l",col=pcol);
 if(j <= ncl | (j-ncl)%%2 ==0)lines(u[,3],qnorm(u[,5]),type="l",col=pcol);
 }
@@ -5332,7 +5335,7 @@ mixed=function(dat)
 	con=sum(dat$Y)/length(dat$Y);
 	result=list(min1,max0,summ,dif,con)
 	names(result)=c("min1","max0","summ","dif","con");
-	return(result); 
+	return(result);
 }
 
 graf1=function(limx,t1,k,big,legnd)
@@ -5342,7 +5345,7 @@ graf1=function(limx,t1,k,big,legnd)
 	leg=c("FM","LR","GLM"); if(big!=0)leg=c("Fisher Matrix","Likelihood Ratio",spl);
 	qtic=pretty(limx);
 	pr=c(1,10,100,1000,5000,9000,9900,9990,9999)/10000; q=qnorm(pr);
-	xl=range(limx); yl=c(-3.8,3.8); 
+	xl=range(limx); yl=c(-3.8,3.8);
 	plot(xl,yl,type="n",xlim=xl,ylim=yl,xaxt="n",yaxt="n",xlab="",ylab="",cex=.8);
 	xl1=expression(paste("quantile (",italic(q),")",sep=""));
 	yl1=expression(paste("Probability of Response (",italic(p),"%)",sep=""));
@@ -5368,11 +5371,11 @@ lrmax=function(w,plt=F)
 dat=w$d0; title=w$title;
 
 rx=dat$X; ry=dat$Y; nc=dat$COUNT;
-rx=rep(rx,nc); ry=rep(ry,nc); 
+rx=rep(rx,nc); ry=rep(ry,nc);
 nt=sum(nc);
 con=sum(ry)/length(ry);
 llc=sum(log(con^ry*(1-con)^(1-ry)));
-r0=rx[ry==0]; r1=rx[ry==1]; 
+r0=rx[ry==0]; r1=rx[ry==1];
 mix=length(r0)*length(r1);
 lux=length(unique(rx));
 flg=0;
@@ -5381,18 +5384,18 @@ M0=max(r0); m1=min(r1); del=m1-M0; one23=2+sign(del);
 
 switch(one23,
 {	# OVERLAP (Interval) (use log lik)
-	xglm=glm(ry~rx,family=binomial(link=probit));	
+	xglm=glm(ry~rx,family=binomial(link=probit));
 	ab=as.vector(xglm$coef);
 	muhat=-ab[1]/ab[2]; sighat=1/ab[2];
 	uu=xyllik(rx,ry,muhat,sighat);
 },
 {	# OVERLAP (Point) (use lik)
-	muhat=(m1+M0)/2; sighat=0; 
+	muhat=(m1+M0)/2; sighat=0;
 	mx=ry[rx == m1]; s1=sum(mx); s2=length(mx)-s1;
 	uu=s1*log(s1) + s2*log(s2) - (s1+s2)*log(s1+s2);
 },
 {	# NO OVERLAP (use lik)
-	muhat=(m1+M0)/2; sighat=0; uu=0; 
+	muhat=(m1+M0)/2; sighat=0; uu=0;
 }
 );
 
@@ -5400,7 +5403,7 @@ c2max=pchisq(2*(uu-llc),2);
 c1max=pchisq(qchisq(c2max,2),1);
 a=c(con,llc,c1max,c2max);
 
-con=round(con,5); llc=round(llc,5); 
+con=round(con,5); llc=round(llc,5);
 c1max=round(c1max,5); c2max=round(c2max,5);
 wx=list(dat,title,one23,con,llc,c1max,c2max,flg);
 names(wx)=c("d0","title","one23","con","llc","c1max","c2max","flg")
@@ -5456,7 +5459,7 @@ if(gs == 1)
 } else
 {
 	# jms must be defined here, as it's used in an if test later
-	cflag=0; jms=0; 
+	cflag=0; jms=0;
 	xx="Enter conf: ";
 	xx=readline(xx); cat("\n");
 	xx=as.numeric(unlist(strsplit(xx," ")));
@@ -5467,7 +5470,7 @@ if(gs == 1)
 	if(flg == 1) {cat(paste("Need to do more testing\n",sep="")); return();}
 	if(one23 > 1) {cat(paste("Need interval overlap for this particular plot.\n\n",sep="")); return(); } else
 	if(conf1 >= c1max & (gs < 3)) {cat(paste("Need conf1 < ",round(c1max,4),", for this particular plot: Try again.\n\n",sep="")); return();}
-	see1=xlead0(conf1,3);	
+	see1=xlead0(conf1,3);
 	dat=w$d0; tit0=w$titl; ttl0=w$ttl0; ttl1=w$ttl1; ttl2=w$ttl2; tmoo=w$tmu;
 
 # do LR (needed if gs = 1 or 2) if conf1 < c1max and FM & SP (if gs = 2 and dif < 0)
@@ -5482,12 +5485,12 @@ if(gs == 1)
 
 	if(gs == 1 & jms == 3)
 	{
-	if(pflag == 1) qq=muhat+qnorm(pp)*sighat else pp=pnorm((qq-muhat)/sighat);	
+	if(pflag == 1) qq=muhat+qnorm(pp)*sighat else pp=pnorm((qq-muhat)/sighat);
 	}
 
 if(dif<0)fmmat= fm.lims(dat,conf1,P=al);
 if(dif<0)spmat=glm.lims(dat,conf1,P=al);
-cf=xlead0(c(conf1,conf2),4); 
+cf=xlead0(c(conf1,conf2),4);
 rc=xlead0(c(c1max,c2max),4);
 titt3=substitute(paste(c[]," = ",u,", ",c["max"]," = ",v,sep=""),list(u=cf[1],v=rc[1]));
 
@@ -5540,7 +5543,7 @@ tit2=substitute(paste(x," < ",italic(q)," < ", y, sep=""), list(x=round(rx[1],rd
 mtext(tit1,side=3,line=1.4,cex=.9);
 mtext(tit2,side=3,line=0.2,cex=.9);
 if(pp == con) abline(v=muhat+qnorm(pp)*sighat,col=1,lty=2) else
-	{ 
+	{
 	m3=1/(qnorm(pp)+1/m0);
 	abline(sighat-m3*(muhat+qnorm(pp)*sighat),m3,col=1,lty=2);
 	}
@@ -5599,22 +5602,22 @@ tq1=expression(paste("(",italic(q)[lo],",",italic(q)[hi],") about ",italic(q)," 
 tp1=expression(paste("(",italic(p)[lo],",",italic(p)[hi],") about ",italic(p)," (supressing ",italic(q),")",sep=""));
 
 # To plot Linearized Response, and CL's versus q
-# For Graph Sheet 2, need Range & delta on q-axis (qmin,qmax,bi) to cover FM, LR, and dose.p qlo's and qhi's 
+# For Graph Sheet 2, need Range & delta on q-axis (qmin,qmax,bi) to cover FM, LR, and dose.p qlo's and qhi's
 
 # Limits for the q axis for the two graphs using the function graf1
-big=0; 
+big=0;
 isiz=.8;
 legq=c("Likelihood Ratio","Fisher Matrix","SPlus (dose.p)");
-legp=c("Likelihood Ratio","Fisher Matrix","SPlus (GLM)");	
+legp=c("Likelihood Ratio","Fisher Matrix","SPlus (GLM)");
 if(big==0){par(mfrow=c(2,2));isiz=.5; legq=legp=c("LR","FM","GLM")};
 if(big!=0)	par(mfrow=c(1,1));
 
-# pr (graf1) is of length 15. For purposes of graphs 4 & 6, 
+# pr (graf1) is of length 15. For purposes of graphs 4 & 6,
 # Skip 1st two & last 2 two - corresponding to 1/million, 1/100000, 99999/10000, 999999/1000000
 
 ih=3:13;
 
-if(dif < 0) 
+if(dif < 0)
 {
 if(conf1 < c1max) {mat[1:11,]=lrmat[ih,]; mat[12:22,]=fmmat[ih,]; mat[23:33,]=spmat[ih,]; i3=3;} else
 {mat[12:22,]=fmmat[ih,]; mat[23:33,]=spmat[ih,]; i3=2;}
@@ -5671,9 +5674,9 @@ if(i3 == 2 | i3 == 3)
 lines(fmmat[,2],fmmat[,3],col=fmc,lwd=lw);lines(lrmat[,2],lrmat[,3],col=lrc,lwd=lw);lines(spmat[,2],spmat[,3],col=spc,lwd=lw);
 lines(fmmat[,2],fmmat[,1],col=fmc,lwd=lw);lines(lrmat[,2],lrmat[,1],col=lrc,lwd=lw);lines(spmat[,2],spmat[,1],col=spc,lwd=lw);
 lines(lrmat[,2],lrmat[,2],col=8,lwd=lw);
-} 
+}
 
-if(i3 == 1 | i3 == 3) 
+if(i3 == 1 | i3 == 3)
 {
 lines(lrmat[,2],lrmat[,3],col=lrc,lwd=lw);
 lines(lrmat[,2],lrmat[,1],col=lrc,lwd=lw);
@@ -5684,10 +5687,10 @@ mtext(tq1,side=3,line=.6,cex=.9);
 #=====================Graph 7 (Linearized Response with (plo,phi))========================
 
 	graf1(jj5,tp2,2,big,0);
-	
+
 # LCL Curves and UCL Curves about p(q)
 	ep0=0.000001; ep1=1-ep0;
-		
+
 if(i3 == 1 | i3 == 3)
 {
 w=lrmat;cl=lrc;
@@ -5706,7 +5709,7 @@ lines(w[,2],qnorm(w[,4]+ep0),type="l",col=cl,cex=2,lwd=lw);
 lines(w[,2],qnorm(w[,6]-ep0),type="l",col=cl,cex=2,lwd=lw);
 lines(w[,2],qnorm(w[,5]),type="l",col=8,cex=2,lwd=lw);
 }
-	
+
 #==========================Graph 8 (plo & phi versus p  Plots)============================
 
 h=100;
@@ -5720,7 +5723,7 @@ axis(2,at=qtic,labels=T,tck=.01,cex=.8,mgp=c(3,.5,0));
 abline(v=pretty(h*c(0,1)),lty=ilt);abline(h=pretty(c(0,100)),lty=ilt);
 
 if(i3 == 2 | i3 == 3)
-{	
+{
 lines(h*fmmat[,5],h*fmmat[,6],col=fmc,lwd=lw);lines(h*spmat[,5],h*spmat[,6],col=spc,lwd=lw);
 lines(h*fmmat[,5],h*fmmat[,4],col=fmc,lwd=lw);lines(h*spmat[,5],h*spmat[,4],col=spc,lwd=lw);
 }
@@ -5737,7 +5740,7 @@ par(oma = c(0,0,1,0),  mar = c(5,4,4,2)+.1);
 c1=round(100*conf1,2);
 if(!notitle) {
 if(!is.null(tmoo)) mtext(substitute(paste(ttl1," ",ttl2,", ",ttl0,", ",c[],"=",see1,sep="")),side=3,line=-.5,cex=1,outer=T) else
-mtext(substitute(paste(tit0,", ",c[],"=",see1,sep="")),side=3,line=-.5,cex=1,outer=T) 
+mtext(substitute(paste(tit0,", ",c[],"=",see1,sep="")),side=3,line=-.5,cex=1,outer=T)
 }
 
 #==========================================================================================
@@ -5763,7 +5766,7 @@ if(!is.element(ic,1:27)) {cat(paste("\nArgument to wxdat must be between 1 and 2
 switch(ic,
 		{	# 1
 			titl1="My SenTest Ex.";
-			xx=c(13,15,14,15.814,14.5,13.2197,15.0273,13.6665); 
+			xx=c(13,15,14,15.814,14.5,13.2197,15.0273,13.6665);
 			yy=c(0,1,0,1,1,0,1,1);
 			n=rep(1,length(xx));
  		},
@@ -5778,20 +5781,20 @@ switch(ic,
 			titl1="No Overlap Ex.";
 			xx=c(14,16,15,16.814,15.5,16.8058,14.9669,16.3314);
 			yy=c(0,1,0,1,0,1,0,1);
-			n=rep(1,length(xx));	
+			n=rep(1,length(xx));
 		},
 		{	# 4
 			titl1="Neyer Data, n=30";
 			xx=c(60,70,65,68,64,60,60,68,61,67,62,70,62,69,
 			63,69,63,63,69,71,70,70,62,62,70,62,70,61,60,58);
 			yy=c(0,1,0,1,1,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,1,0,0,1,1,1,1,1,0);
-			n=rep(1,length(xx));	
+			n=rep(1,length(xx));
 		},
 		{	# 5
 			titl1="No ZMR, n=17";
 			xx=c(23,17,14,12.5,9.75,11.13,12.57,11.85,12.21,14.61,13.41,12.63,11.19,11.91,12.66,12.4,12.3);
 			yy=c(1,1,1,1,0,0,1,0,0,1,1,1,0,0,1,0,0);
-			n=rep(1,length(xx));	
+			n=rep(1,length(xx));
 		},
 		{	# 6
 			titl1="Overlap, Infinite Sigma Case";
@@ -5799,13 +5802,13 @@ switch(ic,
 			S=8;
 			xx=c(10,12,11,S);
 			yy=c(0,1,1,1);
-			n=rep(1,length(xx));	
+			n=rep(1,length(xx));
 		},
 		{	# 7
 			titl1="Velocity, n=15";
 			xx=c(656,900,950,984,1000,1022,1145,1164,1305,1313,1450,1457,1500,1625,1750)/1000;
 			yy=c(0,0,0,0,0,0,1,0,1,1,1,1,0,1,1);
-			n=c(1,1,4,1,1,1,1,1,1,1,3,1,1,1,1); 
+			n=c(1,1,4,1,1,1,1,1,1,1,3,1,1,1,1);
 			xx=rep(xx,n); yy=rep(yy,n);
 			n=rep(1,length(xx));
 		},
@@ -5820,26 +5823,26 @@ switch(ic,
 			titl1="VariGap, n=21";
 			xx=c(4975,6260,5850,5310,6080,5950,5775,5910,5740,5970,5890,5800,5730,5630,5420,5470,5500,5535,5495,5510,5610)/10000;
 			yy=c(0,1,0,0,1,1,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0);
-			n=rep(1,length(xx)); 
+			n=rep(1,length(xx));
 		},
 		{	# 10
-			titl1="NO ZMR Example"; 	
+			titl1="NO ZMR Example";
 			xx=c(45,23,34,29,26,31.5,27.5,23.5,29.1,25,26.8,24.9,27.6,26.4,25.3,26.9,25.6,25.8,26.2);
 			yy=c(1,0,1,1,0,1,1,0,1,0,1,0,1,1,0,1,0,0,0);
-			n=rep(1,length(xx));	
+			n=rep(1,length(xx));
 		},
 		{	# 11
-			titl1="Dror & Steinberg (n=40)"; 
+			titl1="Dror & Steinberg (n=40)";
 			xx=c(18.00,19.00,20.00,21.00,20.00,19.00,18.00,19.00,18.00,18.00,18.25,18.50,18.75,19.00,19.25,19.00,
 			18.75,19.00,18.75,19.00,19.25,19.00,19.25,19.00,18.75,19.00,18.75,19.00,19.25,19.50,19.25,19.00,
 			18.75,18.50,18.75,19.00,18.75,18.50,18.75,18.50);
-			yy=c(0,0,0,1,1,1,0,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0); 
-			n=rep(1,length(xx));	
+			yy=c(0,0,0,1,1,1,0,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0);
+			n=rep(1,length(xx));
 			#xx=c(18.0,18.25,18.5,18.75,18.75,19.0,19.0,19.25,19.25,19.5,20.0,20.0,21.0);
 			#yy=c(0,0,0,0,1,0,1,0,1,1,0,1,1); n=c(4,1,4,8,1,6,7,1,4,1,1,1,1);
 		},
 		{	# 12
-			titl1="Eli data (n=73)"; 
+			titl1="Eli data (n=73)";
 			xx=c(3.5,4.0,4.0,4.5,4.5,5.0,5.0,5.5,5.5,6.0);
 			fac=1; xx=fac*xx;
 			yy=c(0,0,1,0,1,0,1,0,1,1);
@@ -5860,7 +5863,7 @@ switch(ic,
 			yy=c(1,1,0,0,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,1,1,1,1,0,1,1,1,0,0,1,1,0,0,1,1);
 			n=rep(1,length(xx));
 		},
-		{ 	#15 
+		{ 	#15
 			titl1="An n=3 Ex."
 			xx=c(1,3,4,5); yy=c(0,1,1,0); n=rep(1,length(xx));
 			xx=c(1,3,4); yy=c(0,1,0); n=rep(1,length(xx));
@@ -5870,46 +5873,46 @@ switch(ic,
 			xx=c(1,3,4,5); yy=c(0,1,1,0); n=rep(1,length(xx));
 		},
 		{	# 17
-			titl1="(A) No overlap, n=3"; 
+			titl1="(A) No overlap, n=3";
 			xx=c(14,15,16); yy=c(0,1,1); tit1="No Overlap (n=3) Ex.";
 			n=rep(1,length(xx));
 
 		},
 		{	# 18
-			titl1="(B) No overlap, n=2"; 
+			titl1="(B) No overlap, n=2";
 			xx=c(14,16); yy=c(0,1); tit1="No Overlap (n=2) Ex.";
 			n=rep(1,length(xx));
 
 		},
 		{	# 19
-			titl1="(C) No overlap, n=4"; 
+			titl1="(C) No overlap, n=4";
 			xx=c(13,14,15,16); yy=c(0,0,1,1); tit1="No Overlap (n=4) Ex.";
 			n=rep(1,length(xx));
 
 		},
 		{	# 20
-			titl1="(A) One point overlap, n=2"; 
+			titl1="(A) One point overlap, n=2";
 			xx=c(14,14); yy=c(0,1); #Need to do more testing
 			n=rep(1,length(xx));
 		},
 		{	# 21
-			titl1="(B) One point overlap, n=3"; 
-			xx=c(14,16,16); yy=c(0,0,1); 
+			titl1="(B) One point overlap, n=3";
+			xx=c(14,16,16); yy=c(0,0,1);
 			n=rep(1,length(xx));
 		},
 		{	# 22
-			titl1="(C) One point overlap, n=4"; 
-			xx=c(14,16,16,16); yy=c(0,0,1,1); 
+			titl1="(C) One point overlap, n=4";
+			xx=c(14,16,16,16); yy=c(0,0,1,1);
 			n=rep(1,length(xx));
 		},
 		{	# 23
-			titl1="(D) One point overlap, n=4"; 
-			xx=c(14,16,16,18); yy=c(0,0,1,1); 
+			titl1="(D) One point overlap, n=4";
+			xx=c(14,16,16,18); yy=c(0,0,1,1);
 			n=rep(1,length(xx));
 		},
 		{	# 24
-			titl1="One point overlap (E)"; 
-			xx=c(14,16,16,16,16); yy=c(0,0,0,1,1); 
+			titl1="One point overlap (E)";
+			xx=c(14,16,16,16,16); yy=c(0,0,0,1,1);
 			n=rep(1,length(xx));
 		},
 		{ 	# 25
@@ -5938,7 +5941,7 @@ switch(ic,
 );
 
 titl1=paste(ic,ad,". ",titl1,sep="");
-dat=matrix(c(xx,yy,n),ncol=3); 
+dat=matrix(c(xx,yy,n),ncol=3);
 dat=data.frame(dat);
 names(dat)=c("X","Y","COUNT");
 
@@ -5952,7 +5955,7 @@ return(g)
 
 figtab=function(i,cro=F)
 {
-# This function creates Figures 1-31 and the 16 Tables tb[i], i=1:16 
+# This function creates Figures 1-31 and the 16 Tables tb[i], i=1:16
 tb=c(1:31,4,10,12,14,16,19,20,21,26:33)
 if(!is.element(i,1:47)) {cat(paste("the figtab function wants i between 1 and 47 \n\n",sep="")); return();}
 
@@ -6059,7 +6062,7 @@ figi=switch(i,
 
 "if(!exists(\"w21\"))w21 <<- wxdat(21,plt=F); ptest(w21,5);",
 
-# Next 16 are Tables 
+# Next 16 are Tables
 
 "if(!exists(\"w1\")) w1 <<- gonogoSim(0,22,3,6,15,.9,1,plt=0,reso=.01,iseed=42983); print(w1);",
 
