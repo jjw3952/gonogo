@@ -1,6 +1,17 @@
 # gonogo.R 11/20/2020
 
+#' @importFrom("grDevices", "cairo_ps", "contourLines", "dev.cur",
+#'           "dev.off")
+#' @importFrom("graphics", "abline", "axis", "box", "legend", "lines",
+#'           "mtext", "par", "plot.new", "points", "strwidth", "text")
+#' @importFrom("stats", "binomial", "dlnorm", "dnorm", "glm", "na.omit",
+#'           "pchisq", "plnorm", "pnorm", "predict", "qchisq", "qlnorm",
+#'           "qnorm", "qt", "rlnorm", "rnorm", "vcov", "weighted.mean")
+#' @importFrom("utils", "write.table")
+NULL
+
 #INDEX 1 through 35, XComm.R (35 functions)
+
 
 #' @export
 gonogo=function(mlo=0,mhi=0,sg=0,newz=T,reso=0,ln=F,test=1,term1=T,BL=NULL,Y=NULL,X=NULL)
