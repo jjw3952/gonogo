@@ -1,11 +1,20 @@
 Package: gonogo
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Sensitivity Test Suite
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: MIT
+Author: Paul A. Roediger
+Maintainer: Paul A. Roediger <proediger@comcast.net>
+Description: This package provides sensitivity testing practitioners and researchers
+    with an ability to conduct, analyze, and simulate various sensitivity experiments 
+    involving binary responses and a single stimulus level (e.g. drug dosage, drop height,
+    velocity, etc.). Included are the modern Neyer and 3pod adaptive procedures, as well as
+    the Bruceton and Langlie. The latter two benchmark procedures are capable of being
+    performed according to generalized up-down transformed-response rules. Each procedure
+    is designated phase-one of a three-phase experiment. The goal of phase-one is to
+    achieve overlapping data. The two additional (and optional) refinement phases utilize
+    the D-optimal criteria and the Robbins-Monro-Joseph procedure. The goals of the two
+    refinement phases are to situate testing in the vicinity of the median and tails of the 
+    latent response distribution, respectively.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
