@@ -14,7 +14,8 @@ latent response distribution, respectively.
 ## Installation
 
 gonogo runs on R, which is a statistical computing package. Although R is a powerful
-tool, there is a learning curve.
+tool, there is a learning curve. This repository has packaged the gonogo software
+as an R package so that it can be readily installed and updated.
 
 You'll need to install R and RStudio. The following instructions assume that you are
 using Windows. 
