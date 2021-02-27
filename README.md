@@ -64,7 +64,7 @@ For information on the structure of an R package, please refer to the document [
 
 ## Credits
 
-The original gonogo software and accompanying documentation was written by Paul A. Roediger while
+The original gonogo software and accompanying documentation were written by Paul A. Roediger while
 working as a contractor for the US Army ARDEC at Picatinny, New Jersey, USA. That work was approved 
 for public release and for unlimited distribution. 
 

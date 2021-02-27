@@ -1,18 +1,37 @@
 # gonogo.R 11/20/2020
 
-#' @importFrom("grDevices", "cairo_ps", "contourLines", "dev.cur",
-#'           "dev.off")
-#' @importFrom("graphics", "abline", "axis", "box", "legend", "lines",
-#'           "mtext", "par", "plot.new", "points", "strwidth", "text")
-#' @importFrom("stats", "binomial", "dlnorm", "dnorm", "glm", "na.omit",
-#'           "pchisq", "plnorm", "pnorm", "predict", "qchisq", "qlnorm",
-#'           "qnorm", "qt", "rlnorm", "rnorm", "vcov", "weighted.mean")
-#' @importFrom("utils", "write.table")
+#' @importFrom grDevices cairo_ps contourLines dev.cur dev.off
+#' @importFrom graphics abline axis box legend lines
+#'                      mtext par plot.new points strwidth text
+#' @importFrom stats binomial dlnorm dnorm glm na.omit
+#'                   pchisq plnorm pnorm predict qchisq qlnorm
+#'                   qnorm qt rlnorm rnorm vcov weighted.mean
+#' @importFrom utils write.table
 NULL
 
 #INDEX 1 through 35, XComm.R (35 functions)
 
 
+#' Run adaptive sensitivity tests in console or batch mode.
+#'
+#' @param mlo mu low
+#' @param mhi mu high
+#' @param sg sigma guess
+#' @param newz set to F to restart using global z, defaults to T
+#' @param reso resolution of stimulus
+#' @param ln set to T to use log transform which keeps recommended stimulus positive, defaults to F
+#' @param test number corresponding to test type
+#'     1 = 3pod
+#'     2 = Neyer
+#'     3 = Bruceton
+#'     4 = Langlie
+#' @param term1 set to F to stay in phase I2 until overlap found, defaults to T
+#' @param BL vector of 3 integers, needed for Bruceton or Langlie tests only
+#' @param Y vector of responses used for batch mode, all elements must be 0 or 1
+#' @param X vector of stimulus values used for batch mode
+#'
+#' @return Dataframe containing results.
+#'
 #' @export
 gonogo=function(mlo=0,mhi=0,sg=0,newz=T,reso=0,ln=F,test=1,term1=T,BL=NULL,Y=NULL,X=NULL)
 {
@@ -1766,6 +1785,7 @@ return()
 
 about4=function(x)
 {
+a=NULL;
 x1=gsub("[|]",",",x);
 x2=gsub("[{]","a=c(",x1);
 x3=gsub("[}]",")",x2);
@@ -1917,9 +1937,9 @@ if(!ln)plot(c(ens,1),c(x,zee),type="n",xlab="",ylab="",ylim=ylm,lab=c(lb,5,7)) e
 par(mar=c(4,3,5,3) + 0.1);
 plot(c(ens,1),c(x,zee),type="n",xlab="",ylab="",ylim=ylm,yaxt="n");
 w7=pretty(exp(x),n=6)
-axis(2,at=log(w7),lab=round(w7,1),srt=90,tcl=-.4,mgp=c(1,.5,0));
+axis(2,at=log(w7),labels=round(w7,1),srt=90,tcl=-.4,mgp=c(1,.5,0));
 w8=pretty(x,n=6)
-axis(4,at=w8,lab=round(w8,1),srt=90,tcl=-.4,mgp=c(1,.5,0));
+axis(4,at=w8,labels=round(w8,1),srt=90,tcl=-.4,mgp=c(1,.5,0));
 mtext("Log Scale",side=4,line=1.6);
 lnum=1.8;
 }
@@ -1960,8 +1980,8 @@ mtext(about,side=3,line=0.5,cex=1.3);
 
 if(fini == 1)
 {
-axis(4,label=F,at=dt$RX[nid+1],tcl=.25,lwd=2); 	# Next EX had test cont'd (BL, Inside Box)
-axis(4,label=F,at=zee,tcl=-.25,lwd=2);		# zee = pth quantile (BL, Outside Box)
+axis(4,labels=F,at=dt$RX[nid+1],tcl=.25,lwd=2); 	# Next EX had test cont'd (BL, Inside Box)
+axis(4,labels=F,at=zee,tcl=-.25,lwd=2);		# zee = pth quantile (BL, Outside Box)
 }
 reset();
 }
@@ -2117,6 +2137,32 @@ return(L)
 
 #INDEX 36 through 53, Xsim.R (18 functions)
 
+#' Run adaptive sensitivity tests in simulation mode.
+#'
+#' @param mlo mu low
+#' @param mhi mu high
+#' @param sg sigma guess
+#' @param n2 size of phase II (could be 0)
+#' @param n3 size of phase III (could be 0)
+#' @param p to approximate the stress level Lp - for phase III only
+#' @param lam the lambda parameter needed for phase III only
+#' @param dm deviation from a target mean (tm) based on mlo, mhi, and sg
+#' @param ds deviation from a target standard deviation (ts) based on mlo, mhi, and sg
+#' @param reso resolution of stimulus, e.g. 0.01
+#' @param ln set to T to use log transform which keeps recommended stimulus positive, defaults to F
+#' @param plt 1 (for a history plot of a test) or 0 (no plot, the default)
+#' @param iseed initialization of the random seed (-1, the default, for full random)
+#' @param IIgo when T, test proceeds unencumbered; when F, test stops at end of stage 2 of phase I
+#' @param M factor to scale stresses, defaults to 1
+#' @param test number corresponding to test type
+#'     1 = 3pod
+#'     2 = Neyer
+#'     3 = Bruceton
+#'     4 = Langlie
+#' @param BL vector of 3 integers, needed for Bruceton or Langlie tests only
+#'
+#' @return Dataframe containing results.
+#'
 #' @export
 gonogoSim=function(mlo,mhi,sg,n2=0,n3=0,p=0,lam=0,dm=0,ds=0,reso=0,ln=F,plt=0,iseed=-1,IIgo=T,M=1,test=1,BL=c(4,1,0))
 {
@@ -2917,9 +2963,9 @@ if(!ln)plot(c(ens,1),c(x,zee),type="n",xlab="",ylab="",ylim=ylm,lab=c(lb,5,7)) e
 par(mar=c(4,3,5,3) + 0.1);
 plot(c(ens,1),c(x,zee),type="n",xlab="",ylab="",ylim=ylm,yaxt="n");
 w7=pretty(exp(x),n=6)
-axis(2,at=log(w7),lab=round(w7,1),srt=90,tcl=-.4,mgp=c(1,.5,0));
+axis(2,at=log(w7),labels=round(w7,1),srt=90,tcl=-.4,mgp=c(1,.5,0));
 w8=pretty(x,n=6)
-axis(4,at=w8,lab=round(w8,1),srt=90,tcl=-.4,mgp=c(1,.5,0));
+axis(4,at=w8,labels=round(w8,1),srt=90,tcl=-.4,mgp=c(1,.5,0));
 mtext("Log Scale",side=4,line=1.6);
 lnum=1.8;
 }
@@ -2969,10 +3015,10 @@ if(en[2] > 0) abline(v=en[1]+.5,lty=3)
 
 if(fini == 1)
 {
-axis(4,label=F,at=dt$RX[nid+1],tcl=.25,lwd=2);	# Next EX had test cont'd (BL, Inside Box)
-axis(4,label=F,at=zee,tcl=-.25,lwd=2);		# zee = pth quantile (BL, Outside Box)
-axis(4,label=F,at=tzee,tcl=-.25,lwd=2,col=8);	# zee = pth quantile
-axis(4,label=F,at=tzee,tcl=.25,lwd=2,col=8);	# zee = pth quantile
+axis(4,labels=F,at=dt$RX[nid+1],tcl=.25,lwd=2);	# Next EX had test cont'd (BL, Inside Box)
+axis(4,labels=F,at=zee,tcl=-.25,lwd=2);		# zee = pth quantile (BL, Outside Box)
+axis(4,labels=F,at=tzee,tcl=-.25,lwd=2,col=8);	# zee = pth quantile
+axis(4,labels=F,at=tzee,tcl=.25,lwd=2,col=8);	# zee = pth quantile
 }
 }
 reset();
@@ -3919,6 +3965,26 @@ text(mean(range(w3)),ylm[2],"III",cex=.9);}
 return()
 }
 
+#' Generate graphical output from results obtained from gonogo or gonogoSim.
+#'
+#' @param dat dataframe containing results from gonogo or gonogoSim
+#' @param plt plot number to generate, must be between 1 and 8
+#'     1 = history plot
+#'     2 = MLE's of mu and sigma
+#'     3 = response curve, with data, Pooled Adjacent
+#'         violators solution, and 100*conf 2-Sided
+#'         confidence bounds
+#'     4 = a simple visual of the data
+#'     5 = joint likelihood ratio (LR) multi-confidence bounds
+#'     6 = joint & individual (LR) multi-confidence bounds
+#'     7 = joint and/or individual LR confidence bounds
+#'     8 = confidence bounds on probability (p) and quantile (q)
+#'         computed via 3 methods: likelihood ratio (LR), Fisher
+#'         matrix (FM) and General Linear Model (GLM)
+#' @param notitle set to T to exclude the title, defaults to F
+#'
+#' @return Dataframe containing results.
+#'
 #' @export
 ptest=function(dat,plt,notitle=F)
 {
@@ -5768,6 +5834,14 @@ return(rmatt)
 
 #INDEX 119, wxdat (1 function)
 
+#' Get a specified sample data set
+#'
+#' @param ic the number of the data set to return, must be between 1 and 27
+#' @param plt set to F to suppress plotting the data set, defaults to T
+#'
+#' @return a dataframe containing the ith data set
+#' @export
+#'
 wxdat=function(ic,plt=T)
 {
 ad=""; plt0=plt;
@@ -5969,7 +6043,7 @@ figtab=function(i,cro=F)
 # This function creates Figures 1-31 and the 16 Tables tb[i], i=1:16
 tb=c(1:31,4,10,12,14,16,19,20,21,26:33)
 if(!is.element(i,1:47)) {cat(paste("the figtab function wants i between 1 and 47 \n\n",sep="")); return();}
-
+xWT=yWT=yNY=ywLG1=NULL;
 xWT <<- c(5.5,16.5,11,13.8,10.1,14.7,10.4,11.7,9.7,7.3,7.8,8.1,12.2,8.5,11.8);
 yWT <<- c(0,1,0,1,0,1,1,1,1,0,0,0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0);
 yNY <<- c(rep(0,5),1,rep(0,6),1,0,1,0,1,1,1,1);
