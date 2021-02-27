@@ -27,8 +27,8 @@ then click on “Download R [version number] for Windows”. Install the downloa
 that provides convenient access to R and all related features. You'll need a recent version,
 preferably version 1.4 or later. Download and install the version for Windows 10/8/7. 
 
-Once R and RStudio are installed, install (or re-install) this package by typing the following into
-the Console window at the lower left:
+Once R and RStudio are installed, launch RStudio. To install (or re-install) this package,
+type the following into the Console window at the lower left:
 
     install.packages("devtools")
     library(devtools)
@@ -37,7 +37,7 @@ the Console window at the lower left:
 If you get a message about "Do you want to install from sources the package which needs 
 compilation", click No.
     
-## Use
+## Usage
 
 To use gonogo, start RStudio and type the following into the Console window at the lower left:
 
@@ -64,9 +64,9 @@ For information on the structure of an R package, please refer to the document [
 
 ## Credits
 
-The original gonogo software was written by Paul A. Roediger while working as a contractor 
-for the US Army ARDEC at Picatinny, New Jersey, USA. That work was approved for public release 
-and for unlimited distribution. 
+The original gonogo software and accompanying documentation was written by Paul A. Roediger while
+working as a contractor for the US Army ARDEC at Picatinny, New Jersey, USA. That work was approved 
+for public release and for unlimited distribution. 
 
 ## References
 
