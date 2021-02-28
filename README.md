@@ -48,7 +48,7 @@ To use gonogo, start RStudio and type the following into the Console window at t
 
 Now you have the gonogo functions available for use, for example:
 
-    z=gonogo(mlo=0,mhi=23,sg=3,reso=0.01,term1=F)
+    z=gonogo(mlo=0,mhi=22,sg=3,reso=0.01,term1=F)
     ptest(z,3)
 
 Full documentation about the use of gonogo functions is available at [Gonogo: An R Implementation of Test Methods to Perform, Analyze and Simulate Sensitivity Experiments](https://arxiv.org/abs/2011.11177).
