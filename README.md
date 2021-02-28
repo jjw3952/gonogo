@@ -13,8 +13,11 @@ latent response distribution, respectively.
 
 ## Installation
 
-gonogo runs on R, which is a statistical computing package. Although R is a powerful
-tool, there is a learning curve.
+gonogo runs on R, which is a statistical computing package. This repository has packaged 
+the gonogo software as an R package so that it can be readily installed and updated.
+
+Although R is a powerful tool, there is a learning curve. The good news is that you don't
+need to know much about R to use gonogo.
 
 You'll need to install R and RStudio. The following instructions assume that you are
 using Windows. 
@@ -45,7 +48,7 @@ To use gonogo, start RStudio and type the following into the Console window at t
 
 Now you have the gonogo functions available for use, for example:
 
-    z=gonogo(mlo=0,mhi=23,sg=6,reso=0.01,term1=F)
+    z=gonogo(mlo=0,mhi=22,sg=3,reso=0.01,term1=F)
     ptest(z,3)
 
 Full documentation about the use of gonogo functions is available at [Gonogo: An R Implementation of Test Methods to Perform, Analyze and Simulate Sensitivity Experiments](https://arxiv.org/abs/2011.11177).
