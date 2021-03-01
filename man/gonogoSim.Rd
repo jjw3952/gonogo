@@ -64,7 +64,7 @@ gonogoSim(
 \item{BL}{vector of 3 integers, needed for Bruceton or Langlie tests only}
 }
 \value{
-Dataframe containing results.
+List containing results.
 }
 \description{
 Run adaptive sensitivity tests in simulation mode.

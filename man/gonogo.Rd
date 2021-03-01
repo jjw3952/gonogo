@@ -2,7 +2,7 @@
 % Please edit documentation in R/gonogo.R
 \name{gonogo}
 \alias{gonogo}
-\title{Run adaptive sensitivity tests in console or batch mode.}
+\title{Run adaptive sensitivity tests in console or batch mode}
 \usage{
 gonogo(
   mlo = 0,
@@ -19,35 +19,36 @@ gonogo(
 )
 }
 \arguments{
-\item{mlo}{mu low}
+\item{mlo}{Guess for low value of mu.}
 
-\item{mhi}{mu high}
+\item{mhi}{Guess for high value of mu.}
 
-\item{sg}{sigma guess}
+\item{sg}{Guess for sigma.}
 
-\item{newz}{set to F to restart using global z, defaults to T}
+\item{newz}{Set to F to restart using global z, defaults to T.}
 
-\item{reso}{resolution of stimulus}
+\item{reso}{Resolution of stimulus.}
 
-\item{ln}{set to T to use log transform which keeps recommended stimulus positive, defaults to F}
+\item{ln}{Set to T to use log transform which keeps recommended stimulus positive,
+defaults to F.}
 
-\item{test}{number corresponding to test type
-1 = 3pod
-2 = Neyer
-3 = Bruceton
-4 = Langlie}
+\item{test}{Number corresponding to test type.
+* 1 = 3pod
+* 2 = Neyer
+* 3 = Bruceton
+* 4 = Langlie}
 
-\item{term1}{set to F to stay in phase I2 until overlap found, defaults to T}
+\item{term1}{Set to F to stay in phase I2 until overlap found, defaults to T.}
 
-\item{BL}{vector of 3 integers, needed for Bruceton or Langlie tests only}
+\item{BL}{Vector of 3 integers, needed for Bruceton or Langlie tests only.}
 
-\item{Y}{vector of responses used for batch mode, all elements must be 0 or 1}
+\item{Y}{Vector of responses used for batch mode, all elements must be 0 or 1.}
 
-\item{X}{vector of stimulus values used for batch mode}
+\item{X}{Vector of stimulus values used for batch mode.}
 }
 \value{
-Dataframe containing results.
+List containing results.
 }
 \description{
-Run adaptive sensitivity tests in console or batch mode.
+Run adaptive sensitivity tests in console or batch mode
 }
