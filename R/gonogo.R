@@ -1,5 +1,9 @@
-# gonogo.R 11/20/2020
+# gonogo.R
 
+# Package namespace directives signal that certain functions are to be imported
+# from other libraries. The final NULL indicates that these instructions are for
+# the package and not for any internal function.
+#
 #' @importFrom grDevices cairo_ps contourLines dev.cur dev.off
 #' @importFrom graphics abline axis box legend lines
 #'                      mtext par plot.new points strwidth text
@@ -8,18 +12,28 @@
 #'                   qnorm qt rlnorm rnorm vcov weighted.mean
 #' @importFrom utils write.table
 NULL
+
+# This file references an external global variable z when gonogo is restarted with the
+# option newz=F. The next line signals the package checker that this is intended
+# behavior.
+#
 globalVariables(c("z"))
 
 #INDEX 1 through 35, XComm.R (35 functions)
 
-
 #' Run adaptive sensitivity tests in console or batch mode
 #'
-#' @param mlo Guess for low value of mu.
-#' @param mhi Guess for high value of mu.
-#' @param sg Guess for sigma.
+#' @param mlo Guess for \ifelse{html}{\out{<i>&mu;</i><sub>min</sub>}}{\eqn{\mu_{min}}}, which
+#'   is the low end of the range where the 50/50 point is expected.
+#' @param mhi Guess for \ifelse{html}{\out{<i>&mu;</i><sub>max</sub>}}{\eqn{\mu_{max}}}, which
+#'   is the high end of the range where the 50/50 point is expected.
+#' @param sg Guess for \ifelse{html}{\out{<i>&sigma;</i><sub>g</sub>}}{\eqn{\sigma_{g}}}, which
+#'   is a guess of how quickly the probability of the output being 1 rises with the input
+#'   variable x. Unless this is known, a value of (mhi-mlo)/6 is recommended.
 #' @param newz Set to F to restart using global z, defaults to T.
-#' @param reso Resolution of stimulus.
+#' @param reso Resolution of input variable x, will be used for rounding
+#'   recommended test values. For example, if reso is set to 0.01, then
+#'   all test values will be rounded to the hundredths place.
 #' @param ln Set to T to use log transform which keeps recommended stimulus positive,
 #'   defaults to F.
 #' @param test Number corresponding to test type.
@@ -2151,9 +2165,12 @@ return(L)
 
 #' Run adaptive sensitivity tests in simulation mode.
 #'
-#' @param mlo mu low
-#' @param mhi mu high
-#' @param sg sigma guess
+#' @param mlo Guess for \ifelse{html}{\out{<i>&mu;</i><sub>lo</sub>}}{\eqn{\mu_{lo}}},
+#'   which is the low end of the range where the 50/50 point is expected.
+#' @param mhi Guess for \ifelse{html}{\out{<i>&mu;</i><sub>hi</sub>}}{\eqn{\mu_{hi}}},
+#'   which is the high end of the range where the 50/50 point is expected.
+#' @param sg Guess for \ifelse{html}{\out{<i>&sigma;</i>}}{\eqn{\sigma}}, which is
+#'   a measure of how quickly the probability rises with the input variable x.
 #' @param n2 size of phase II (could be 0)
 #' @param n3 size of phase III (could be 0)
 #' @param p to approximate the stress level Lp - for phase III only

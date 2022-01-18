@@ -19,15 +19,21 @@ gonogo(
 )
 }
 \arguments{
-\item{mlo}{Guess for low value of mu.}
+\item{mlo}{Guess for \ifelse{html}{\out{<i>&mu;</i><sub>min</sub>}}{\eqn{\mu_{min}}}, which
+is the low end of the range where the 50/50 point is expected.}
 
-\item{mhi}{Guess for high value of mu.}
+\item{mhi}{Guess for \ifelse{html}{\out{<i>&mu;</i><sub>max</sub>}}{\eqn{\mu_{max}}}, which
+is the high end of the range where the 50/50 point is expected.}
 
-\item{sg}{Guess for sigma.}
+\item{sg}{Guess for \ifelse{html}{\out{<i>&sigma;</i><sub>g</sub>}}{\eqn{\sigma_{g}}}, which
+is a guess of how quickly the probability of the output being 1 rises with the input
+variable x. Unless this is known, a value of (mhi-mlo)/6 is recommended.}
 
 \item{newz}{Set to F to restart using global z, defaults to T.}
 
-\item{reso}{Resolution of stimulus.}
+\item{reso}{Resolution of input variable x, will be used for rounding
+recommended test values. For example, if reso is set to 0.01, then
+all test values will be rounded to the hundredths place.}
 
 \item{ln}{Set to T to use log transform which keeps recommended stimulus positive,
 defaults to F.}

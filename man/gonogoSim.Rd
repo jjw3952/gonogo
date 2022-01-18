@@ -25,11 +25,14 @@ gonogoSim(
 )
 }
 \arguments{
-\item{mlo}{mu low}
+\item{mlo}{Guess for \ifelse{html}{\out{<i>&mu;</i><sub>lo</sub>}}{\eqn{\mu_{lo}}},
+which is the low end of the range where the 50/50 point is expected.}
 
-\item{mhi}{mu high}
+\item{mhi}{Guess for \ifelse{html}{\out{<i>&mu;</i><sub>hi</sub>}}{\eqn{\mu_{hi}}},
+which is the high end of the range where the 50/50 point is expected.}
 
-\item{sg}{sigma guess}
+\item{sg}{Guess for \ifelse{html}{\out{<i>&sigma;</i>}}{\eqn{\sigma}}, which is
+a measure of how quickly the probability rises with the input variable x.}
 
 \item{n2}{size of phase II (could be 0)}
 

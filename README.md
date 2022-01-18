@@ -49,15 +49,18 @@ To use gonogo, start RStudio and type the following into the Console window at t
 Now you have the gonogo functions available for use, for example:
 
     z=gonogo(mlo=0,mhi=22,sg=3,reso=0.01,term1=F)
-    ptest(z,3)
 
-Full documentation about the use of gonogo functions is available at [Gonogo: An R Implementation of Test Methods to Perform, Analyze and Simulate Sensitivity Experiments](https://arxiv.org/abs/2011.11177).
+A quick reference for each function is available by typing ? followed by the function
+name in the console. For example, to get help for the gonogo function:
+
+    ?gonogo
+
+Full documentation about the use of all gonogo package functions is available at 
+[Gonogo: An R Implementation of Test Methods to Perform, Analyze and Simulate Sensitivity Experiments](https://arxiv.org/abs/2011.11177).
 
 ## Development
 
-If you would like to contribute content to the gonogo package, you will need a few
-additional tools on your computer. In addition to R and RStudio, you will need
-to install Rtools.
+If you would like to contribute content to the gonogo package, you will need to install Rtools.
 
 [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is a collection of tools required
 to compile R code. To install Rtools, download and install the Windows 64-bit version
