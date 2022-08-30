@@ -882,7 +882,7 @@ for(i in 1:n2)
 	if(i > 1) id="II2";
 	u=getd0(xstar[i],d0,dat0,id,reso,about,titl,unit,ln); d0=u$d0; dat0=u$dat0; endi=u$endi;
 	if(term1) {if(endi == 1) break;} else
-	if(ok1(d0)$tf | endi == 1) break;
+	if(ok1(d0) | endi == 1) break;
 	}
 ret=list(d0,dat0,endi);
 names=c("d0","dat0","endi");
@@ -1467,6 +1467,7 @@ if(length(iw) == 1 & dn == 0)
 }
 en12=c(en12,nx);
 }
+	
 en12=diff(en12);
 udid[abs(udid) != 2]=0;
 udid[udid==-2]="D"; udid[udid==2]="U"; udid[udid == 0]="";
@@ -1496,7 +1497,7 @@ for(i in 1:min(n2,lY))
 	u=getBd0(xstar[i],d0,dat0,id,reso,about,titl,unit,ln,Y[1],X[1]); d0=u$d0; dat0=u$dat0; endi=u$endi;
 	Y=Y[-1]; if(length(X) > 1) X=X[-1] else X=NULL; lY=length(Y); if(lY == 0) endi=1;
 	if(term1) {if(endi == 1) break;} else
-	if(ok1(d0)$tf | endi == 1) break;
+	if(ok1(d0) | endi == 1) break;
 	}
 ret=list(d0,dat0,endi,Y,X);
 names=c("d0","dat0","endi","Y","X");
